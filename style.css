@@ -22,6 +22,10 @@ h1::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50
 .detail{display:flex;flex-direction:column;position:relative;min-height:420px}
 .detail .dscroll{position:relative;flex:1 1 auto;min-height:0}
 .detail #d-body{position:absolute;inset:0;overflow-y:auto;padding-right:4px;scrollbar-width:thin}
+.livewrap{position:relative;height:450px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--sea)}
+.livewrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.livehold{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#livesel{background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit;min-height:32px;margin-left:4px}
 .span4{grid-column:span 4}.span5{grid-column:span 5}.span6{grid-column:span 6}.span7{grid-column:span 7}.span8{grid-column:span 8}.span12{grid-column:span 12}
 .ch{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 h2{font-size:13px;text-transform:uppercase;letter-spacing:.8px;margin:0;color:#b8c9da}
@@ -96,4 +100,5 @@ ul.list.plain{color:var(--mut)}
   .hide-s{display:none}
   .top{padding:6px 10px}
   .chartbox{height:190px}
+  .livewrap{height:360px}
 }

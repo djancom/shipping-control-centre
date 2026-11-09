@@ -63,7 +63,7 @@ async function main() {
   const bad = Object.values(src).filter((s) => !s.ok).length;
   $("#runline").innerHTML = `Free public data · data last updated ${esc(fmtUK(st.run_uk))} (${esc(st.runner || "")}) · ` + (bad ? `<span class="stale">${bad} source${bad > 1 ? "s" : ""} stale</span>` : `<span class="okb">all sources OK</span>`);
   safe(metas); safe(ticker); safe(map); safe(detail); safe(kpis); safe(changed); safe(cptable); safe(energy); safe(bunkers); safe(freight);
-  safe(equities); safe(route); safe(agri); safe(fert); safe(weather); safe(storms); safe(intel); safe(fx); safe(news); safe(sources);
+  safe(equities); safe(route); safe(agri); safe(fert); safe(weather); safe(storms); safe(intel); safe(fx); safe(news); safe(sources); safe(live);
 }
 function safe(f) { try { f(); } catch (e) { console.error(f.name, e); } }
 
@@ -324,5 +324,23 @@ function sources() {
   const src = (D.status || {}).sources || {};
   $("#srctable").innerHTML = "<tr><th>Data</th><th>Source</th><th>Status</th><th class='n'>Data as of</th><th class='n'>Last success</th><th class='hide-s'>Note</th></tr>" +
     Object.entries(src).map(([k, s]) => `<tr><td>${esc(s.label)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(new URL(s.url).hostname)}</a></td><td>${s.ok ? '<span class="okb">OK</span>' : '<span class="stale">stale</span>'}</td><td class="n">${esc(String(s.as_of || "").length > 10 ? fmtUK(s.as_of) : fmtUK(s.as_of, true))}</td><td class="n">${esc(fmtUK(s.last_ok_uk))}</td><td class="hide-s hint">${k === "markets" ? esc("Served by: " + ((D.markets || {}).used || []).join(", ") + ". ") : ""}${s.ok ? "" : esc((s.error || "").slice(0, 120))}</td></tr>`).join("");
+}
+// Live ship traffic: VesselFinder's free embeddable map. Their official aismap.js writes this same iframe with
+// document.write, which cannot re-run after load, so we build the identical iframe URL to allow recentring.
+const LIVE = { suez: [30.0, 32.55, 9], bab: [12.6, 43.35, 9], hormuz: [26.4, 56.4, 8], malacca: [2.6, 101.2, 7], panama: [9.1, -79.7, 9],
+  gib: [35.95, -5.5, 9], dover: [51.0, 1.45, 9], bosporus: [41.12, 29.06, 11], cape: [-34.4, 18.4, 7] };
+function liveSrc(id) {
+  const [lat, lon, zoom] = LIVE[id]; const el = $("#livewrap"); const h = Math.max(400, Math.round(el.clientHeight || 450));
+  const q = { zoom: Math.max(3, zoom - (window.innerWidth < 640 ? 1 : 0)), lat, lon, width: "100%", height: h, names: "false", track: "false", fleet: "false", fleet_name: "false",
+    fleet_hide_old_positions: "false", clicktoact: "true", store_pos: "false", ra: location.href };
+  return "https://www.vesselfinder.com/aismap?" + Object.entries(q).map(([k, v]) => k + "=" + encodeURIComponent(v)).join("&");
+}
+function live() {
+  const sel = $("#livesel"); const order = ["suez", "bab", "hormuz", "malacca", "panama", "gib", "dover", "bosporus", "cape"];
+  sel.innerHTML = order.map((id) => `<option value="${id}">${esc((geo.cps.find((c) => c.id === id) || { name: id }).name)}</option>`).join("");
+  sel.value = "suez";
+  const show = (id) => { const w = $("#livewrap"); w.innerHTML = `<iframe name="vesselfinder" title="Live ship traffic map (VesselFinder)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="${esc(liveSrc(id))}"></iframe>`; };
+  sel.onchange = () => show(sel.value);
+  show("suez");
 }
 document.addEventListener("DOMContentLoaded", main);

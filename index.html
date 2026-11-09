@@ -18,7 +18,7 @@
     <div class="sub" id="runline">Loading data…</div>
   </div>
   <nav class="jump" id="jump">
-    <a href="#map">Map</a><a href="#changed">Changed</a><a href="#energy">Fuel</a><a href="#freight">Freight</a><a href="#route">Route tool</a><a href="#agri">Agri</a><a href="#weather">Weather</a><a href="#intel">Risk &amp; law</a><a href="#news">News</a><a href="#sources">Sources</a>
+    <a href="#map">Map</a><a href="#live">Live ships</a><a href="#changed">Changed</a><a href="#energy">Fuel</a><a href="#freight">Freight</a><a href="#route">Route tool</a><a href="#agri">Agri</a><a href="#weather">Weather</a><a href="#intel">Risk &amp; law</a><a href="#news">News</a><a href="#sources">Sources</a>
   </nav>
 </header>
 <div class="ticker" id="ticker"></div>
@@ -47,6 +47,13 @@
     <div class="dscroll"><div id="d-body"></div></div>
   </section>
 
+
+  <section class="card span12" id="live">
+    <div class="ch"><h2>Live ship traffic</h2>
+      <label class="hint" for="livesel">Centre on <select id="livesel" aria-label="Centre live map on chokepoint"></select></label></div>
+    <div class="livewrap" id="livewrap"><div class="hint livehold">Loading live map…</div></div>
+    <p class="note">Live map provided by VesselFinder (third-party embed). Tap or click the map to activate it, then zoom or drag; positions come from VesselFinder's AIS network and are not stored by this site. <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">vesselfinder.com</a></p>
+  </section>
 
   <section class="card span12" id="changed">
     <div class="ch"><h2>What changed</h2><span class="hint" id="since"></span></div>

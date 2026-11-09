@@ -546,6 +546,14 @@ if __name__ == "__main__":
         ("worldbank", worldbank, "Fertiliser and monthly commodity prices", "https://www.worldbank.org/en/research/commodity-markets"),
         ("news", news, "Shipping news and tabs", "https://news.google.com/"),
     ]
+    # Optional AIS sample: dormant (skipped, no status entry) unless the AISSTREAM_KEY secret is set
+    if os.environ.get("AISSTREAM_KEY", "").strip():
+        def ais():
+            import ais as A
+            r = A.sample(60); r["as_of"] = uk(dt.datetime.now(UK)); return r
+        jobs.append(("ais", ais, "Ships in chokepoint areas (AIS sample)", "https://aisstream.io/"))
+    else:
+        print("SKIP ais: AISSTREAM_KEY not set (dormant)")
     for name, fn, label, url in jobs:
         if only and name not in only: continue
         run(name, fn, label, url)

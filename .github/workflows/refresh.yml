@@ -10,11 +10,16 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      AISSTREAM_KEY: ${{ secrets.AISSTREAM_KEY }}   # optional; AIS sampling is skipped when empty
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -q requests openpyxl
+      - name: AIS dependency (only when the AISSTREAM_KEY secret exists)
+        if: ${{ env.AISSTREAM_KEY != '' }}
+        run: pip install -q websockets
       - name: Fetch free sources (each fails independently)
         run: python fetch.py
       - name: Commit only when data changed
