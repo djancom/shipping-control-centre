@@ -1,0 +1,42 @@
+name: refresh-data
+on:
+  schedule:
+    - cron: "17 * * * *"   # every hour at :17 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: refresh, cancel-in-progress: false }
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q requests openpyxl
+      - name: Fetch free sources (each fails independently)
+        run: python fetch.py
+      - name: Commit only when data changed
+        run: |
+          git config user.name "data-refresh-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          # status.json and history.json change every run; commit only if a real data file changed
+          okchg=$(python - <<'PY'
+          import json, subprocess
+          try:
+              old = json.loads(subprocess.check_output(["git", "show", "HEAD:data/status.json"]))
+          except Exception:
+              old = {"sources": {}}
+          new = json.load(open("data/status.json"))
+          f = lambda d: {k: v.get("ok") for k, v in d.get("sources", {}).items()}
+          print("yes" if f(old) != f(new) else "no")
+          PY
+          )
+          if [ "$okchg" = "yes" ] || git diff --cached --name-only | grep -v -E '^data/(status|history|derived)\.json$' | grep -q .; then
+            git commit -m "data $(date -u +%FT%TZ)"
+            git push
+          else
+            echo "No source data changed; nothing committed."
+          fi

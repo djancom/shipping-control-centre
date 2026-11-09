@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shipping Control Centre</title>
+<meta name="description" content="Chokepoints, fuel, freight, agri commodities, risk and shipping news from free public data, refreshed automatically.">
+<meta name="theme-color" content="#0b1017">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%276%27 fill=%27%232ecc71%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1>Shipping Control Centre</h1>
+    <div class="sub" id="runline">Loading data…</div>
+  </div>
+  <nav class="jump" id="jump">
+    <a href="#map">Map</a><a href="#changed">Changed</a><a href="#energy">Fuel</a><a href="#freight">Freight</a><a href="#route">Route tool</a><a href="#agri">Agri</a><a href="#weather">Weather</a><a href="#intel">Risk &amp; law</a><a href="#news">News</a><a href="#sources">Sources</a>
+  </nav>
+</header>
+<div class="ticker" id="ticker"></div>
+
+<main class="grid">
+  <section class="card span8" id="map">
+    <div class="ch"><h2>Chokepoint map</h2><div class="seg" id="zoom">
+      <button data-z="world" class="on">World</button><button data-z="europe">Europe</button><button data-z="mideast">Middle East</button><button data-z="asia">Asia</button><button data-z="americas">Americas</button></div></div>
+    <div class="mapwrap"><svg id="svgmap" viewBox="0 -8 1000 352" role="img" aria-label="World map of shipping lanes and chokepoints"></svg></div>
+    <div class="legend">
+      <span><i class="dot green"></i>Green</span><span><i class="dot amber"></i>Amber</span><span><i class="dot red"></i>Red</span>
+      <span><i class="lanekey"></i>Lane width = 7-day avg transits at its chokepoint</span><span><i class="stormkey">🌀</i>Active tropical cyclone (GDACS)</span>
+    </div>
+    <p class="rule" id="rule">Status rule: <b>red</b> if 7-day average transits are under 50% of the same week a year earlier, or a headline from the last 7 days names the place and reports an attack on shipping; <b>amber</b> if under 85% of a year earlier, or such a headline reports a warning, diversion or suspension; otherwise <b>green</b>. Headline flags are set automatically by keyword and shown in the panel so you can judge them.</p>
+    <div class="meta" data-src="portwatch"></div>
+  </section>
+
+  <section class="card span4 detail" id="detail" aria-live="polite">
+    <div class="ch"><h2 id="d-name">Chokepoint</h2><select id="cpsel" aria-label="Choose chokepoint"></select></div>
+    <div id="d-body"></div>
+  </section>
+
+  <section class="card span4" id="key">
+    <div class="ch"><h2>Key figures</h2></div>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section class="card span8" id="changed">
+    <div class="ch"><h2>What changed</h2><span class="hint" id="since"></span></div>
+    <div class="cols2">
+      <div><h3>Moves and status changes</h3><table class="t" id="chg"></table><h3>Biggest day moves (futures, equities)</h3><table class="t" id="movers"></table></div>
+      <div><h3>New headlines, last 20 hours</h3><ul class="news" id="fresh"></ul></div>
+    </div>
+    <div class="meta" data-src="derived"></div>
+  </section>
+
+  <section class="card span12" id="chokepoints">
+    <div class="ch"><h2>Chokepoints and lanes</h2></div>
+    <div class="tw"><table class="t" id="cptable"></table></div>
+    <div class="meta" data-src="portwatch"></div>
+  </section>
+
+  <section class="card span7" id="energy">
+    <div class="ch"><h2>Energy and bunker fuel</h2><div class="seg" id="eseg"><button data-v="crude" class="on">Crude</button><button data-v="ulsd">Gasoil</button><button data-v="gas">Gas</button></div></div>
+    <div class="chartbox"><canvas id="echart"></canvas></div>
+    <div class="tw"><table class="t" id="etable"></table></div>
+    <div class="meta" data-src="markets"></div>
+  </section>
+
+  <section class="card span5" id="bunkers">
+    <div class="ch"><h2>Bunker prices by hub</h2></div>
+    <div class="tw"><table class="t" id="btable"></table></div>
+    <p class="note">US$ per tonne with change vs previous assessment. Gibraltar and lubricant prices are not on the free page, so they are not shown.</p>
+    <div class="meta" data-src="bunkers"></div>
+  </section>
+
+  <section class="card span6" id="freight">
+    <div class="ch"><h2>Freight rates</h2></div>
+    <div class="cols2">
+      <div><h3>Baltic dry bulk indices</h3><table class="t" id="baltic"></table><div class="meta" data-src="baltic"></div></div>
+      <div><h3>Drewry WCI, US$ per 40ft</h3><table class="t" id="wci"></table><div class="meta" data-src="drewry"></div></div>
+    </div>
+    <p class="note" id="freightnote"></p>
+  </section>
+
+  <section class="card span6" id="equities">
+    <div class="ch"><h2>Shipping equities and freight ETF</h2></div>
+    <div class="tw"><table class="t" id="eqtable"></table></div>
+    <div class="meta" data-src="markets"></div>
+  </section>
+
+  <section class="card span12" id="route">
+    <div class="ch"><h2>Route decision tool</h2><span class="hint">Estimates for comparison only</span></div>
+    <div class="form">
+      <label>Route<select id="r-route"></select></label>
+      <label>Fuel price<select id="r-fuel"></select></label>
+      <label>Speed, knots<input id="r-speed" type="number" inputmode="decimal" value="12.5" step="0.5" min="5"></label>
+      <label>Fuel use at that speed, t/day<input id="r-cons" type="number" inputmode="decimal" value="28" step="1" min="0"></label>
+      <label>Hire, $/day (your figure)<input id="r-hire" type="number" inputmode="decimal" value="0" step="500" min="0"></label>
+      <label>War-risk premium, % of hull value (your figure)<input id="r-wr" type="number" inputmode="decimal" value="0" step="0.05" min="0"></label>
+      <label>Hull value, $m (your figure)<input id="r-hv" type="number" inputmode="decimal" value="0" step="1" min="0"></label>
+    </div>
+    <div class="tw"><table class="t" id="rtable"></table></div>
+    <p class="note" id="rnote"></p>
+  </section>
+
+  <section class="card span8" id="agri">
+    <div class="ch"><h2>Agri commodities</h2><div class="seg" id="aseg"><button data-v="grains" class="on">Grains</button><button data-v="oilseeds">Oilseeds</button><button data-v="softs">Softs</button></div></div>
+    <div class="chartbox"><canvas id="achart"></canvas></div>
+    <div class="tw"><table class="t" id="atable"></table></div>
+    <p class="note">Chart indexed to 100 six months ago. Yahoo Finance continuous front-month futures, delayed; 1M and YTD can include contract rolls.</p>
+    <div class="meta" data-src="markets"></div>
+  </section>
+
+  <section class="card span4" id="fert">
+    <div class="ch"><h2>Fertiliser and physical prices</h2></div>
+    <div class="tw"><table class="t" id="ftable"></table></div>
+    <p class="note">Monthly averages; the World Bank publishes early each month.</p>
+    <div class="meta" data-src="worldbank"></div>
+  </section>
+
+  <section class="card span8" id="weather">
+    <div class="ch"><h2>Weather and sea state</h2></div>
+    <div class="tw"><table class="t" id="wtable"></table></div>
+    <p class="note">Each cell: daily maximum wave height (m) · maximum 10 m wind gust (knots). Gusts of 34 kn (gale force) or more, or waves of 4 m or more, are highlighted.</p>
+    <div class="meta" data-src="weather"></div>
+  </section>
+
+  <section class="card span4" id="storms">
+    <div class="ch"><h2>Tropical cyclones</h2></div>
+    <ul class="list" id="stormlist"></ul>
+    <div class="meta" data-src="storms"></div>
+  </section>
+
+  <section class="card span8" id="intel">
+    <div class="ch"><h2>Risk, ports, law and trade</h2><div class="seg" id="tseg"><button data-v="risk" class="on">Risk</button><button data-v="ports">Ports</button><button data-v="law">Law</button><button data-v="trade">Trade</button><button data-v="agri">Agri</button></div></div>
+    <ul class="news" id="tablist"></ul>
+    <div id="tabextra"></div>
+    <div class="meta" data-src="news"></div>
+  </section>
+
+  <section class="card span4" id="fx">
+    <div class="ch"><h2>FX and carbon</h2></div>
+    <div class="kpis small" id="fxk"></div>
+    <div class="chartbox short"><canvas id="fxchart"></canvas></div>
+    <p class="note">UK ETS (maritime from 2026 under consultation) has no free daily price feed, so it is not shown.</p>
+    <div class="meta" data-src="markets"></div><div class="meta" data-src="baltic"></div>
+  </section>
+
+  <section class="card span12" id="news">
+    <div class="ch"><h2>Shipping news</h2><span class="hint">Newest first, UK time</span></div>
+    <ul class="news two" id="feed"></ul>
+    <div class="meta" data-src="news"></div>
+  </section>
+
+  <section class="card span12" id="sources">
+    <div class="ch"><h2>Data sources and refresh status</h2></div>
+    <div class="tw"><table class="t" id="srctable"></table></div>
+    <h3>Not shown because no free source was found</h3>
+    <ul class="list plain">
+      <li>Live ship positions (AIS), ships at anchor and port congestion counts: free AIS feeds need a key or account.</li>
+      <li>Panama Canal draught limits and queue lengths: the canal authority advisories are not machine-readable.</li>
+      <li>Daily time-charter hire in $/day by ship size, and the Handysize index: not on free pages.</li>
+      <li>Bunker prices at Gibraltar, and lubricant prices.</li>
+      <li>UK ETS daily price.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <p><b>Free, delayed public data. Not investment, chartering, legal or navigation advice.</b> All times are UK time (Europe/London). Data refreshes automatically about once an hour via GitHub Actions; a source that fails keeps its last good value and is marked <span class="stale">stale</span>. Nothing on this page is example data. Distances from the open-source searoute model (Eurostat maritime network).</p>
+</footer>
+</body>
+</html>
