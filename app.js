@@ -78,7 +78,7 @@ function metas() {
   });
 }
 const Q = (k) => ((D.markets || {}).q || {})[k];
-function qStale(q) { return q && q.stale ? ' <span class="stale">stale</span>' : ""; }
+function qStale(q) { if (!q) return ""; return (q.stale ? ' <span class="stale">stale</span>' : "") + (q.alt ? ` <span class="hint" title="${esc(q.alt)}">via ${esc(q.alt.split(" ")[0])}</span>` : ""); }
 
 function ticker() {
   const items = [];
@@ -314,7 +314,7 @@ function intel() {
 }
 function fx() {
   const k = [];
-  ["GBPUSD=X", "EURUSD=X", "GBPEUR=X"].forEach((s) => { const q = Q(s); if (q) k.push(`<div class="kpi"><div class="l">${esc(q.name)}</div><div class="v">${num(q.last, 4)}</div><div class="d">${pct(q.d, 2)} day · ${esc(fmtUK(q.time_uk))}${q.alt ? " · ECB" : ""}${qStale(q)}</div></div>`); });
+  ["GBPUSD=X", "EURUSD=X", "GBPEUR=X"].forEach((s) => { const q = Q(s); if (q) k.push(`<div class="kpi"><div class="l">${esc(q.name)}</div><div class="v">${num(q.last, 4)}</div><div class="d">${pct(q.d, 2)} day · ${esc(fmtUK(q.time_uk))}${qStale(q)}</div></div>`); });
   const e = (D.baltic || {}).eua; if (e) k.push(`<div class="kpi"><div class="l">EU carbon (EUA) /t</div><div class="v">€${num(e.last, 2)}</div><div class="d">${pctS(e.d)} day · ${pctS(e.y)} y/y · ${esc(fmtUK(e.date))}</div></div>`);
   $("#fxk").innerHTML = k.join("");
   lineChart("fx", $("#fxchart"), [["GBPUSD=X", "GBP/USD"], ["EURUSD=X", "EUR/USD"]].filter(([s]) => Q(s)).map(([s, l]) => ({ label: l, data: Q(s).hist.slice(-95) })), { fmt: (x) => x.toFixed(3) });
@@ -323,6 +323,6 @@ function news() { $("#feed").innerHTML = ((D.news || {}).feed || []).map(li).joi
 function sources() {
   const src = (D.status || {}).sources || {};
   $("#srctable").innerHTML = "<tr><th>Data</th><th>Source</th><th>Status</th><th class='n'>Data as of</th><th class='n'>Last success</th><th class='hide-s'>Note</th></tr>" +
-    Object.entries(src).map(([k, s]) => `<tr><td>${esc(s.label)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(new URL(s.url).hostname)}</a></td><td>${s.ok ? '<span class="okb">OK</span>' : '<span class="stale">stale</span>'}</td><td class="n">${esc(String(s.as_of || "").length > 10 ? fmtUK(s.as_of) : fmtUK(s.as_of, true))}</td><td class="n">${esc(fmtUK(s.last_ok_uk))}</td><td class="hide-s hint">${s.ok ? (k === "markets" && ((D.markets || {}).failed || []).length ? esc(((D.markets || {}).failed || []).length + " symbols failed this run; last good values kept") : "") : esc((s.error || "").slice(0, 120))}</td></tr>`).join("");
+    Object.entries(src).map(([k, s]) => `<tr><td>${esc(s.label)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(new URL(s.url).hostname)}</a></td><td>${s.ok ? '<span class="okb">OK</span>' : '<span class="stale">stale</span>'}</td><td class="n">${esc(String(s.as_of || "").length > 10 ? fmtUK(s.as_of) : fmtUK(s.as_of, true))}</td><td class="n">${esc(fmtUK(s.last_ok_uk))}</td><td class="hide-s hint">${k === "markets" ? esc("Served by: " + ((D.markets || {}).used || []).join(", ") + ". ") : ""}${s.ok ? "" : esc((s.error || "").slice(0, 120))}</td></tr>`).join("");
 }
 document.addEventListener("DOMContentLoaded", main);

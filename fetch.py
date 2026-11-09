@@ -63,6 +63,7 @@ def run(name, fn, label, url):
         if old is None or json.dumps(strip_meta(old), sort_keys=True) != json.dumps(strip_meta(obj), sort_keys=True):
             obj["fetched_uk"] = uk(NOW); save(name, obj); st["changed_uk"] = uk(NOW)
         st.update(ok=True, last_ok_uk=uk(NOW), error=None, as_of=obj.get("as_of"))
+        if obj.get("partial_error"): st.update(ok=False, error=obj["partial_error"], last_fail_uk=uk(NOW))
         print(f"OK   {name}: as_of={obj.get('as_of')}")
     except Exception as e:
         st.update(ok=False, error=(str(e) or repr(e))[:300], last_fail_uk=uk(NOW))
@@ -79,7 +80,7 @@ SYMS = {
  "KC=F": ("Coffee (arabica)", "¢/lb", "agri"), "CC=F": ("Cocoa (ICE US)", "$/t", "agri"), "CT=F": ("Cotton No.2", "¢/lb", "agri"),
  "MAERSK-B.CO": ("Maersk B (Copenhagen)", "DKK", "equity"), "HLAG.DE": ("Hapag-Lloyd (Xetra)", "EUR", "equity"),
  "ZIM": ("ZIM (NYSE)", "USD", "equity"), "GSL": ("Global Ship Lease (NYSE)", "USD", "equity"),
- "GOGL": ("Golden Ocean (Nasdaq)", "USD", "equity"), "SBLK": ("Star Bulk (Nasdaq)", "USD", "equity"),
+ "SBLK": ("Star Bulk (Nasdaq)", "USD", "equity"),
  "BDRY": ("Breakwave Dry Bulk ETF", "USD", "equity"),
  "GBPUSD=X": ("GBP/USD", "", "fx"), "EURUSD=X": ("EUR/USD", "", "fx"), "GBPEUR=X": ("GBP/EUR", "", "fx"),
 }
@@ -118,6 +119,46 @@ def parse_chart(sym, r):
     return dict(name=name, unit=unit, grp=grp, last=last, time_uk=uk(lt), d=pct(prev[-1] if prev else None),
                 m1=pct(ago(30)), ytd=pct(y0[-1] if y0 else None), hist=hist, stale=False)
 
+CNBC = {"BZ=F": "@LCO.1", "CL=F": "@CL.1", "HO=F": "@HO.1", "NG=F": "@NG.1", "ZW=F": "@W.1", "KE=F": "@KW.1", "ZC=F": "@C.1",
+        "ZS=F": "@S.1", "ZM=F": "@SM.1", "ZL=F": "@BO.1", "ZR=F": "@RR.1", "ZO=F": "@O.1", "SB=F": "@SB.1", "KC=F": "@KC.1",
+        "CC=F": "@CC.1", "CT=F": "@CT.1", "ZIM": "ZIM", "GSL": "GSL", "SBLK": "SBLK", "BDRY": "BDRY", "HLAG.DE": "HLAG-DE",
+        "MAERSK-B.CO": "AMKBY", "GBPUSD=X": "GBP=", "EURUSD=X": "EUR=", "GBPEUR=X": "GBPEUR="}
+
+def cnbc_many(syms):
+    """Fallback quotes from CNBC's public quote service (free, no key, delayed)."""
+    cs = [CNBC[s] for s in syms if s in CNBC]
+    if not cs: return {}
+    j = get("https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol",
+            params={"symbols": "|".join(cs), "requestMethod": "itv", "noform": "1", "partnerId": "2", "fund": "1", "exthrs": "1", "output": "json"}).json()
+    by = {q.get("symbol"): q for q in j["FormattedQuoteResult"]["FormattedQuote"] if str(q.get("code")) == "0" and q.get("last")}
+    out = {}
+    for sym in syms:
+        q = by.get(CNBC.get(sym))
+        if not q: continue
+        try:
+            fl = lambda v: float(str(v).replace(",", "").replace("%", ""))
+            last = fl(q["last"]); lt = dt.datetime.fromisoformat(q["last_time"][:19] + q["last_time"][-6:-2] + ":" + q["last_time"][-2:]).astimezone(UK)
+            bars = get("https://ts-api.cnbc.com/harmony/app/charts/1Y.json", params={"symbol": CNBC[sym]}).json()["barData"]["priceBars"]
+            pts = [(dt.datetime.fromtimestamp(b["tradeTimeinMills"] / 1000, dt.timezone.utc).date(), float(b["close"])) for b in bars if b.get("close")]
+            pts = [p for p in pts if p[0] <= lt.date()]
+            prevc = q.get("previous_day_closing"); prevc = fl(prevc) if prevc not in (None, "") else None
+            if prevc is None:
+                pv = [v for d, v in pts if d < lt.date()]; prevc = pv[-1] if pv else None
+            def ago(days):
+                c = [v for d, v in pts if d <= lt.date() - dt.timedelta(days=days)]; return c[-1] if c else None
+            y0 = [v for d, v in pts if d.year < lt.year]
+            pct = lambda a: round((last / a - 1) * 100, 2) if a else None
+            hist = [[d.isoformat(), round(v, 4)] for d, v in pts if d >= lt.date() - dt.timedelta(days=186)]
+            if hist and hist[-1][0] == lt.date().isoformat(): hist[-1][1] = round(last, 4)
+            else: hist.append([lt.date().isoformat(), round(last, 4)])
+            name, unit, grp = SYMS[sym]
+            if sym == "MAERSK-B.CO": name, unit = "Maersk (US ADR AMKBY)", "USD"
+            out[sym] = dict(name=name, unit=unit, grp=grp, last=last, time_uk=uk(lt), d=pct(prevc), m1=pct(ago(30)),
+                            ytd=pct(y0[-1] if y0 else None), hist=hist, stale=False, alt="CNBC (" + str(q.get("name") or CNBC[sym]) + ")")
+        except Exception as e:
+            print("cnbc", sym, e)
+    return out
+
 def markets():
     old = (load("markets") or {}).get("q", {})
     out, fails, limited = {}, [], 0
@@ -131,7 +172,15 @@ def markets():
             fails.append(f"{sym}: {e}"[:80])
             if sym in old:
                 o = dict(old[sym]); o["stale"] = True; out[sym] = o
-    # FX fallback: ECB reference rates via Frankfurter (free, no key) when Yahoo FX failed
+    # Fallback 1: CNBC public quotes for anything Yahoo could not supply
+    miss = [k for k in SYMS if k not in out or out[k].get("stale")]
+    if miss:
+        try:
+            got = cnbc_many(miss); out.update(got)
+            fails = [f for f in fails if f.split(":")[0] not in got]
+        except Exception as e:
+            fails.append(f"CNBC fallback: {e}"[:80])
+    # Fallback 2 (FX only): ECB reference rates via Frankfurter (free, no key) when Yahoo FX failed
     for sym, (b, q) in {"GBPUSD=X": ("GBP", "USD"), "EURUSD=X": ("EUR", "USD"), "GBPEUR=X": ("GBP", "EUR")}.items():
         if sym in out and not out[sym].get("stale"): continue
         try:
@@ -151,8 +200,12 @@ def markets():
     if not any(not v.get("stale") for v in out.values()):
         raise RuntimeError("all market symbols failed; first errors: " + "; ".join(fails[:3]))
     times = sorted(v["time_uk"] for v in out.values() if not v.get("stale"))
-    return dict(as_of=times[-1] if times else None, q=out, failed=fails,
-                source="Yahoo Finance chart API (delayed futures, equities, FX); ECB reference rates as FX fallback")
+    nst = sum(1 for v in out.values() if v.get("stale"))
+    srcs = sorted(set(("CNBC" if v.get("alt", "").startswith("CNBC") else "ECB" if v.get("alt") else "Yahoo") for v in out.values() if not v.get("stale")))
+    res = dict(as_of=times[-1] if times else None, q=out, failed=fails, used=srcs,
+               source="Yahoo Finance chart API, with CNBC public quotes and ECB reference rates (FX) as fallbacks; delayed")
+    if nst > len(SYMS) / 2: res["partial_error"] = f"{nst} of {len(SYMS)} symbols stale (kept last good values)"
+    return res
 
 # ---------------------------------------------------------------- IMF PortWatch chokepoint transits
 PW_URL = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query"
