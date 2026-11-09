@@ -87,16 +87,18 @@ SYMS = {
 
 class RateLimited(Exception): pass
 
+WORKER = "https://atalaya-data.djancom.workers.dev/ship/chart"  # David's free Cloudflare Worker: read-only Yahoo proxy, allow-listed symbols
+
 def yahoo_one(sym):
+    """Yahoo 1y daily chart via the Cloudflare Worker (Yahoo blocks GitHub runner IPs directly)."""
     err = None
-    for host in ("query2", "query1"):
+    for i in range(2):
         try:
-            r = S.get(f"https://{host}.finance.yahoo.com/v8/finance/chart/{sym}",
-                      params={"range": "1y", "interval": "1d", "includePrePost": "false"}, timeout=25)
+            r = S.get(WORKER, params={"symbol": sym}, timeout=30)
             if r.status_code == 429:
-                err = RateLimited("HTTP 429 Too Many Requests"); time.sleep(3); continue
+                err = RateLimited("HTTP 429 via Worker"); time.sleep(3); continue
             if r.status_code != 200:
-                err = RuntimeError(f"HTTP {r.status_code}"); continue
+                err = RuntimeError(f"Worker HTTP {r.status_code}"); time.sleep(2); continue
             return r.json()["chart"]["result"][0]
         except Exception as e:
             err = e
@@ -166,7 +168,7 @@ def markets():
         try:
             if limited >= 4: raise RateLimited("skipped after repeated HTTP 429")
             out[sym] = parse_chart(sym, yahoo_one(sym)); limited = 0
-            time.sleep(0.4)
+            time.sleep(0.2)
         except Exception as e:
             if isinstance(e, RateLimited): limited += 1
             fails.append(f"{sym}: {e}"[:80])
@@ -203,7 +205,7 @@ def markets():
     nst = sum(1 for v in out.values() if v.get("stale"))
     srcs = sorted(set(("CNBC" if v.get("alt", "").startswith("CNBC") else "ECB" if v.get("alt") else "Yahoo") for v in out.values() if not v.get("stale")))
     res = dict(as_of=times[-1] if times else None, q=out, failed=fails, used=srcs,
-               source="Yahoo Finance chart API, with CNBC public quotes and ECB reference rates (FX) as fallbacks; delayed")
+               source="Yahoo Finance via Cloudflare Worker (atalaya-data), with CNBC public quotes and ECB reference rates (FX) as fallbacks; delayed")
     if nst > len(SYMS) / 2: res["partial_error"] = f"{nst} of {len(SYMS)} symbols stale (kept last good values)"
     return res
 
