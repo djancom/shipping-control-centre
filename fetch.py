@@ -323,7 +323,8 @@ def bunkers():
         vals = []
         for c in cells[:3]:
             v = re.search(r'price-val">\$?([\d,.]+)', c); ch = re.search(r'price-chg[^"]*">([^<]+)', c)
-            vals.append([float(v.group(1).replace(",", "")) if v else None, ch.group(1).strip() if ch else None])
+            chs = html.unescape(ch.group(1)).strip() if ch else None
+            vals.append([float(v.group(1).replace(",", "")) if v else None, chs if chs and re.search(r"\d", chs) else None])
         d = re.search(r'col-date">([^<]+)<', m.group(3))
         name = html.unescape(m.group(2).strip())
         if name not in hubs and len(vals) == 3:

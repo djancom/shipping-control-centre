@@ -230,9 +230,9 @@ function segs(sel, fn) { $$(sel + " button").forEach((b) => b.onclick = () => { 
 const HUBS = ["Rotterdam", "Singapore", "Fujairah", "Houston", "Hong Kong", "Santos", "New York", "LA / Long Beach", "Global 20 Ports Average", "EMEA Average"];
 function bunkers() {
   const hb = (D.bunkers || {}).hubs || {};
-  const cell = (v) => v && v[0] != null ? `$${num(v[0], 2)} <span class="${String(v[1]).startsWith("-") ? "dn" : "up"}">${esc(v[1] || "")}</span>` : "n/a";
-  $("#btable").innerHTML = "<tr><th>Hub</th><th class='n'>VLSFO</th><th class='n'>HSFO</th><th class='n'>MGO</th><th class='n'>Date</th></tr>" +
-    HUBS.filter((h) => hb[h]).map((h) => `<tr><td><a href="${esc(hb[h].href)}" target="_blank" rel="noopener">${esc(h)}</a></td><td class="n">${cell(hb[h].vlsfo)}</td><td class="n">${cell(hb[h].hsfo)}</td><td class="n">${cell(hb[h].mgo)}</td><td class="n">${esc(fmtUK(hb[h].date_iso))}</td></tr>`).join("");
+  const cell = (v) => v && v[0] != null ? `$${num(v[0], 2)} <span class="${String(v[1]).startsWith("-") ? "dn" : "up"}">${/\d/.test(v[1] || "") ? esc(v[1]) : ""}</span>` : "n/a";
+  $("#btable").innerHTML = "<tr><th>Hub</th><th class='n'>VLSFO</th><th class='n'>HSFO</th><th class='n'>MGO</th><th class='n hide-s'>Date</th></tr>" +
+    HUBS.filter((h) => hb[h]).map((h) => `<tr><td><a href="${esc(hb[h].href)}" target="_blank" rel="noopener">${esc(h)}</a></td><td class="n">${cell(hb[h].vlsfo)}</td><td class="n">${cell(hb[h].hsfo)}</td><td class="n">${cell(hb[h].mgo)}</td><td class="n hide-s">${esc(fmtUK(hb[h].date_iso))}</td></tr>`).join("");
 }
 
 function freight() {
