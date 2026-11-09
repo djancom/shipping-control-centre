@@ -24,7 +24,8 @@
 <div class="ticker" id="ticker"></div>
 
 <main class="grid">
-  <section class="card span8" id="map">
+  <div class="span8 leftcol">
+  <section class="card" id="map">
     <div class="ch"><h2>Chokepoint map</h2><div class="seg" id="zoom">
       <button data-z="world" class="on">World</button><button data-z="europe">Europe</button><button data-z="mideast">Middle East</button><button data-z="asia">Asia</button><button data-z="americas">Americas</button></div></div>
     <div class="mapwrap"><svg id="svgmap" viewBox="0 -8 1000 352" role="img" aria-label="World map of shipping lanes and chokepoints"></svg></div>
@@ -35,18 +36,19 @@
     <p class="rule" id="rule">Status rule: <b>red</b> if 7-day average transits are under 50% of the same week a year earlier, or a headline from the last 7 days names the place and reports an attack on shipping; <b>amber</b> if under 85% of a year earlier, or such a headline reports a warning, diversion or suspension; otherwise <b>green</b>. Headline flags are set automatically by keyword and shown in the panel so you can judge them.</p>
     <div class="meta" data-src="portwatch"></div>
   </section>
+  <section class="card" id="key">
+    <div class="ch"><h2>Key figures</h2></div>
+    <div class="kpis wide" id="kpis"></div>
+  </section>
+  </div>
 
   <section class="card span4 detail" id="detail" aria-live="polite">
     <div class="ch"><h2 id="d-name">Chokepoint</h2><select id="cpsel" aria-label="Choose chokepoint"></select></div>
-    <div id="d-body"></div>
+    <div class="dscroll"><div id="d-body"></div></div>
   </section>
 
-  <section class="card span4" id="key">
-    <div class="ch"><h2>Key figures</h2></div>
-    <div class="kpis" id="kpis"></div>
-  </section>
 
-  <section class="card span8" id="changed">
+  <section class="card span12" id="changed">
     <div class="ch"><h2>What changed</h2><span class="hint" id="since"></span></div>
     <div class="cols2">
       <div><h3>Moves and status changes</h3><table class="t" id="chg"></table><h3>Biggest day moves (futures, equities)</h3><table class="t" id="movers"></table></div>
