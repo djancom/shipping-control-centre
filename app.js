@@ -337,7 +337,7 @@ function intel() {
     $("#tablist").innerHTML = (tabs[v] || []).map(li).join("") || "<li class='hint'>No dated items found in the last three weeks.</li>";
     $("#tabextra").innerHTML = v === "law" ? `<h3>Primary sources: IMO, EU ETS / FuelEU, MCA, DfT, sanctions, P&amp;I, courts, GAFTA, plant health</h3><ul class="news two">` + REFS.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a><span class="m">${esc(new URL(u).hostname)}</span></li>`).join("") + "</ul>"
       : v === "ports" ? `<p class="note">Headlines naming Felixstowe, Southampton, Rotterdam, Antwerp-Bruges, Immingham, Liverpool or Hamburg with strike, congestion, closure or delay terms, last three weeks. Live berth and congestion counts are not available free.</p>`
-      : v === "risk" ? `<p class="note">For official warnings see <a href="https://www.ukmto.org/" target="_blank" rel="noopener">UKMTO</a> and <a href="https://www.icc-ccs.org/piracy-reporting-centre" target="_blank" rel="noopener">IMB PRC</a>.</p>` : "";
+      : v === "risk" ? `<p class="note">The <a href="#risk">war-risk and conflict map</a> sits above this list, with JWC listed areas, naval advisories and recent UKMTO incidents. Official warnings: <a href="https://www.ukmto.org/" target="_blank" rel="noopener">UKMTO</a>. For IMB piracy reports use their <a href="https://icc-ccs.org/map/" target="_blank" rel="noopener">live map</a> (we do not copy that data).</p>` : "";
   };
   segs("#tseg", draw); draw("risk");
 }
@@ -395,6 +395,25 @@ function showAllTraffic(id) {
   w.innerHTML = `<iframe name="vesselfinder" title="Live ship traffic map (VesselFinder)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="${esc(liveSrc(id || "world"))}"></iframe>`;
   $("#livenote").innerHTML = `Live map provided by VesselFinder (third-party embed). World is the default, at the widest zoom the widget allows (level 3). Tap or click the map to activate it, then zoom or drag; positions come from VesselFinder's AIS network and are not stored by this site. <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">vesselfinder.com</a>`;
 }
+
+function xyToLatLng(x, y) { return [75 - y / 1000 * 360, x / 1000 * 360 - 180]; }
+function landPolygons() {
+  const d = (geo && geo.land) || "";
+  const group = L.layerGroup();
+  const style = { color: "#2a3c50", weight: 0.6, fillColor: "#1c2a38", fillOpacity: 1, interactive: false };
+  let ring = [], cmd = "";
+  const tokens = d.match(/[MLZ]|-?\d+(?:\.\d+)?/g) || [];
+  for (let i = 0; i < tokens.length; ) {
+    const t = tokens[i];
+    if (t === "M" || t === "L" || t === "Z") { cmd = t; i++; if (cmd === "Z") { if (ring.length > 2) L.polygon(ring, style).addTo(group); ring = []; } continue; }
+    const x = parseFloat(tokens[i]), y = parseFloat(tokens[i + 1]); i += 2;
+    if (!isFinite(x) || !isFinite(y)) continue;
+    if (cmd === "M") { if (ring.length > 2) L.polygon(ring, style).addTo(group); ring = [xyToLatLng(x, y)]; cmd = "L"; }
+    else ring.push(xyToLatLng(x, y));
+  }
+  if (ring.length > 2) L.polygon(ring, style).addTo(group);
+  return group;
+}
 function showFleet(id) {
   const f = fleetById(id); if (!f) { $("#livewrap").innerHTML = `<div class="hint livehold">No fleets.json loaded.</div>`; return; }
   fleetSel = f.id;
@@ -433,11 +452,12 @@ function showFleet(id) {
   }
   $("#livewrap").innerHTML = `<div id="fmap" role="img" aria-label="Last-known positions of the selected fleet"></div>`;
   if (fleetMap && fleetMap.remove) { try { fleetMap.remove(); } catch (e) {} }
-  fleetMap = L.map("fmap", { worldCopyJump: true, scrollWheelZoom: true }).setView([20, 0], 2);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: "abcd", maxZoom: 19,
-  }).addTo(fleetMap);
+  fleetMap = L.map("fmap", { worldCopyJump: true, scrollWheelZoom: true, minZoom: 1, maxZoom: 8, attributionControl: true }).setView([20, 0], 2);
+  fleetMap.getContainer().style.background = "#0d1620";
+  // Use this site's own land outlines (same geo.json as the chokepoint map) so the
+  // basemap needs no tile API key. Projection on that file is x=(lon+180)/360*1000, y=(75-lat)/360*1000.
+  landPolygons().addTo(fleetMap);
+  L.control.attribution({ prefix: false }).addAttribution("Land outlines from this site's world map").addTo(fleetMap);
   fleetLayer = L.layerGroup().addTo(fleetMap);
   const pts = [];
   onMap.forEach((r) => {
