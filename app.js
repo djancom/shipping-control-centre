@@ -3,7 +3,7 @@
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 const D = {};
-const FILES = ["status", "markets", "portwatch", "baltic", "drewry", "bunkers", "weather", "storms", "worldbank", "news", "derived"];
+const FILES = ["status", "markets", "portwatch", "baltic", "drewry", "bunkers", "weather", "storms", "worldbank", "news", "derived", "ais"];
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const COL = { green: "#2ecc71", amber: "#f5b041", red: "#ff5c5c" };
 const WORD = { green: "Green", amber: "Amber", red: "Red" };
@@ -52,13 +52,14 @@ const REFS = [
   ["Lloyd's Joint War Committee listed areas", "https://www.lmalloyds.com/lma/jointwar"],
 ];
 const ZOOM = { world: "0 -8 1000 352", europe: "420 20 220 120", mideast: "560 90 160 110", asia: "700 60 300 200", americas: "100 40 330 260" };
-let SEL = "hormuz", charts = {}, geo = null;
+let SEL = new URLSearchParams(location.search).get("cp") || "hormuz", charts = {}, geo = null;
 
 async function getJSON(p) { try { const r = await fetch(p + "?v=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw 0; return await r.json(); } catch (e) { return null; } }
 
 async function main() {
   const res = await Promise.all([getJSON("static/geo.json")].concat(FILES.map((f) => getJSON("data/" + f + ".json"))));
   geo = res[0]; FILES.forEach((f, i) => (D[f] = res[i + 1] || {}));
+  if (!geo || !geo.cps.some((c) => c.id === SEL)) SEL = "hormuz";
   const st = D.status || {}; const src = st.sources || {};
   const bad = Object.values(src).filter((s) => !s.ok).length;
   $("#runline").innerHTML = `Free public data · data last updated ${esc(fmtUK(st.run_uk))} (${esc(st.runner || "")}) · ` + (bad ? `<span class="stale">${bad} source${bad > 1 ? "s" : ""} stale</span>` : `<span class="okb">all sources OK</span>`);
@@ -74,7 +75,8 @@ function metas() {
     if (k === "derived") { el.innerHTML = `Computed from the data on this page at ${esc(fmtUK(d.as_of))}.`; return; }
     const asof = d.as_of ? (String(d.as_of).length > 10 ? fmtUK(d.as_of) : fmtUK(d.as_of, true)) : "n/a";
     const staleTag = s.ok === false ? ` <span class="stale">stale</span> last good ${esc(fmtUK(s.last_ok_uk))}; latest attempt failed ${esc(fmtUK(s.last_fail_uk))}` : "";
-    el.innerHTML = `Source: <a href="${esc(s.url || "#")}" target="_blank" rel="noopener">${esc(d.source || s.label || k)}</a> · data as of ${esc(asof)} · checked ${esc(fmtUK(s.last_ok_uk || s.last_fail_uk))}${staleTag}`;
+    const srcName = k === "ais" ? "AISstream.io" : (d.source || s.label || k);
+    el.innerHTML = `Source: <a href="${esc(s.url || "#")}" target="_blank" rel="noopener">${esc(srcName)}</a> · data as of ${esc(asof)} · checked ${esc(fmtUK(s.last_ok_uk || s.last_fail_uk))}${staleTag}`;
   });
 }
 const Q = (k) => ((D.markets || {}).q || {})[k];
@@ -93,6 +95,21 @@ function ticker() {
 }
 
 function cpStatus(id) { return ((D.derived || {}).status || {})[id] || "green"; }
+function aisInfo(id) {
+  const a = D.ais || {}; const src = ((D.status || {}).sources || {}).ais || {};
+  const stale = src.ok === false;
+  if (!a.cp) return { state: "none", stale };
+  const row = id ? a.cp[id] : null;
+  const tot = Object.values(a.cp).reduce((s, r) => s + ((r && r.vessels) || 0), 0);
+  const wait = Object.values(a.cp).reduce((s, r) => s + ((r && r.waiting) || 0), 0);
+  const reported = Object.values(a.cp).filter((r) => r && r.vessels > 0).length;
+  const areas = Object.keys(a.cp).length;
+  return { state: "ok", vessels: row ? row.vessels : null, waiting: row ? row.waiting : null,
+    stale, as_of: a.as_of, seconds: a.seconds || 60, note: a.note, tot, wait, reported, areas };
+}
+function aisWhen(info) {
+  return `${info.seconds || 60}s sample, ${fmtUK(info.as_of)}` + (info.stale ? ' <span class="stale">stale</span>' : "");
+}
 function px(lon, lat) { return [(lon + 180) / 360 * 1000, (75 - lat) / 360 * 1000]; }
 
 function map() {
@@ -107,11 +124,13 @@ function map() {
   const st = D.storms || {};
   (st.gdacs || []).forEach((s) => { if (s.lat == null) return; const [x, y] = px(s.lon, s.lat); if (y < -8 || y > 344) return;
     h += `<g class="storm"><text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="15">🌀</text><text x="${x + 9}" y="${y - 8}" font-size="8" fill="#9fd3ff">${/^[A-Za-z]/.test(s.name || "") ? esc(s.name.replace(/-\d+$/, "")) : ""}</text><title>${esc(s.name)}: ${esc(s.sev || "")} (GDACS ${esc(s.level)}), as of ${esc(fmtUK(s.to))}</title></g>`; });
-  geo.cps.forEach((c) => { const s = cpStatus(c.id); const on = c.id === SEL;
-    h += `<g class="cp" data-cp="${c.id}" tabindex="0" role="button" aria-label="${esc(c.name)} ${WORD[s]}">` +
+  geo.cps.forEach((c) => { const s = cpStatus(c.id); const on = c.id === SEL; const ai = aisInfo(c.id);
+    const aisLab = ai.state === "ok" ? `, ${ai.vessels} ships in area now` : (ai.state === "none" ? ", AIS: no data" : "");
+    h += `<g class="cp" data-cp="${c.id}" tabindex="0" role="button" aria-label="${esc(c.name)} ${WORD[s]}${esc(aisLab)}">` +
       (s === "red" ? `<circle class="pulse" cx="${c.x}" cy="${c.y}" r="8" fill="${COL.red}"/>` : "") +
       `<circle cx="${c.x}" cy="${c.y}" r="22" fill="transparent"/>` +
       `<circle class="mk" cx="${c.x}" cy="${c.y}" r="${on ? 9 : 7}" fill="${COL[s]}" stroke="${on ? "#fff" : "#0d1620"}" stroke-width="${on ? 3 : 2}"/>` +
+      (ai.state === "ok" ? `<text class="aisn" x="${c.x}" y="${c.y - 13}" text-anchor="middle" font-size="9" stroke-width="3">${ai.vessels}</text>` : "") +
       `<text class="lbl" x="${c.x + c.lx * 0.8}" y="${c.y + c.ly * 0.8}" text-anchor="${c.anchor}" font-size="12" stroke-width="3.5">${esc(c.short)}</text></g>`; });
   svg.innerHTML = h;
   svg.querySelectorAll("[data-cp]").forEach((g) => { g.addEventListener("click", () => select(g.dataset.cp)); g.addEventListener("keydown", (e) => { if (e.key === "Enter") select(g.dataset.cp); }); });
@@ -124,6 +143,7 @@ function setZoom(z) {
   const vb = box.split(" ").map(Number); const k = (vb[2] / 1000) * (narrow ? 1.7 : 1); // scale labels/markers for zoom and small screens
   svg.querySelectorAll(".cp .mk").forEach((m) => { const on = m.parentNode.dataset.cp === SEL; m.setAttribute("r", ((on ? 9 : 7) * Math.max(k, 0.32)).toFixed(2)); m.setAttribute("stroke-width", ((on ? 3 : 2) * Math.max(k, 0.32)).toFixed(2)); });
   svg.querySelectorAll(".cp .lbl").forEach((t) => { t.setAttribute("font-size", (12 * Math.max(k, 0.3)).toFixed(2)); t.setAttribute("stroke-width", (3.5 * Math.max(k, 0.3)).toFixed(2)); });
+  svg.querySelectorAll(".cp .aisn").forEach((t) => { t.setAttribute("font-size", (9 * Math.max(k, 0.3)).toFixed(2)); t.setAttribute("stroke-width", (3 * Math.max(k, 0.3)).toFixed(2)); });
   svg.querySelectorAll(".cp .pulse").forEach((t) => t.setAttribute("r", (8 * Math.max(k, 0.32)).toFixed(2)));
   svg.querySelectorAll(".lane").forEach((l) => { if (!l.dataset.w) l.dataset.w = l.getAttribute("stroke-width"); l.setAttribute("stroke-width", (l.dataset.w * Math.max(k, 0.35)).toFixed(2)); });
   svg.querySelectorAll(".storm text").forEach((t) => { if (!t.dataset.fs) t.dataset.fs = t.getAttribute("font-size"); t.setAttribute("font-size", (t.dataset.fs * Math.max(k, 0.35)).toFixed(2)); });
@@ -134,6 +154,12 @@ function select(id) {
   if (window.innerWidth < 1100) $("#detail").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function aisRow() {
+  const ai = aisInfo(SEL);
+  if (ai.state !== "ok") return `<dt>Ships in area now</dt><dd>AIS: no data</dd>`;
+  const zero = ai.vessels === 0 ? ` <span class="hint">No vessels reported in this window. Coverage is terrestrial-heavy, so some areas — especially farther from the coast — often show low or zero counts.</span>` : "";
+  return `<dt>Ships in area now</dt><dd><b>${num(ai.vessels, 0)}</b> (${num(ai.waiting, 0)} waiting/slow)<div class="hint">${aisWhen(ai)}. Counts are vessels reporting in that window, not a full census.</div>${zero}</dd>`;
+}
 function detail() {
   const sel = $("#cpsel");
   if (!sel.options.length) { sel.innerHTML = geo.cps.map((c) => `<option value="${c.id}">${esc(c.name)}</option>`).join(""); sel.onchange = () => select(sel.value); }
@@ -152,7 +178,7 @@ function detail() {
     <dt>Mix, per day</dt><dd>${c.mix ? `${num(c.mix[0])} tanker · ${num(c.mix[1])} dry bulk · ${num(c.mix[2])} container · ${num(c.mix[3])} general cargo` : "n/a"}</dd>
     <dt>Capacity</dt><dd>${c.cap ? num(c.cap / 1e6, 2) + "m dwt per day" : "n/a"}</dd>
     <dt>What transits</dt><dd>${esc(g.what)}</dd>
-    <dt>Waiting ships, delays</dt><dd class="hint">Not in free data; not shown</dd>
+    ${aisRow()}
   </dl>
   <h3>Weekly avg daily transits, 26 weeks</h3><div class="chartbox mini"><canvas id="cpchart"></canvas></div>`;
   if (wx) h += `<h3>Sea state, ${esc(g.wx)}</h3><div class="hint">` + wx.dates.map((d, i) => `${fmtUK(d)}: ${wx.wave[i] == null ? "wave n/a" : num(wx.wave[i]) + " m"}, gust ${Math.round(wx.gust[i])} kn`).join(" · ") + `</div>`;
@@ -182,6 +208,9 @@ function kpis() {
   const r = ((D.bunkers || {}).hubs || {}).Rotterdam; if (r) k.push(["$" + num(r.vlsfo[0], 1), "Rotterdam VLSFO /t", `${esc(r.vlsfo[1] || "")} · ${fmtUK(r.date_iso)}`]);
   q("ZW=F", "Wheat, ¢/bu", "", 2); q("ZS=F", "Soybeans, ¢/bu", "", 2); q("GBPUSD=X", "GBP/USD", "", 4);
   if (b.eua) k.push(["€" + num(b.eua.last, 2), "EU carbon (EUA) /t", `${pctS(b.eua.d)} day · ${fmtUK(b.eua.date)}`]);
+  const ai = aisInfo();
+  if (ai.state === "ok") k.push([num(ai.tot, 0), "Ships in chokepoint areas", `${num(ai.wait, 0)} waiting/slow · ${ai.reported} of ${ai.areas} areas · ${aisWhen(ai)}`]);
+  else k.push(["—", "Ships in chokepoint areas", "AIS: no data"]);
   $("#kpis").innerHTML = k.map(([v, l, d]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
 }
 

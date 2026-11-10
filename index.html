@@ -31,10 +31,11 @@
     <div class="mapwrap"><svg id="svgmap" viewBox="0 -8 1000 352" role="img" aria-label="World map of shipping lanes and chokepoints"></svg></div>
     <div class="legend">
       <span><i class="dot green"></i>Green</span><span><i class="dot amber"></i>Amber</span><span><i class="dot red"></i>Red</span>
-      <span><i class="lanekey"></i>Lane width = 7-day avg transits at its chokepoint</span><span><i class="stormkey">🌀</i>Active tropical cyclone (GDACS)</span>
+      <span><i class="lanekey"></i>Lane width = 7-day avg transits at its chokepoint</span><span><i class="stormkey">🌀</i>Active tropical cyclone (GDACS)</span><span>Number on a marker = ships heard in a ~60s AIS sample</span>
     </div>
     <p class="rule" id="rule">Status rule: <b>red</b> if 7-day average transits are under 50% of the same week a year earlier, or a headline from the last 7 days names the place and reports an attack on shipping; <b>amber</b> if under 85% of a year earlier, or such a headline reports a warning, diversion or suspension; otherwise <b>green</b>. Headline flags are set automatically by keyword and shown in the panel so you can judge them.</p>
     <div class="meta" data-src="portwatch"></div>
+    <div class="meta" data-src="ais"></div>
   </section>
   <section class="card" id="key">
     <div class="ch"><h2>Key figures</h2></div>
@@ -168,7 +169,7 @@
     <div class="tw"><table class="t" id="srctable"></table></div>
     <h3>Not shown because no free source was found</h3>
     <ul class="list plain">
-      <li>Live ship positions (AIS), ships at anchor and port congestion counts: free AIS feeds need a key or account.</li>
+      <li>A complete census of ships at anchor and port congestion: the AIS figures on the map are a ~60-second sample of vessels reporting in each area, not a full count, and coverage is weaker away from the coast.</li>
       <li>Panama Canal draught limits and queue lengths: the canal authority advisories are not machine-readable.</li>
       <li>Daily time-charter hire in $/day by ship size, and the Handysize index: not on free pages.</li>
       <li>Bunker prices at Gibraltar, and lubricant prices.</li>
