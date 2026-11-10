@@ -22,6 +22,8 @@ jobs:
         run: pip install -q websockets
       - name: Fetch free sources (each fails independently)
         run: python fetch.py
+      - name: Risk map feeds (UKMTO incidents, JWLA and JMIC checks)
+        run: python scripts/risk_refresh.py
       - name: Commit only when data changed
         run: |
           git config user.name "data-refresh-bot"

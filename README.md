@@ -7,9 +7,10 @@ Static dashboard (plain HTML/CSS/JS, no build step) for chokepoints, fuel, freig
 * `fetch.py`: pulls free, no-key public sources and writes `data/*.json`. Each source fails independently; the last good file is kept and `data/status.json` marks it stale.
 * `ais.py`: optional AISstream sampler (chokepoint counts, then fleet last-known positions) when the `AISSTREAM_KEY` repo secret is set. The key stays on the runner and is never written to the site.
 * `data/fleet-positions.json`: last-known positions from that hourly sample.
-* `.github/workflows/refresh.yml`: runs `fetch.py` hourly on GitHub Actions and commits when source data changed.
+* `.github/workflows/refresh.yml`: runs `fetch.py` hourly on GitHub Actions, then `scripts/risk_refresh.py`, and commits when source data changed.
+* `risk.js`, `risk.css`, `data/risk/`: dedicated war-risk map in the Risk tab (JWC listed areas from circular JWLA-035, JMIC advisory areas, UKMTO incidents under the Open Government Licence). `scripts/risk_refresh.py` refreshes incidents hourly and checks for a new JWLA or JMIC circular. Underwriting figures in `data/risk/underwriting.json` are dated manual snapshots.
 
-Sources: IMF PortWatch, Yahoo Finance (via the atalaya-data Cloudflare Worker /ship/chart route), CNBC public quotes and ECB rates via Frankfurter (fallbacks), Trading Economics public Baltic page, Drewry WCI page, Ship & Bunker price table, Open-Meteo, GDACS, NOAA NHC, World Bank Pink Sheet, RSS from gCaptain, Splash247, Hellenic Shipping News and Google News, AISstream.io (terrestrial AIS sample), Wikidata (CC0) and official company fleet pages for the starting fleet lists.
+Sources: IMF PortWatch, UKMTO (Open Government Licence), Lloyd's Market Association JWC listed-area circulars, JMIC advisories, Yahoo Finance (via the atalaya-data Cloudflare Worker /ship/chart route), CNBC public quotes and ECB rates via Frankfurter (fallbacks), Trading Economics public Baltic page, Drewry WCI page, Ship & Bunker price table, Open-Meteo, GDACS, NOAA NHC, World Bank Pink Sheet, RSS from gCaptain, Splash247, Hellenic Shipping News and Google News, AISstream.io (terrestrial AIS sample), Wikidata (CC0) and official company fleet pages for the starting fleet lists.
 
 All times are UK time (Europe/London). Free, delayed data; not advice.
 

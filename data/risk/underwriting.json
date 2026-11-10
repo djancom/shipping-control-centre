@@ -1,0 +1,123 @@
+{
+  "as_of": "2026-11-10",
+  "fetched_uk": "2026-11-10 16:50",
+  "disclaimer": "These figures are dated manual snapshots from free public reports. War-risk percentages are news-reported ranges, not a quote and not a market index. They vary by vessel, flag, cargo, itinerary and no-claims terms, and they can move quickly. The Joint War Committee does not set premiums. Not insurance advice.",
+  "war_risk_ap": {
+    "title": "War-risk additional premiums (news-reported, not a quote)",
+    "unit": "% of hull value, additional premium for a voyage or period as described in the source",
+    "stale_after_days": 21,
+    "rows": [
+      {
+        "area": "Strait of Hormuz / Gulf approaches",
+        "range": "7.5–10%",
+        "prior": "1–3% a few weeks earlier",
+        "as_of": "2026-07-22",
+        "source": "Marsh, reported by S&P Global Commodity Insights",
+        "url": "https://www.spglobal.com/energy/en/news-research/latest-news/shipping/072226-middle-east-shipping-insurance-costs-rise-on-hormuz-risks-marsh",
+        "note": "Mid/late July 2026. May have moved since. Treat as stale unless a later free report is added."
+      },
+      {
+        "area": "Southern Red Sea / Bab el-Mandeb",
+        "range": "Above 1%, up to about 3% on some Saudi-linked voyages",
+        "prior": "Around 0.5% in earlier 2026 reporting",
+        "as_of": "2026-07-23",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/world/middle-east/war-risk-insurance-costs-surge-southern-red-sea-voyages-after-houthi-attacks-2026-07-23/",
+        "note": "23 July 2026 news report. The article is often paywalled; the range is cited, not scraped. May have moved since. Treat as stale unless a later free report is added."
+      },
+      {
+        "area": "Black Sea — Ukrainian Danube ports (Reni, Izmail)",
+        "range": "Quotes as high as 10% (not necessarily bound); previously about 2.5%",
+        "prior": "About 2.5% before the mid-August 2026 attacks cited in the article",
+        "as_of": "2026-08-23",
+        "source": "World Ports Organization, citing underwriters",
+        "url": "https://www.worldports.org/russia-and-ukraine-attack-each-others-shipping-targets-with-widely-disparate-black-sea-war-risk-insurance-quotes/",
+        "note": "23 August 2026. The same report said some Ukrainian and Russian seaport rates were in the mid-to-high single digits, with some quotes at 1–2% or 3–7.5%. Widely dispersed."
+      },
+      {
+        "area": "Black Sea transit (not a specific port call)",
+        "range": "0.6–1% gross (about 0.3–0.5% after a 50% no-claims bonus), per one broker",
+        "prior": "0.2–0.5% gross the week before, per the same broker",
+        "as_of": "2026-10-14",
+        "source": "Türkiye Today, citing BPG Shipping / market sources",
+        "url": "https://www.turkiyetoday.com/business/exclusive-black-sea-war-quadruples-shipping-insurance-leaving-traders-in-a-bind-3230242",
+        "note": "14 October 2026. Another source in the same article said costs had risen from 1.5% to 6% over three months. Figures disagree and are vessel-specific. Not a quote."
+      }
+    ]
+  },
+  "pi_renewals": {
+    "title": "P&I general increases, 2026/27 policy year",
+    "policy_year": "2026/27",
+    "inception": "20 February 2026",
+    "as_of": "2026-02-20",
+    "note": "Set at the 20 February 2026 renewal. These will not move until 2027/28 talks. Some clubs have no formal general increase but still targeted an overall rate adjustment. Figures from official club circulars and the Marsh renewal tracker.",
+    "tracker_url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html",
+    "rows": [
+      {"club": "Gard", "gi": "No GI; average +5% on ETC, offset by a 10% owners’ general discount", "url": "https://gard.no/en/circulars/premium-policy-for-the-2026-policy-year/"},
+      {"club": "Skuld", "gi": "No GI; target overall +7.5% on rates", "url": "https://www.skuld.com/about/-/circulars/2025/skuld-renewal-update-1-policy-year-202627/"},
+      {"club": "UK P&I", "gi": "7.5% general increase; +10% on deductibles below $50,000 (min +$1,000)", "url": "https://www.ukpandi.com/news-and-resources/circulars/article/circular-19/25-update-from-the-board/"},
+      {"club": "NorthStandard", "gi": "5% general increase", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "Britannia", "gi": "No GI; target minimum +5%, plus a capital distribution", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "Steamship Mutual", "gi": "8% general increase", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "Japan P&I", "gi": "5% general increase", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "Shipowners’", "gi": "5% general increase", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "The Swedish Club", "gi": "5% general increase", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "West of England", "gi": "5% general increase", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "The American Club", "gi": "No GI; target overall +8%", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"},
+      {"club": "London P&I", "gi": "No GI; target overall +6%", "url": "https://www.marsh.com/en/industries/marine/insights/protection-and-indemnity-renewal-tracker.html"}
+    ]
+  },
+  "iumi": {
+    "title": "IUMI marine insurance statistics (2025 year, published 2026)",
+    "as_of": "2025-12-31",
+    "published": "2026-10",
+    "source": "IUMI Stats Report 2026 and accompanying press releases",
+    "url": "https://iumi.com/news/press-release/iumis-annual-stats-report-highlights-modest-market-development-amid-continued-soft-conditions/",
+    "pdf": "https://iumi.com/wp-content/uploads/2026/10/IUMI-Stats-Report-2026.pdf",
+    "points": [
+      "Global marine insurance premiums USD 42.6 billion in 2025, up 5.5% on 2024.",
+      "Marine cargo USD 24.2 billion, up 6.9%.",
+      "Ocean hull USD 10.5 billion, up 9.4% (fleet growth, higher values and war premiums contributed).",
+      "Offshore energy USD 4.82 billion, up 0.1%.",
+      "Europe ocean-hull loss ratio about 60% on an incurred basis, including IBNR. Asia and the US about 50% on a paid-claims basis — the bases are not directly comparable."
+    ]
+  },
+  "allianz": {
+    "title": "Allianz Safety and Shipping Review 2026",
+    "as_of": "2025-12-31",
+    "published": "2026-06",
+    "source": "Allianz Commercial, Safety and Shipping Review 2026",
+    "url": "https://commercial.allianz.com/content/dam/onemarketing/commercial/commercial/reports/commercial-safety-shipping-review-2026.pdf",
+    "points": [
+      "43 total losses in 2025 (more than 30 of those ships over 500 GT).",
+      "2,818 reported incidents on vessels over 100 GT in 2025, down about 16% from 3,353 in 2024.",
+      "Machinery damage or failure was the main cause, at 1,505 incidents.",
+      "Over 200 fire incidents in 2025, the second-highest total in 10 years.",
+      "350 total losses in 2021–2025, an average of 70 a year, 37% lower than the 555 losses in 2016–2020."
+    ]
+  },
+  "emsa": {
+    "title": "EMSA Annual Overview of Marine Casualties and Incidents 2026",
+    "as_of": "2025-12-31",
+    "published": "2026-10",
+    "source": "European Maritime Safety Agency, covering EU Member States, Iceland and Norway (EMCIP)",
+    "url": "https://www.emsa.europa.eu/publications/reports/item/5844-annual-overview-of-marine-casualties-and-incidents-2026.html",
+    "points": [
+      "2,630 marine casualties and incidents recorded in 2025, about 2% below the ten-year annual average.",
+      "52 very serious casualties; 29 fatalities (the lowest annual figure in 2016–2025); 813 injuries; 16 ships lost.",
+      "55 pollution occurrences, up about 10% from 2024.",
+      "26,802 occurrences were recorded over 2016–2025 as a whole."
+    ]
+  },
+  "links": [
+    {"label": "Lloyd’s Market Association — JWC listed areas (JWLA-035)", "url": "https://lmalloyds.com/specialist-areas/underwriting/listed-areas/"},
+    {"label": "JWLA-035 circular (PDF, 16 September 2026)", "url": "https://lmalloyds.com/wp-content/uploads/2026/09/JWLA-035-Black-Sea.pdf"},
+    {"label": "UKMTO recent incidents (official)", "url": "https://www.ukmto.org/recent-incidents"},
+    {"label": "JMIC advisories, via UKMTO", "url": "https://www.ukmto.org/partner-products/jmic-products/jmic-advisories"},
+    {"label": "JMIC Update 112 (PDF, to 8 November 2026)", "url": "https://www.ukmto.org/-/media/ukmto/products/jmic_advisory_update_112_08-nov.pdf"},
+    {"label": "US MARAD maritime security advisories", "url": "https://www.maritime.dot.gov/msci-advisories"},
+    {"label": "ICC IMB Piracy Reporting Centre live map (link only — we do not copy IMB data)", "url": "https://icc-ccs.org/map/"},
+    {"label": "MSCIO weekly threat assessments (EU NAVFOR Atalanta)", "url": "https://mscio.eu/mscio-products/weekly-threat-assessment/"},
+    {"label": "Open Government Licence v3.0 (UKMTO content)", "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"}
+  ]
+}
