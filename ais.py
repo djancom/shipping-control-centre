@@ -312,6 +312,19 @@ def _apply_ident(fleets_doc, rec, added_counts):
         return True
     return False
 
+
+def _fleet_id_for(fleets_doc, rec):
+    """Return a fleet id if this contact is one of our listed or name-matched ships."""
+    m, imo = rec.get("mmsi") or "", rec.get("imo") or ""
+    for fl in (fleets_doc or {}).get("fleets") or []:
+        fid = fl.get("id")
+        for s in fl.get("ships") or []:
+            if m and _mmsi_str(s.get("mmsi")) == m:
+                return fid
+            if imo and _imo_str(s.get("imo")) == imo:
+                return fid
+    return match_fleet_id(rec.get("name") or "")
+
 def _merge_position(store, rec, as_of, this_run):
     m = rec.get("mmsi")
     if not m:
@@ -353,7 +366,13 @@ async def _fleet_pass(key, fleets_doc, pos_store, as_of):
             heard_static += 1
         if rec.get("lat") is not None:
             heard_pos += 1
-        _merge_position(pos_store, rec, as_of, this_run)
+        # Only keep last-known positions for ships that belong to a listed fleet
+        # (or whose name matches a line's prefix). Do not store the rest of the
+        # world-box static traffic.
+        fid = _fleet_id_for(fleets_doc, rec)
+        if fid:
+            _merge_position(pos_store, rec, as_of, this_run)
+            pos_store[rec["mmsi"]]["fleet"] = fid
 
     mmsis = [m for m, _, _ in _fleet_mmsis(fleets_doc)]
     n_batches = max(1, (len(mmsis) + BATCH - 1) // BATCH) if mmsis else 0
@@ -387,7 +406,10 @@ async def _fleet_pass(key, fleets_doc, pos_store, as_of):
         # Apply any leftover identities (incl. chokepoint window)
         for rec in identities:
             _apply_ident(fleets_doc, rec, added)
-            _merge_position(pos_store, rec, as_of, this_run)
+            fid = _fleet_id_for(fleets_doc, rec)
+            if fid:
+                _merge_position(pos_store, rec, as_of, this_run)
+                pos_store[rec["mmsi"]]["fleet"] = fid
 
     return {
         "static_messages": n_stat if 'n_stat' in locals() else 0,

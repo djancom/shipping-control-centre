@@ -18,13 +18,14 @@
       "source_date": "2026-11-10",
       "note": "Complete list from the official fleet page. All are chartered, so an owner number would not find them. Call signs as published (Joanna and Judith are both shown as CQ2049 on that page).",
       "listed": 10,
-      "with_mmsi": 0,
+      "with_mmsi": 1,
       "ships": [
         {
           "name": "AMELIE BORCHARD",
           "imo": "9242560",
           "callsign": "V2GC4",
-          "via": "official"
+          "via": "official",
+          "mmsi": "305886000"
         },
         {
           "name": "JOANNA BORCHARD",
