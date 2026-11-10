@@ -411,6 +411,7 @@ function showFleet(id) {
     const thisRun = !!(m && seenRun.has(m));
     return { ship: s, pos: p, heard, thisRun, stale: heard && isStalePos(p) };
   });
+  rows.sort((a, b) => (b.thisRun - a.thisRun) || (b.heard - a.heard) || String(a.ship.name || "").localeCompare(String(b.ship.name || "")));
   const onMap = rows.filter((r) => r.heard);
   const notSeen = rows.filter((r) => !r.thisRun);
   $("#fleetstats").innerHTML = onMap.length
