@@ -3,7 +3,7 @@
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
 const D = {};
-const FILES = ["status", "markets", "portwatch", "baltic", "drewry", "bunkers", "weather", "storms", "worldbank", "news", "derived", "ais"];
+const FILES = ["status", "markets", "portwatch", "baltic", "drewry", "bunkers", "weather", "storms", "worldbank", "news", "derived", "ais", "fleet-positions"];
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const COL = { green: "#2ecc71", amber: "#f5b041", red: "#ff5c5c" };
 const WORD = { green: "Green", amber: "Amber", red: "Red" };
@@ -57,8 +57,8 @@ let SEL = new URLSearchParams(location.search).get("cp") || "hormuz", charts = {
 async function getJSON(p) { try { const r = await fetch(p + "?v=" + Date.now(), { cache: "no-store" }); if (!r.ok) throw 0; return await r.json(); } catch (e) { return null; } }
 
 async function main() {
-  const res = await Promise.all([getJSON("static/geo.json")].concat(FILES.map((f) => getJSON("data/" + f + ".json"))));
-  geo = res[0]; FILES.forEach((f, i) => (D[f] = res[i + 1] || {}));
+  const res = await Promise.all([getJSON("static/geo.json"), getJSON("fleets.json")].concat(FILES.map((f) => getJSON("data/" + f + ".json"))));
+  geo = res[0]; D.fleetsFile = res[1] || {}; FILES.forEach((f, i) => (D[f] = res[i + 2] || {}));
   if (!geo || !geo.cps.some((c) => c.id === SEL)) SEL = "hormuz";
   const st = D.status || {}; const src = st.sources || {};
   const bad = Object.values(src).filter((s) => !s.ok).length;
@@ -75,7 +75,7 @@ function metas() {
     if (k === "derived") { el.innerHTML = `Computed from the data on this page at ${esc(fmtUK(d.as_of))}.`; return; }
     const asof = d.as_of ? (String(d.as_of).length > 10 ? fmtUK(d.as_of) : fmtUK(d.as_of, true)) : "n/a";
     const staleTag = s.ok === false ? ` <span class="stale">stale</span> last good ${esc(fmtUK(s.last_ok_uk))}; latest attempt failed ${esc(fmtUK(s.last_fail_uk))}` : "";
-    const srcName = k === "ais" ? "AISstream.io" : (d.source || s.label || k);
+    const srcName = (k === "ais" || k === "fleet-positions") ? "AISstream.io" : (d.source || s.label || k);
     el.innerHTML = `Source: <a href="${esc(s.url || "#")}" target="_blank" rel="noopener">${esc(srcName)}</a> · data as of ${esc(asof)} · checked ${esc(fmtUK(s.last_ok_uk || s.last_fail_uk))}${staleTag}`;
   });
 }
@@ -354,22 +354,150 @@ function sources() {
   $("#srctable").innerHTML = "<tr><th>Data</th><th>Source</th><th>Status</th><th class='n'>Data as of</th><th class='n'>Last success</th><th class='hide-s'>Note</th></tr>" +
     Object.entries(src).map(([k, s]) => `<tr><td>${esc(s.label)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(new URL(s.url).hostname)}</a></td><td>${s.ok ? '<span class="okb">OK</span>' : '<span class="stale">stale</span>'}</td><td class="n">${esc(String(s.as_of || "").length > 10 ? fmtUK(s.as_of) : fmtUK(s.as_of, true))}</td><td class="n">${esc(fmtUK(s.last_ok_uk))}</td><td class="hide-s hint">${k === "markets" ? esc("Served by: " + ((D.markets || {}).used || []).join(", ") + ". ") : ""}${s.ok ? "" : esc((s.error || "").slice(0, 120))}</td></tr>`).join("");
 }
-// Live ship traffic: VesselFinder's free embeddable map. Their official aismap.js writes this same iframe with
-// document.write, which cannot re-run after load, so we build the identical iframe URL to allow recentring.
-const LIVE = { suez: [30.0, 32.55, 9], bab: [12.6, 43.35, 9], hormuz: [26.4, 56.4, 8], malacca: [2.6, 101.2, 7], panama: [9.1, -79.7, 9],
+// Live ship traffic: VesselFinder embed for "All traffic" (official aismap.js uses document.write,
+// so we build the same iframe URL ourselves to allow recentring). "Fleet" is our Leaflet map of
+// last-known positions from the hourly AISstream sample — the VesselFinder widget cannot be
+// filtered by company.
+const LIVE = { world: [20, 0, 3], suez: [30.0, 32.55, 9], bab: [12.6, 43.35, 9], hormuz: [26.4, 56.4, 8], malacca: [2.6, 101.2, 7], panama: [9.1, -79.7, 9],
   gib: [35.95, -5.5, 9], dover: [51.0, 1.45, 9], bosporus: [41.12, 29.06, 11], cape: [-34.4, 18.4, 7] };
+const LIVE_ORDER = ["world", "suez", "bab", "hormuz", "malacca", "panama", "gib", "dover", "bosporus", "cape"];
+let liveView = "all", fleetSel = "borchard", fleetMap = null, fleetLayer = null;
 function liveSrc(id) {
-  const [lat, lon, zoom] = LIVE[id]; const el = $("#livewrap"); const h = Math.max(400, Math.round(el.clientHeight || 450));
-  const q = { zoom: Math.max(3, zoom - (window.innerWidth < 640 ? 1 : 0)), lat, lon, width: "100%", height: h, names: "false", track: "false", fleet: "false", fleet_name: "false",
+  const rec = LIVE[id] || LIVE.world; const [lat, lon, zoom] = rec; const el = $("#livewrap"); const h = Math.max(400, Math.round(el.clientHeight || 450));
+  // VesselFinder's widest zoom is 3. Keep World at 3; only tighten chokepoint zooms on a narrow phone.
+  const z = (id === "world") ? 3 : Math.max(3, zoom - (window.innerWidth < 640 ? 1 : 0));
+  const q = { zoom: z, lat, lon, width: "100%", height: h, names: "false", track: "false", fleet: "false", fleet_name: "false",
     fleet_hide_old_positions: "false", clicktoact: "true", store_pos: "false", ra: location.href };
   return "https://www.vesselfinder.com/aismap?" + Object.entries(q).map(([k, v]) => k + "=" + encodeURIComponent(v)).join("&");
 }
+function fleetList() { return ((D.fleetsFile || {}).fleets) || []; }
+function fleetById(id) { return fleetList().find((f) => f.id === id) || fleetList()[0] || null; }
+function coverageLine(f) {
+  if (!f) return "";
+  const n = (f.ships || []).length, m = (f.ships || []).filter((s) => s.mmsi).length;
+  const exp = f.expected;
+  let cov;
+  if (exp && n >= exp) cov = `${n} listed` + (n > exp ? ` (official operated fleet is about ${exp}; some may have left the fleet)` : ` of ${exp}`);
+  else if (exp) cov = `About ${n} of ~${exp} ships listed`;
+  else cov = `${n} ships listed` + (f.expected_note ? `. ${f.expected_note}` : "");
+  cov += ` · ${m} with an MMSI, so they can be looked up on AIS`;
+  if (f.note) cov += `. ${f.note}`;
+  return cov;
+}
+function isStalePos(row) {
+  const hours = (D["fleet-positions"] || {}).stale_after_hours || 6;
+  const age = ageHours(row && row.seen_uk);
+  return age == null || age > hours;
+}
+function showAllTraffic(id) {
+  fleetMap = null; fleetLayer = null;
+  const w = $("#livewrap");
+  w.innerHTML = `<iframe name="vesselfinder" title="Live ship traffic map (VesselFinder)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="${esc(liveSrc(id || "world"))}"></iframe>`;
+  $("#livenote").innerHTML = `Live map provided by VesselFinder (third-party embed). World is the default, at the widest zoom the widget allows (level 3). Tap or click the map to activate it, then zoom or drag; positions come from VesselFinder's AIS network and are not stored by this site. <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">vesselfinder.com</a>`;
+}
+function showFleet(id) {
+  const f = fleetById(id); if (!f) { $("#livewrap").innerHTML = `<div class="hint livehold">No fleets.json loaded.</div>`; return; }
+  fleetSel = f.id;
+  $("#fleetsel").value = f.id;
+  $("#fleetcov").textContent = coverageLine(f);
+  const pos = ((D["fleet-positions"] || {}).ships) || {};
+  const src = ((D.status || {}).sources || {})["fleet-positions"] || {};
+  const asof = (D["fleet-positions"] || {}).as_of;
+  const seenRun = new Set((D["fleet-positions"] || {}).seen || []);
+  const rows = (f.ships || []).map((s) => {
+    const m = s.mmsi ? String(s.mmsi) : "";
+    const p = (m && pos[m]) || (s.imo && Object.values(pos).find((x) => String(x.imo || "") === String(s.imo))) || null;
+    const heard = !!(p && p.lat != null && p.lon != null);
+    const thisRun = !!(m && seenRun.has(m));
+    return { ship: s, pos: p, heard, thisRun, stale: heard && isStalePos(p) };
+  });
+  const onMap = rows.filter((r) => r.heard);
+  const notSeen = rows.filter((r) => !r.thisRun);
+  $("#fleetstats").innerHTML = onMap.length
+    ? `<b>${onMap.length}</b> of ${rows.length} ships have a last-known position · <b>${rows.filter((r) => r.thisRun).length}</b> heard in the latest sample · ${esc(fmtUK(asof) || "no sample yet")}` + (src.ok === false ? ' <span class="stale">stale</span>' : "")
+    : `No last-known positions yet for this fleet. The hourly refresh plots ships after it has heard them on AISstream. ${esc(fmtUK(asof) || "")}`;
+  const dest = (p) => (p && p.destination) ? esc(p.destination) : "n/a";
+  const spd = (p) => (p && p.sog != null && !isNaN(p.sog)) ? num(p.sog, 1) + " kn" : "n/a";
+  $("#fleettable").innerHTML = "<tr><th>Ship</th><th>Status</th><th class='n'>Speed</th><th>Destination</th><th class='n'>Last seen</th><th class='hide-s'>IMO / MMSI</th></tr>" +
+    rows.map((r) => {
+      const s = r.ship, p = r.pos;
+      const st = !s.mmsi ? "No MMSI yet" : r.thisRun ? "Heard this sample" : r.heard ? (r.stale ? "Stale last-known" : "Last-known, not this sample") : "Not seen";
+      return `<tr class="${r.heard ? "click" : ""}" data-mmsi="${esc(s.mmsi || "")}"><td>${esc(s.name || "Unnamed")}</td><td>${esc(st)}</td><td class="n">${r.heard ? spd(p) : "—"}</td><td>${r.heard ? dest(p) : "—"}</td><td class="n">${r.heard ? esc(fmtUK(p.seen_uk)) : "—"}${r.stale ? ' <span class="stale">stale</span>' : ""}</td><td class="hide-s hint">${esc(s.imo || "—")} / ${esc(s.mmsi || "—")}</td></tr>`;
+    }).join("");
+  // Leaflet map of last-known positions only
+  if (typeof L === "undefined") {
+    $("#livewrap").innerHTML = `<div class="hint livehold">The map library failed to load, but the ship list is below.</div>`;
+    $("#livenote").innerHTML = fleetNote();
+    return;
+  }
+  $("#livewrap").innerHTML = `<div id="fmap" role="img" aria-label="Last-known positions of the selected fleet"></div>`;
+  if (fleetMap && fleetMap.remove) { try { fleetMap.remove(); } catch (e) {} }
+  fleetMap = L.map("fmap", { worldCopyJump: true, scrollWheelZoom: true }).setView([20, 0], 2);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: "abcd", maxZoom: 19,
+  }).addTo(fleetMap);
+  fleetLayer = L.layerGroup().addTo(fleetMap);
+  const pts = [];
+  onMap.forEach((r) => {
+    const p = r.pos;
+    const icon = L.divIcon({ className: "", html: `<div class="fleetdot${r.stale ? " stale" : ""}"></div>`, iconSize: [14, 14], iconAnchor: [7, 7] });
+    const mk = L.marker([p.lat, p.lon], { icon, title: r.ship.name || "" });
+    mk.bindPopup(`<b>${esc(r.ship.name || "Unnamed")}</b>Speed ${spd(p)} · dest ${dest(p)}<br>Last seen ${esc(fmtUK(p.seen_uk))}${r.stale ? ' <span class="stale">stale</span>' : ""}`);
+    mk.addTo(fleetLayer);
+    pts.push([p.lat, p.lon]);
+  });
+  if (pts.length) {
+    const b = L.latLngBounds(pts);
+    fleetMap.fitBounds(b.pad(0.25), { maxZoom: 8, padding: [24, 24] });
+  }
+  setTimeout(() => { if (fleetMap) fleetMap.invalidateSize(); }, 50);
+  $("#fleettable").querySelectorAll("tr[data-mmsi]").forEach((tr) => {
+    tr.onclick = () => {
+      const m = tr.getAttribute("data-mmsi"); const p = m && pos[m];
+      if (!p || p.lat == null || !fleetMap) return;
+      fleetMap.setView([p.lat, p.lon], Math.max(fleetMap.getZoom(), 7));
+    };
+  });
+  $("#livenote").innerHTML = fleetNote();
+}
+function fleetNote() {
+  const d = D["fleet-positions"] || {};
+  return `This is our map of the selected fleet's last-known positions, from a free AISstream terrestrial sample (typically within about 200 km of a shore station), not a live feed. ${esc(d.note || "Ships far offshore, or silent during the sample window, may be missing or stale.")} The list is not a complete census — see the coverage line above. Add ships by editing <code>fleets.json</code> (README). All traffic (VesselFinder) is a separate view and cannot be filtered by company.`;
+}
+function fillFleetSelect(filter) {
+  const q = (filter || "").trim().toLowerCase();
+  const sel = $("#fleetsel");
+  const items = fleetList().filter((f) => {
+    if (!q) return true;
+    const blob = [f.name, f.id, ...(f.aliases || [])].join(" ").toLowerCase();
+    return blob.includes(q);
+  });
+  sel.innerHTML = (items.length ? items : fleetList()).map((f) => `<option value="${esc(f.id)}">${esc(f.name)}</option>`).join("") || `<option value="">No fleets</option>`;
+  if (items.some((f) => f.id === fleetSel)) sel.value = fleetSel;
+  else if (items[0]) fleetSel = items[0].id, sel.value = fleetSel;
+}
 function live() {
-  const sel = $("#livesel"); const order = ["suez", "bab", "hormuz", "malacca", "panama", "gib", "dover", "bosporus", "cape"];
-  sel.innerHTML = order.map((id) => `<option value="${id}">${esc((geo.cps.find((c) => c.id === id) || { name: id }).name)}</option>`).join("");
-  sel.value = "suez";
-  const show = (id) => { const w = $("#livewrap"); w.innerHTML = `<iframe name="vesselfinder" title="Live ship traffic map (VesselFinder)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="${esc(liveSrc(id))}"></iframe>`; };
-  sel.onchange = () => show(sel.value);
-  show("suez");
+  const sel = $("#livesel");
+  const cpName = (id) => id === "world" ? "World" : ((geo.cps.find((c) => c.id === id) || { name: id }).name);
+  sel.innerHTML = LIVE_ORDER.map((id) => `<option value="${id}">${esc(cpName(id))}</option>`).join("");
+  sel.value = "world";
+  fillFleetSelect("");
+  if (fleetById("borchard")) { fleetSel = "borchard"; $("#fleetsel").value = "borchard"; }
+  const setView = (v) => {
+    liveView = v;
+    $("#allcontrols").hidden = v !== "all";
+    $("#fleetcontrols").hidden = v !== "fleet";
+    $("#fleetpanel").hidden = v !== "fleet";
+    const meta = document.querySelector('#live .meta[data-src="fleet-positions"]');
+    if (meta) meta.hidden = v !== "fleet";
+    if (v === "all") showAllTraffic(sel.value || "world");
+    else showFleet(fleetSel);
+  };
+  segs("#liveview", setView);
+  sel.onchange = () => { if (liveView === "all") showAllTraffic(sel.value); };
+  $("#fleetsel").onchange = () => { fleetSel = $("#fleetsel").value; if (liveView === "fleet") showFleet(fleetSel); };
+  $("#fleetq").oninput = () => { fillFleetSelect($("#fleetq").value); if (liveView === "fleet") showFleet($("#fleetsel").value); };
+  setView("all");
 }
 document.addEventListener("DOMContentLoaded", main);

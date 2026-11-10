@@ -9,7 +9,7 @@ concurrency: { group: refresh, cancel-in-progress: false }
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     env:
       AISSTREAM_KEY: ${{ secrets.AISSTREAM_KEY }}   # optional; AIS sampling is skipped when empty
     steps:
@@ -26,7 +26,7 @@ jobs:
         run: |
           git config user.name "data-refresh-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
+          git add data fleets.json
           # status.json and history.json change every run; commit only if a real data file changed
           okchg=$(python - <<'PY'
           import json, subprocess

@@ -88,6 +88,28 @@ ul.list.plain{color:var(--mut)}
 .flag{border-left:3px solid var(--amber);padding:4px 8px;background:#1b1a14;margin:6px 0;font-size:12px}
 .flag.red{border-color:var(--red);background:#1f1416}
 .foot{color:var(--mut);font-size:11.5px;padding:10px 14px 30px;max-width:1700px;margin:0 auto}
+
+.livebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.livebar[hidden],#fleetpanel[hidden],#fleetcontrols[hidden]{display:none}
+#fleetq{background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit;min-height:32px;min-width:160px;margin-left:4px}
+#fleetsel{background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit;min-height:32px;max-width:100%}
+#fleetcov{flex:1 1 220px}
+#fmap{position:absolute;inset:0;background:var(--sea);z-index:1}
+.leaflet-container{background:var(--sea);font:inherit;color:var(--txt)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#16212e;color:var(--txt);border:1px solid var(--line)}
+.leaflet-popup-content{margin:8px 10px;font-size:12.5px}
+.leaflet-popup-content b{display:block;margin-bottom:2px}
+.leaflet-control-attribution{background:rgba(11,16,23,.8)!important;color:var(--mut)!important;font-size:10px}
+.leaflet-control-attribution a{color:var(--acc)}
+.fleetdot{width:14px;height:14px;border-radius:50%;border:2px solid #e8f1fa;background:var(--acc);box-shadow:0 0 0 1px #0d1620}
+.fleetdot.stale{background:var(--amber);border-color:#ffe1a8}
+#fleetpanel{margin-top:8px}
+#fleetpanel .t td:first-child{font-weight:600}
+@media (max-width:640px){
+  .livebar{align-items:stretch;flex-direction:column}
+  #fleetq,#fleetsel,#livesel{width:100%;margin-left:0;max-width:none}
+  #fleetpanel{max-height:280px;overflow:auto}
+}
 @media (max-width:1100px){.span4,.span5,.span6,.span7,.span8{grid-column:span 12}.leftcol{display:contents}.grid>section,.leftcol>section{order:1}#map,#detail{order:0}.leftcol>section{grid-column:span 12}.detail{min-height:0}.detail #d-body{position:static;overflow:visible}}
 @media (max-width:640px){
   body{font-size:13.5px}

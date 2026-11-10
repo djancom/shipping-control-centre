@@ -8,6 +8,8 @@
 <meta name="theme-color" content="#0b1017">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%276%27 fill=%27%232ecc71%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 <script src="app.js" defer></script>
 </head>
@@ -51,9 +53,28 @@
 
   <section class="card span12" id="live">
     <div class="ch"><h2>Live ship traffic</h2>
-      <label class="hint" for="livesel">Centre on <select id="livesel" aria-label="Centre live map on chokepoint"></select></label></div>
+      <div class="seg" id="liveview" role="tablist" aria-label="Live map view">
+        <button type="button" data-v="all" class="on">All traffic</button>
+        <button type="button" data-v="fleet">Fleet</button>
+      </div>
+    </div>
+    <div class="livebar" id="allcontrols">
+      <label class="hint" for="livesel">Centre on <select id="livesel" aria-label="Centre live map on a region"></select></label>
+    </div>
+    <div class="livebar" id="fleetcontrols" hidden>
+      <label class="hint" for="fleetq">Fleet
+        <input id="fleetq" type="search" placeholder="Search companies" autocomplete="off" aria-label="Search fleets">
+      </label>
+      <select id="fleetsel" aria-label="Choose a fleet"></select>
+      <div class="hint" id="fleetcov"></div>
+    </div>
     <div class="livewrap" id="livewrap"><div class="hint livehold">Loading live map…</div></div>
-    <p class="note">Live map provided by VesselFinder (third-party embed). Tap or click the map to activate it, then zoom or drag; positions come from VesselFinder's AIS network and are not stored by this site. <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">vesselfinder.com</a></p>
+    <div id="fleetpanel" hidden>
+      <div class="hint" id="fleetstats"></div>
+      <div class="tw"><table class="t" id="fleettable"></table></div>
+    </div>
+    <p class="note" id="livenote"></p>
+    <div class="meta" data-src="fleet-positions" hidden></div>
   </section>
 
   <section class="card span12" id="changed">

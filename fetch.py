@@ -551,7 +551,11 @@ if __name__ == "__main__":
         def ais():
             import ais as A
             r = A.sample(60); r["as_of"] = uk(dt.datetime.now(UK)); return r
+        def fleet_positions():
+            import ais as A
+            return A.sample_fleets()
         jobs.append(("ais", ais, "Ships in chokepoint areas (AIS sample)", "https://aisstream.io/"))
+        jobs.append(("fleet-positions", fleet_positions, "Fleet last-known positions (AIS sample)", "https://aisstream.io/"))
     else:
         print("SKIP ais: AISSTREAM_KEY not set (dormant)")
     for name, fn, label, url in jobs:
