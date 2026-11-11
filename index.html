@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script src="wxlayers.js" defer></script>
 <script src="app.js" defer></script>
 <script src="risk.js" defer></script>
 </head>
@@ -35,7 +36,7 @@
     <div class="mapwrap"><svg id="svgmap" viewBox="0 -8 1000 352" role="img" aria-label="World map of shipping lanes and chokepoints"></svg></div>
     <div class="legend">
       <span><i class="dot green"></i>Green</span><span><i class="dot amber"></i>Amber</span><span><i class="dot red"></i>Red</span>
-      <span><i class="lanekey"></i>Lane width = 7-day avg transits at its chokepoint</span><span><i class="stormkey">🌀</i>Active tropical cyclone (GDACS)</span><span>Number on a marker = ships heard in a ~60s AIS sample</span>
+      <span><i class="lanekey"></i>Lane width = 7-day avg transits at its chokepoint</span><span id="maplayers" class="layers">Layers: <label><input type="checkbox" data-l="storms" checked> 🌀 Storms <span class="hint" id="stormcount"></span></label> <label><input type="checkbox" data-l="wx"> 🌊 Wind &amp; waves now</label></span><span>Number on a marker = ships heard in a ~60s AIS sample</span>
     </div>
     <p class="rule" id="rule">Status rule: <b>red</b> if 7-day average transits are under 50% of the same week a year earlier, or a headline from the last 7 days names the place and reports an attack on shipping; <b>amber</b> if under 85% of a year earlier, or such a headline reports a warning, diversion or suspension; otherwise <b>green</b>. Headline flags are set automatically by keyword and shown in the panel so you can judge them.</p>
     <div class="meta" data-src="portwatch"></div>
@@ -72,6 +73,7 @@
       <div class="hint" id="fleetcov"></div>
     </div>
     <div class="livewrap" id="livewrap"><div class="hint livehold">Loading live map…</div></div>
+    <div class="hint" id="fleetwx"></div>
     <div id="fleetpanel" hidden>
       <div class="hint" id="fleetstats"></div>
       <div class="tw"><table class="t" id="fleettable"></table></div>
@@ -180,11 +182,15 @@
       <label><input type="checkbox" id="risk-tog-jwc" checked> <i class="sw jwc"></i> JWC listed areas</label>
       <label><input type="checkbox" id="risk-tog-adv" checked> <i class="sw adv"></i> Advisory areas</label>
       <label><input type="checkbox" id="risk-tog-inc" checked> <i class="sw inc"></i> UKMTO incidents</label>
+      <label><input type="checkbox" id="risk-tog-storm" checked> <i class="sw storm"></i> Storms</label>
+      <label><input type="checkbox" id="risk-tog-wx"> 🌊 Wind &amp; waves</label>
+      <label><input type="checkbox" id="risk-tog-rain"> 🌧 Rain radar</label>
       <span class="hint" id="risk-inc-count"></span>
+      <span class="hint" id="risk-storm-count"></span>
     </div>
     <div class="riskwrap">
       <div>
-        <div id="riskmap" role="img" aria-label="Map of war-risk listed areas, advisory zones and recent incidents"></div>
+        <div><div id="riskmap" role="img" aria-label="Map of war-risk listed areas, advisory zones and recent incidents"></div><div class="hint" id="risk-wx-note"></div></div>
         <div class="risk-detail" id="risk-detail" aria-live="polite"></div>
       </div>
       <div class="uw" id="risk-underwriting"></div>

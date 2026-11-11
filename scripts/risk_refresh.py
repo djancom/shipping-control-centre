@@ -29,6 +29,19 @@ JMIC_TYPE = "84a787ea-9bf6-4f47-9689-e2c0546dbdad"
 JMIC_COUNT = f"https://sc.royalnavy.mod.uk/api/ukmto/products-count/{JMIC_TYPE}"
 LMA_PAGE = "https://lmalloyds.com/specialist-areas/underwriting/listed-areas/"
 MARAD_PAGE = "https://www.maritime.dot.gov/msci-advisories"
+# UKMTO's API returns 403 to GitHub-hosted runners; David's Cloudflare Worker relays it (cached 30 min).
+RELAY = "https://atalaya-data.djancom.workers.dev/ship/ukmto"
+_RELAY_CACHE = {}
+
+
+def relay():
+    if "doc" not in _RELAY_CACHE:
+        r = requests.get(RELAY, timeout=40, headers={"User-Agent": "shipping-control-centre refresh"})
+        r.raise_for_status()
+        _RELAY_CACHE["doc"] = r.json()
+    return _RELAY_CACHE["doc"]
+
+
 CURRENT_JWLA = "JWLA-035"
 CURRENT_JMIC = 112
 
@@ -108,7 +121,11 @@ def refresh_incidents():
     path = os.path.join(RISK, "incidents.json")
     old = load_json(path, {}) or {}
     try:
-        raw = get(UKMTO_ALL).json()
+        try:
+            raw = get(UKMTO_ALL).json()
+        except Exception as direct_err:
+            print("UKMTO direct failed, using Worker relay:", direct_err)
+            raw = relay().get("all")
         if not isinstance(raw, list) or not raw:
             raise RuntimeError("UKMTO API returned no incidents")
         items = []
@@ -200,7 +217,13 @@ def check_jmic():
         "error": None,
     }
     try:
-        counts = get(JMIC_COUNT).json()
+        try:
+            counts = get(JMIC_COUNT).json()
+        except Exception:
+            d = relay()
+            if "jmic_counts" not in d:
+                raise RuntimeError(d.get("jmic_error") or "JMIC count unavailable via relay")
+            counts = d["jmic_counts"]
         out["year_counts"] = counts if isinstance(counts, list) else []
         out["ok"] = True
     except Exception as e:

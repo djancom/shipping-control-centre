@@ -15,7 +15,7 @@
   };
 
   const R = {};
-  let map, layers = { jwc: null, advisory: null, incidents: null };
+  let map, layers = { jwc: null, advisory: null, incidents: null, storms: null, wx: null, rain: null };
   let days = 30;
 
   function incClass(t) {
@@ -83,6 +83,8 @@
     map.createPane("paneAdv"); map.getPane("paneAdv").style.zIndex = 350;
     map.createPane("paneJwc"); map.getPane("paneJwc").style.zIndex = 400;
     map.createPane("paneInc"); map.getPane("paneInc").style.zIndex = 650;
+    map.createPane("paneStorm"); map.getPane("paneStorm").style.zIndex = 450;
+    map.createPane("paneWx"); map.getPane("paneWx").style.zIndex = 330;
 
     const zones = R.zones || { features: [] };
     layers.advisory = L.geoJSON(zones, {
@@ -104,9 +106,52 @@
       },
     });
     layers.incidents = L.layerGroup();
+    layers.storms = stormLayer();
+    if (window.WXL) {
+      layers.wx = WXL.gridLayer("paneWx");
+      WXL.rainLayer("paneWx").then(([lay, lab]) => { layers.rain = lay; R.rainLabel = lab; applyToggles(); });
+    }
     applyToggles();
     drawIncidents();
     setTimeout(() => { if (map) map.invalidateSize(); }, 80);
+  }
+
+  // Active tropical cyclones (data/storms.json, written by fetch.py each hourly run)
+  function stormList() {
+    const st = R.storms || {}; const out = [];
+    const nhcById = {}; (st.nhc || []).forEach((n) => { nhcById[n.id] = n; });
+    (st.gdacs || []).forEach((g) => {
+      const n = g.nhc ? nhcById[g.nhc] : null;
+      out.push({ name: n ? n.name : String(g.name || "").replace(/-\d+$/, ""), lat: g.lat, lon: g.lon, past: g.past || [],
+        forecast: (n && n.forecast && n.forecast.length) ? n.forecast : (g.forecast || []),
+        cone: (n && n.cone && n.cone.length) ? n.cone : (g.swath || []), coneKind: (n && n.cone && n.cone.length) ? "NHC official cone of uncertainty" : "GDACS forecast swath of winds 60 km/h or more",
+        sev: n ? `${n.cls} ${n.kt} kt, moving ${n.dir}° at ${n.spd} kt` : g.sev, level: g.level, when: n ? n.updated_uk : g.to,
+        src: n ? "NHC/CPHC advisory + GDACS" : `GDACS (${g.agency || "agency n/a"})`, link: n ? n.link : g.link, countries: g.countries });
+    });
+    (st.nhc || []).forEach((n) => { if (!n.gdacs) out.push({ name: n.name, lat: n.lat, lon: n.lon, past: [], forecast: n.forecast || [], cone: n.cone || [],
+      coneKind: "NHC official cone of uncertainty", sev: `${n.cls} ${n.kt} kt`, when: n.updated_uk, src: "NHC/CPHC advisory", link: n.link }); });
+    return out;
+  }
+  function stormHtml(s) {
+    return `<h3>🌀 ${esc(s.name)}</h3><p><b>${esc(s.sev || "")}</b>${s.level ? ` · GDACS ${esc(s.level)}` : ""}${s.countries ? ` · near ${esc(s.countries)}` : ""}</p>
+      <p>Position ${Number(s.lat).toFixed(1)}°, ${Number(s.lon).toFixed(1)}° as of ${esc(fmtUK(s.when, true))}. Solid line = past track, dashed = forecast track. Shaded area = ${esc(s.coneKind)}.</p>
+      <p class="hint">Source: ${esc(s.src)}${s.link ? ` · <a href="${esc(s.link)}" target="_blank" rel="noopener">official page</a>` : ""}. ${esc((R.storms || {}).cone_note || "")}</p>`;
+  }
+  function stormLayer() {
+    const g = L.layerGroup();
+    const shift = (pts) => pts; // coordinates are already unwrapped across the antimeridian
+    stormList().forEach((s) => {
+      (s.cone || []).forEach((ring) => { if (ring.length > 2) L.polygon(shift(ring), { pane: "paneStorm", color: "#b48cff", weight: 1, fillColor: "#b48cff", fillOpacity: 0.18 }).on("click", () => showDetail(stormHtml(s))).addTo(g); });
+      if (s.past.length > 1) L.polyline(shift(s.past), { pane: "paneStorm", color: "#9fd3ff", weight: 2 }).addTo(g);
+      if (s.forecast.length > 1) L.polyline(shift(s.forecast), { pane: "paneStorm", color: "#ffffff", weight: 2, dashArray: "5 5" }).addTo(g);
+      if (s.lat != null) {
+        const icon = L.divIcon({ className: "", html: `<div class="stormmk" title="${esc(s.name)}">🌀</div>`, iconSize: [22, 22], iconAnchor: [11, 11] });
+        L.marker([s.lat, s.lon], { icon, pane: "paneInc", title: s.name }).bindTooltip(`${s.name}: ${s.sev || ""}`, { opacity: 0.9 }).on("click", () => showDetail(stormHtml(s))).addTo(g);
+      }
+    });
+    const el = $("#risk-storm-count"); const st = R.storms || {};
+    if (el) { const n = stormList().length; el.innerHTML = st.as_of ? (n ? `<b>${n}</b> active tropical cyclone${n > 1 ? "s" : ""}` : "No active storms") + ` · GDACS / NHC, checked ${esc(fmtUK(st.as_of))}` : "Storm feed unavailable"; }
+    return g;
   }
 
   function filteredIncidents() {
@@ -135,13 +180,19 @@
 
   function applyToggles() {
     if (!map) return;
-    [["jwc", "#risk-tog-jwc"], ["advisory", "#risk-tog-adv"], ["incidents", "#risk-tog-inc"]].forEach(([k, sel]) => {
+    [["jwc", "#risk-tog-jwc"], ["advisory", "#risk-tog-adv"], ["incidents", "#risk-tog-inc"], ["storms", "#risk-tog-storm"], ["wx", "#risk-tog-wx"], ["rain", "#risk-tog-rain"]].forEach(([k, sel]) => {
       const on = $(sel) ? $(sel).checked : true;
       if (layers[k]) {
         if (on && !map.hasLayer(layers[k])) layers[k].addTo(map);
         if (!on && map.hasLayer(layers[k])) map.removeLayer(layers[k]);
       }
     });
+    const note = $("#risk-wx-note");
+    if (note && window.WXL) {
+      const parts = [];
+      if ($("#risk-tog-wx") && $("#risk-tog-wx").checked) WXL.loadGrid().then(() => { note.innerHTML = [WXL.gridLabel()].concat($("#risk-tog-rain").checked ? [R.rainLabel || "Rain radar: loading…"] : []).join("<br>"); });
+      else note.innerHTML = $("#risk-tog-rain") && $("#risk-tog-rain").checked ? (R.rainLabel || "Rain radar: loading…") : "";
+    }
   }
 
   function defaultDetail() {
@@ -211,7 +262,7 @@
       days = +b.dataset.d || 30;
       drawIncidents();
     });
-    ["#risk-tog-jwc", "#risk-tog-adv", "#risk-tog-inc"].forEach((s) => {
+    ["#risk-tog-jwc", "#risk-tog-adv", "#risk-tog-inc", "#risk-tog-storm", "#risk-tog-wx", "#risk-tog-rain"].forEach((s) => {
       const el = $(s); if (el) el.onchange = applyToggles;
     });
   }
@@ -230,12 +281,14 @@
 
   async function initRisk() {
     if (!$("#risk")) return;
-    const [zones, incidents, underwriting, advisories] = await Promise.all([
+    const [zones, incidents, underwriting, advisories, storms] = await Promise.all([
       getJSON("data/risk/zones.json"),
       getJSON("data/risk/incidents.json"),
       getJSON("data/risk/underwriting.json"),
       getJSON("data/risk/advisories.json"),
+      getJSON("data/storms.json"),
     ]);
+    R.storms = storms || {};
     R.zones = zones || { features: [] };
     R.incidents = incidents || {};
     R.underwriting = underwriting;

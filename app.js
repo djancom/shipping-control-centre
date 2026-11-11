@@ -63,7 +63,7 @@ async function main() {
   const st = D.status || {}; const src = st.sources || {};
   const bad = Object.values(src).filter((s) => !s.ok).length;
   $("#runline").innerHTML = `Free public data · data last updated ${esc(fmtUK(st.run_uk))} (${esc(st.runner || "")}) · ` + (bad ? `<span class="stale">${bad} source${bad > 1 ? "s" : ""} stale</span>` : `<span class="okb">all sources OK</span>`);
-  safe(metas); safe(ticker); safe(map); safe(detail); safe(kpis); safe(changed); safe(cptable); safe(energy); safe(bunkers); safe(freight);
+  safe(metas); safe(ticker); safe(map); safe(bindLayers); safe(detail); safe(kpis); safe(changed); safe(cptable); safe(energy); safe(bunkers); safe(freight);
   safe(equities); safe(route); safe(agri); safe(fert); safe(weather); safe(storms); safe(intel); safe(fx); safe(news); safe(sources); safe(live);
 }
 function safe(f) { try { f(); } catch (e) { console.error(f.name, e); } }
@@ -121,9 +121,7 @@ function map() {
   h += `<path class="land" d="${geo.land}"/>`;
   geo.lanes.forEach((l) => { const c = pw[l.via] || {}; const w = 1.2 + 6 * Math.sqrt((c.w || 0) / maxW);
     h += `<path class="lane" data-cp="${l.via}" d="${l.d}" stroke="${COL[cpStatus(l.via)]}" stroke-width="${w.toFixed(2)}"><title>${esc(l.name)}: ${num(c.w)} transits/day at ${esc(c.name || l.via)} (7-day avg to ${esc(fmtUK(c.last_date))})</title></path>`; });
-  const st = D.storms || {};
-  (st.gdacs || []).forEach((s) => { if (s.lat == null) return; const [x, y] = px(s.lon, s.lat); if (y < -8 || y > 344) return;
-    h += `<g class="storm"><text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="15">🌀</text><text x="${x + 9}" y="${y - 8}" font-size="8" fill="#9fd3ff">${/^[A-Za-z]/.test(s.name || "") ? esc(s.name.replace(/-\d+$/, "")) : ""}</text><title>${esc(s.name)}: ${esc(s.sev || "")} (GDACS ${esc(s.level)}), as of ${esc(fmtUK(s.to))}</title></g>`; });
+  if (LAYER.storms) h += stormSvg();
   geo.cps.forEach((c) => { const s = cpStatus(c.id); const on = c.id === SEL; const ai = aisInfo(c.id);
     const aisLab = ai.state === "ok" ? `, ${ai.vessels} ships in area now` : (ai.state === "none" ? ", AIS: no data" : "");
     h += `<g class="cp" data-cp="${c.id}" tabindex="0" role="button" aria-label="${esc(c.name)} ${WORD[s]}${esc(aisLab)}">` +
@@ -132,10 +130,50 @@ function map() {
       `<circle class="mk" cx="${c.x}" cy="${c.y}" r="${on ? 9 : 7}" fill="${COL[s]}" stroke="${on ? "#fff" : "#0d1620"}" stroke-width="${on ? 3 : 2}"/>` +
       (ai.state === "ok" ? `<text class="aisn" x="${c.x}" y="${c.y - 13}" text-anchor="middle" font-size="9" stroke-width="3">${ai.vessels}</text>` : "") +
       `<text class="lbl" x="${c.x + c.lx * 0.8}" y="${c.y + c.ly * 0.8}" text-anchor="${c.anchor}" font-size="12" stroke-width="3.5">${esc(c.short)}</text></g>`; });
+  if (LAYER.wx) h += wxSvg();
   svg.innerHTML = h;
   svg.querySelectorAll("[data-cp]").forEach((g) => { g.addEventListener("click", () => select(g.dataset.cp)); g.addEventListener("keydown", (e) => { if (e.key === "Enter") select(g.dataset.cp); }); });
   $$("#zoom button").forEach((b) => b.onclick = () => { $$("#zoom button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); setZoom(b.dataset.z); });
   setZoom("world");
+}
+// ---- toggleable map layers: storms (GDACS + NHC) and wind & waves (Open-Meteo, current model slot)
+const LAYER = { storms: true, wx: false };
+function stormItems() {
+  const st = D.storms || {}; const byId = {}; (st.nhc || []).forEach((n) => { byId[n.id] = n; });
+  const out = (st.gdacs || []).map((g) => { const n = g.nhc ? byId[g.nhc] : null;
+    return { name: n ? n.name : String(g.name || "").replace(/-\d+$/, ""), lat: g.lat, lon: g.lon, past: g.past || [],
+      fc: (n && n.forecast && n.forecast.length) ? n.forecast : (g.forecast || []), cone: (n && n.cone && n.cone.length) ? n.cone : (g.swath || []),
+      tip: n ? `${n.name}: ${n.cls} ${n.kt} kt (NHC/CPHC advisory ${fmtUK(n.updated_uk)}); shaded = NHC cone of uncertainty` : `${g.name}: ${g.sev || ""} (GDACS ${g.level}, ${g.agency || ""}), as of ${fmtUK(g.to)}; shaded = GDACS forecast swath of winds 60 km/h+` }; });
+  (st.nhc || []).forEach((n) => { if (!n.gdacs) out.push({ name: n.name, lat: n.lat, lon: n.lon, past: [], fc: n.forecast || [], cone: n.cone || [], tip: `${n.name}: ${n.cls} ${n.kt} kt (NHC/CPHC ${fmtUK(n.updated_uk)})` }); });
+  return out;
+}
+function stormSvg() {
+  const pts = (a) => a.map(([la, lo]) => px(lo, la).map((v) => v.toFixed(1)).join(",")).join(" ");
+  let h = "";
+  stormItems().forEach((s) => {
+    s.cone.forEach((r) => { if (r.length > 2) h += `<polygon class="scone" points="${pts(r)}"><title>${esc(s.tip)}</title></polygon>`; });
+    if (s.past.length > 1) h += `<polyline class="spast" points="${pts(s.past)}"/>`;
+    if (s.fc.length > 1) h += `<polyline class="sfc" points="${pts(s.fc)}"/>`;
+    if (s.lat == null) return; const [x, y] = px(s.lon, s.lat);
+    h += `<g class="storm"><text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="15">🌀</text><text x="${x + 9}" y="${y - 8}" font-size="8" fill="#9fd3ff">${/^[A-Za-z]/.test(s.name || "") ? esc(s.name) : ""}</text><title>${esc(s.tip)}</title></g>`;
+  });
+  return h;
+}
+function wxNow(g) { const p = ((D.weather || {}).points || {})[g.wx]; return p && p.now ? p.now : null; }
+function wxSvg() {
+  let h = "";
+  geo.cps.forEach((c) => { const n = wxNow(c); if (!n) return;
+    const rot = n.wind_dir == null ? 0 : (n.wind_dir + 180) % 360; // arrow points where the wind blows to
+    const hi = (n.gust >= 34 || (n.wave != null && n.wave >= 4)) ? " hi" : "";
+    h += `<g class="wx${hi}" data-x="${c.x}" data-y="${c.y}"><g class="wxa" transform="translate(${c.x - 14},${c.y + 14}) rotate(${rot})"><path d="M0,-6 L3,2 L0,0.5 L-3,2 Z"/></g>` +
+      `<text class="wxt" x="${c.x - 6}" y="${c.y + 17}" font-size="8" stroke-width="2.5">${n.wave == null ? "–" : num(n.wave, 1) + "m"} ${Math.round(n.wind)}kn</text>` +
+      `<title>${esc(c.name)} now (${esc(fmtUK(n.time_uk))}): waves ${n.wave == null ? "n/a" : num(n.wave, 1) + " m"}, wind ${Math.round(n.wind)} kn from ${Math.round(n.wind_dir)}°, gusts ${Math.round(n.gust)} kn. Open-Meteo model.</title></g>`; });
+  return h;
+}
+function bindLayers() {
+  $$("#maplayers input").forEach((el) => { el.checked = !!LAYER[el.dataset.l]; el.onchange = () => { LAYER[el.dataset.l] = el.checked; const z = ($("#zoom button.on") || {}).dataset; map(); if (z) { $$("#zoom button").forEach((x) => x.classList.toggle("on", x.dataset.z === z.z)); setZoom(z.z); } }; });
+  const st = D.storms || {}; const n = stormItems().length; const el = $("#stormcount");
+  if (el) el.textContent = st.as_of ? (n ? `${n} active` : "No active storms") : "storm feed unavailable";
 }
 function setZoom(z) {
   const svg = $("#svgmap"); const narrow = window.innerWidth < 640;
@@ -146,6 +184,10 @@ function setZoom(z) {
   svg.querySelectorAll(".cp .aisn").forEach((t) => { t.setAttribute("font-size", (9 * Math.max(k, 0.3)).toFixed(2)); t.setAttribute("stroke-width", (3 * Math.max(k, 0.3)).toFixed(2)); });
   svg.querySelectorAll(".cp .pulse").forEach((t) => t.setAttribute("r", (8 * Math.max(k, 0.32)).toFixed(2)));
   svg.querySelectorAll(".lane").forEach((l) => { if (!l.dataset.w) l.dataset.w = l.getAttribute("stroke-width"); l.setAttribute("stroke-width", (l.dataset.w * Math.max(k, 0.35)).toFixed(2)); });
+  svg.querySelectorAll(".wxt").forEach((t) => { t.setAttribute("font-size", (8 * Math.max(k, 0.3)).toFixed(2)); t.setAttribute("stroke-width", (2.5 * Math.max(k, 0.3)).toFixed(2)); });
+  svg.querySelectorAll(".wx").forEach((g) => { const a = g.querySelector(".wxa"), t = g.querySelector(".wxt"), x = +g.dataset.x, y = +g.dataset.y, kk = Math.max(k, 0.3); const rot = (a.getAttribute("transform").match(/rotate\(([-\d.]+)\)/) || [0, 0])[1];
+    a.setAttribute("transform", `translate(${(x - 14 * kk).toFixed(2)},${(y + 14 * kk).toFixed(2)}) rotate(${rot}) scale(${kk.toFixed(2)})`); t.setAttribute("x", (x - 6 * kk).toFixed(2)); t.setAttribute("y", (y + 17 * kk).toFixed(2)); });
+  svg.querySelectorAll(".scone,.spast,.sfc").forEach((l) => l.style.strokeWidth = (1.5 * Math.max(k, 0.35)).toFixed(2));
   svg.querySelectorAll(".storm text").forEach((t) => { if (!t.dataset.fs) t.dataset.fs = t.getAttribute("font-size"); t.setAttribute("font-size", (t.dataset.fs * Math.max(k, 0.35)).toFixed(2)); });
 }
 function select(id) {
@@ -181,6 +223,7 @@ function detail() {
     ${aisRow()}
   </dl>
   <h3>Weekly avg daily transits, 26 weeks</h3><div class="chartbox mini"><canvas id="cpchart"></canvas></div>`;
+  if (wx && wx.now) { const nw = wx.now; h += `<h3>Wind and waves now, ${esc(g.wx)}</h3><dl class="props"><dt>Waves</dt><dd><b>${nw.wave == null ? "n/a" : num(nw.wave, 1) + " m"}</b>${nw.wave_period != null ? `, period ${num(nw.wave_period, 0)} s` : ""}${nw.wave_dir != null ? `, from ${Math.round(nw.wave_dir)}°` : ""}</dd><dt>Wind</dt><dd><b>${Math.round(nw.wind)} kn</b> from ${Math.round(nw.wind_dir)}°, gusts ${Math.round(nw.gust)} kn</dd></dl><div class="hint">Open-Meteo model value for ${esc(fmtUK(nw.time_uk))}, fetched ${esc(fmtUK((D.weather || {}).as_of))}. A model estimate, not a buoy reading.</div>`; }
   if (wx) h += `<h3>Sea state, ${esc(g.wx)}</h3><div class="hint">` + wx.dates.map((d, i) => `${fmtUK(d)}: ${wx.wave[i] == null ? "wave n/a" : num(wx.wave[i]) + " m"}, gust ${Math.round(wx.gust[i])} kn`).join(" · ") + `</div>`;
   if (n.why && n.why.length) h += n.why.map((i) => `<div class="flag ${n.flag === "attacks" ? "red" : ""}">Flag trigger: <a href="${esc(i.l)}" target="_blank" rel="noopener">${esc(i.t)}</a> <span class="hint">${esc(i.s)}, ${esc(fmtUK(i.d))}</span></div>`).join("");
   h += `<h3>Latest dated reports</h3><ul class="news">` + (n.items || []).slice(0, 5).map(li).join("") + `</ul>`;
@@ -327,9 +370,10 @@ function weather() {
 }
 function storms() {
   const s = D.storms || {}; const L = [];
-  (s.gdacs || []).forEach((x) => L.push(`<li><b>${esc(x.name)}</b> <span class="b ${x.level === "Red" ? "red" : x.level === "Orange" ? "amber" : "green"}">${esc(x.level)}</span> ${esc(x.sev || "")}${x.countries ? " · near " + esc(x.countries) : ""} · ${num(x.lat, 1)}°, ${num(x.lon, 1)}° · as of ${esc(fmtUK(x.to))} <a href="${esc(x.link)}" target="_blank" rel="noopener">GDACS</a></li>`));
+  (s.gdacs || []).forEach((x) => L.push(`<li><b>${esc(x.name)}</b> <span class="b ${x.level === "Red" ? "red" : x.level === "Orange" ? "amber" : "green"}">${esc(x.level)}</span> ${esc(x.sev || "")}${x.countries ? " · near " + esc(x.countries) : ""}${x.agency ? " · " + esc(x.agency) : ""} · ${num(x.lat, 1)}°, ${num(x.lon, 1)}° · as of ${esc(fmtUK(x.to))} <a href="${esc(x.link)}" target="_blank" rel="noopener">GDACS</a></li>`));
   (s.nhc || []).forEach((x) => L.push(`<li><b>${esc(x.name)}</b> (${esc(x.cls)}, ${esc(x.kt)} kt) at ${esc(x.pos)}, moving ${esc(x.dir)}° at ${esc(x.spd)} kt · NHC/CPHC advisory ${esc(fmtUK(x.updated_uk))}</li>`));
-  $("#stormlist").innerHTML = L.join("") || "<li class='hint'>No active tropical cyclones in GDACS or NHC feeds.</li>";
+  $("#stormlist").innerHTML = L.join("") || `<li class='hint'>No active storms in the GDACS or NHC feeds (checked ${esc(fmtUK(s.as_of))}).</li>`;
+  $("#stormlist").insertAdjacentHTML("beforeend", `<li class="hint">Tracks and shaded cones are drawn on the chokepoint map and the risk map (Storms layer). ${esc(s.cone_note || "")}</li>`);
 }
 function intel() {
   const tabs = (D.news || {}).tabs || {};
@@ -384,6 +428,7 @@ function coverageLine(f) {
   if (f.note) cov += `. ${f.note}`;
   return cov;
 }
+function ageClass(row) { const a = ageHours(row && row.seen_uk); return a == null ? "old" : a <= 6 ? "fresh" : a <= 24 ? "day" : a <= 168 ? "week" : "old"; }
 function isStalePos(row) {
   const hours = (D["fleet-positions"] || {}).stale_after_hours || 6;
   const age = ageHours(row && row.seen_uk);
@@ -391,6 +436,7 @@ function isStalePos(row) {
 }
 function showAllTraffic(id) {
   fleetMap = null; fleetLayer = null;
+  if ($("#fleetwx")) $("#fleetwx").innerHTML = "Weather, storm and rain overlays are on the Fleet view and the risk map: this third-party embed cannot take our overlays.";
   const w = $("#livewrap");
   w.innerHTML = `<iframe name="vesselfinder" title="Live ship traffic map (VesselFinder)" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="${esc(liveSrc(id || "world"))}"></iframe>`;
   $("#livenote").innerHTML = `Live map provided by VesselFinder (third-party embed). World is the default, at the widest zoom the widget allows (level 3). Tap or click the map to activate it, then zoom or drag; positions come from VesselFinder's AIS network and are not stored by this site. <a href="https://www.vesselfinder.com" target="_blank" rel="noopener">vesselfinder.com</a>`;
@@ -428,20 +474,22 @@ function showFleet(id) {
     const p = (m && pos[m]) || (s.imo && Object.values(pos).find((x) => String(x.imo || "") === String(s.imo))) || null;
     const heard = !!(p && p.lat != null && p.lon != null);
     const thisRun = !!(m && seenRun.has(m));
-    return { ship: s, pos: p, heard, thisRun, stale: heard && isStalePos(p) };
+    const ac = heard ? ageClass(p) : "none";
+    return { ship: s, pos: p, heard, thisRun, stale: heard && isStalePos(p), ac, drawn: heard && ac !== "old" };
   });
   rows.sort((a, b) => (b.thisRun - a.thisRun) || (b.heard - a.heard) || String(a.ship.name || "").localeCompare(String(b.ship.name || "")));
-  const onMap = rows.filter((r) => r.heard);
+  const onMap = rows.filter((r) => r.drawn);
+  const cnt = (k) => rows.filter((r) => r.ac === k).length;
   const notSeen = rows.filter((r) => !r.thisRun);
   $("#fleetstats").innerHTML = onMap.length
-    ? `<b>${onMap.length}</b> of ${rows.length} ships have a last-known position · <b>${rows.filter((r) => r.thisRun).length}</b> heard in the latest sample · ${esc(fmtUK(asof) || "no sample yet")}` + (src.ok === false ? ' <span class="stale">stale</span>' : "")
+    ? `<b>${onMap.length}</b> of ${rows.length} ships on the map (seen in the last 7 days): <span class="agek fresh"></span>${cnt("fresh")} within 6 h · <span class="agek day"></span>${cnt("day")} 6–24 h · <span class="agek week"></span>${cnt("week")} 1–7 days` + (cnt("old") ? ` · ${cnt("old")} older, listed only` : "") + ` · <b>${rows.filter((r) => r.thisRun).length}</b> heard in the latest run, ${esc(fmtUK(asof) || "no sample yet")}` + (src.ok === false ? ' <span class="stale">stale</span>' : "")
     : `No last-known positions yet for this fleet. The hourly refresh plots ships after it has heard them on AISstream. ${esc(fmtUK(asof) || "")}`;
   const dest = (p) => (p && p.destination) ? esc(p.destination) : "n/a";
   const spd = (p) => (p && p.sog != null && !isNaN(p.sog)) ? num(p.sog, 1) + " kn" : "n/a";
   $("#fleettable").innerHTML = "<tr><th>Ship</th><th>Status</th><th class='n'>Speed</th><th>Destination</th><th class='n'>Last seen</th><th class='hide-s'>IMO / MMSI</th></tr>" +
     rows.map((r) => {
       const s = r.ship, p = r.pos;
-      const st = !s.mmsi ? "No MMSI yet" : r.thisRun ? "Heard this sample" : r.heard ? (r.stale ? "Stale last-known" : "Last-known, not this sample") : "Not seen";
+      const st = !s.mmsi ? "No MMSI yet" : r.thisRun ? "Heard in latest run" : r.heard ? ({ fresh: "Seen within 6 h", day: "Seen 6–24 h ago", week: "Seen 1–7 days ago", old: "Older than 7 days" }[r.ac]) : "Not seen yet";
       return `<tr class="${r.heard ? "click" : ""}" data-mmsi="${esc(s.mmsi || "")}"><td>${esc(s.name || "Unnamed")}</td><td>${esc(st)}</td><td class="n">${r.heard ? spd(p) : "—"}</td><td>${r.heard ? dest(p) : "—"}</td><td class="n">${r.heard ? esc(fmtUK(p.seen_uk)) : "—"}${r.stale ? ' <span class="stale">stale</span>' : ""}</td><td class="hide-s hint">${esc(s.imo || "—")} / ${esc(s.mmsi || "—")}</td></tr>`;
     }).join("");
   // Leaflet map of last-known positions only
@@ -459,10 +507,18 @@ function showFleet(id) {
   landPolygons().addTo(fleetMap);
   L.control.attribution({ prefix: false }).addAttribution("Land outlines from this site's world map").addTo(fleetMap);
   fleetLayer = L.layerGroup().addTo(fleetMap);
+  fleetMap.createPane("paneWx"); fleetMap.getPane("paneWx").style.zIndex = 330;
+  const ov = {}; const note = () => { const parts = []; if (fleetMap.hasLayer(ov.wx)) parts.push(window.WXL ? WXL.gridLabel() : ""); if (ov.rain && fleetMap.hasLayer(ov.rain)) parts.push(fleetRainLabel || ""); if (fleetMap.hasLayer(ov.storms)) parts.push(`Storms: GDACS / NHC, checked ${esc(fmtUK((D.storms || {}).as_of))}` + (stormItems().length ? "" : " — no active storms")); $("#fleetwx").innerHTML = parts.join("<br>"); };
+  ov.storms = stormLeaflet();
+  if (window.WXL) { ov.wx = WXL.gridLayer("paneWx"); }
+  const ctl = L.control.layers(null, { "🌀 Storms": ov.storms, ...(ov.wx ? { "🌊 Wind &amp; waves": ov.wx } : {}) }, { collapsed: window.innerWidth < 640, position: "topright" }).addTo(fleetMap);
+  if (window.WXL) WXL.rainLayer("paneWx").then(([lay, lab]) => { if (lay) { ov.rain = lay; fleetRainLabel = lab; ctl.addOverlay(lay, "🌧 Rain radar"); } });
+  fleetMap.on("overlayadd overlayremove", () => { if (window.WXL) WXL.loadGrid().then(note); else note(); });
   const pts = [];
   onMap.forEach((r) => {
     const p = r.pos;
-    const icon = L.divIcon({ className: "", html: `<div class="fleetdot${r.stale ? " stale" : ""}"></div>`, iconSize: [14, 14], iconAnchor: [7, 7] });
+    if (p.trail && p.trail.length) L.polyline(p.trail.map((t) => [t[0], t[1]]).concat([[p.lat, p.lon]]), { color: "#4cc2ff", weight: 1.2, opacity: 0.45, dashArray: "2 4", interactive: false }).addTo(fleetLayer);
+    const icon = L.divIcon({ className: "", html: `<div class="fleetdot age-${r.ac}"></div>`, iconSize: [14, 14], iconAnchor: [7, 7] });
     const mk = L.marker([p.lat, p.lon], { icon, title: r.ship.name || "" });
     mk.bindPopup(`<b>${esc(r.ship.name || "Unnamed")}</b>Speed ${spd(p)} · dest ${dest(p)}<br>Last seen ${esc(fmtUK(p.seen_uk))}${r.stale ? ' <span class="stale">stale</span>' : ""}`);
     mk.addTo(fleetLayer);
@@ -481,6 +537,17 @@ function showFleet(id) {
     };
   });
   $("#livenote").innerHTML = fleetNote();
+}
+let fleetRainLabel = "";
+function stormLeaflet() {
+  const g = L.layerGroup();
+  stormItems().forEach((s) => {
+    s.cone.forEach((r) => { if (r.length > 2) L.polygon(r, { color: "#b48cff", weight: 1, fillColor: "#b48cff", fillOpacity: 0.18 }).bindTooltip(s.tip, { sticky: true }).addTo(g); });
+    if (s.past.length > 1) L.polyline(s.past, { color: "#9fd3ff", weight: 2 }).addTo(g);
+    if (s.fc.length > 1) L.polyline(s.fc, { color: "#fff", weight: 2, dashArray: "5 5" }).addTo(g);
+    if (s.lat != null) L.marker([s.lat, s.lon], { icon: L.divIcon({ className: "", html: `<div class="stormmk">🌀</div>`, iconSize: [22, 22], iconAnchor: [11, 11] }) }).bindTooltip(s.tip).addTo(g);
+  });
+  return g;
 }
 function fleetNote() {
   const d = D["fleet-positions"] || {};

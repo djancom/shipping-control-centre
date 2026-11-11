@@ -124,3 +124,21 @@ ul.list.plain{color:var(--mut)}
   .chartbox{height:190px}
   .livewrap{height:360px}
 }
+/* map layers: storms and wind & waves */
+.layers label{margin-left:8px;white-space:nowrap;cursor:pointer}
+.layers input{vertical-align:-2px}
+#svgmap .scone{fill:rgba(180,140,255,.22);stroke:#b48cff;stroke-width:1}
+#svgmap .spast{fill:none;stroke:#9fd3ff;stroke-width:1.5}
+#svgmap .sfc{fill:none;stroke:#fff;stroke-width:1.5;stroke-dasharray:3 3}
+#svgmap .wxa path{fill:#7fe3ff}
+#svgmap .wxt{fill:#cdeeff;stroke:#0b1017;paint-order:stroke}
+#svgmap .wx.hi .wxa path{fill:#ff9f43}
+#svgmap .wx.hi .wxt{fill:#ffcf9a}
+.sw.storm{display:inline-block;width:11px;height:11px;border-radius:2px;background:rgba(180,140,255,.6);border:1px solid #b48cff;vertical-align:-1px}
+.fleetdot.age-fresh{background:#2ecc71;border-color:#e8fff1}
+.fleetdot.age-day{background:#4cc2ff;border-color:#d8f2ff;opacity:.9}
+.fleetdot.age-week{background:#6b7f93;border-color:#aab8c6;opacity:.75;width:11px;height:11px}
+.agek{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 3px 0 2px;vertical-align:0}
+.agek.fresh{background:#2ecc71}.agek.day{background:#4cc2ff}.agek.week{background:#6b7f93}
+#fleetwx{margin-top:4px}
+#fmap .leaflet-control-layers{background:#0f1923;color:#cfe1f2;border:1px solid #2a3c50}

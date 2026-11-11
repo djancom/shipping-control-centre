@@ -1,6 +1,11 @@
 /* Risk map and underwriting panel (Risk tab). Kept out of style.css to avoid
    colliding with other work on the shared stylesheet. */
-#risk .riskwrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:12px;align-items:start}
+#risk .riskwrap{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
+#risk .riskwrap>div:first-child{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:12px;align-items:stretch}
+#risk .riskwrap>div:first-child .risk-detail{margin-top:0;max-height:440px;overflow:auto}
+#risk .uw{column-count:3;column-gap:12px}
+#risk .uw .block{break-inside:avoid;display:inline-block;width:100%}
+#risk .uw .disc{column-span:all}
 #riskmap{height:440px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--sea);z-index:1}
 #risk .riskside{min-width:0}
 #risk .riskbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px}
@@ -30,11 +35,17 @@
 #risk .links li{padding:4px 0;border-bottom:1px solid #1a2633;font-size:12.5px}
 #risk .mapnote{color:var(--mut);font-size:11.5px;margin:8px 0 0}
 #risk a.jumprisk{font-weight:600}
+@media (max-width:1300px){ #risk .uw{column-count:2} }
 @media (max-width:1100px){
-  #risk .riskwrap{grid-template-columns:1fr}
+  #risk .riskwrap>div:first-child{grid-template-columns:1fr}
+  #risk .riskwrap>div:first-child .risk-detail{max-height:none}
   #riskmap{height:380px}
 }
 @media (max-width:640px){
+  #risk .uw{column-count:1}
   #riskmap{height:340px}
   #risk .riskbar{flex-direction:column;align-items:stretch}
 }
+
+#risk .sw.storm{background:rgba(180,140,255,.6);border:1px solid #b48cff}
+.stormmk{font-size:18px;line-height:22px;text-align:center;filter:drop-shadow(0 0 2px #000)}

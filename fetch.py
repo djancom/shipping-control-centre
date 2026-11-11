@@ -351,22 +351,134 @@ WX = {"Dover Strait": (51.0, 1.45), "Bay of Biscay": (45.5, -6.0), "Gibraltar": 
 def weather():
     out = {}
     for name, (la, lo) in WX.items():
-        mr = get("https://marine-api.open-meteo.com/v1/marine", params=dict(latitude=la, longitude=lo, daily="wave_height_max,swell_wave_height_max", timezone="Europe/London", forecast_days=4)).json()
-        fc = get("https://api.open-meteo.com/v1/forecast", params=dict(latitude=la, longitude=lo, daily="wind_speed_10m_max,wind_gusts_10m_max", wind_speed_unit="kn", timezone="Europe/London", forecast_days=4)).json()
+        mr = get("https://marine-api.open-meteo.com/v1/marine", params=dict(latitude=la, longitude=lo, daily="wave_height_max,swell_wave_height_max", current="wave_height,wave_direction,wave_period", timezone="Europe/London", forecast_days=4)).json()
+        fc = get("https://api.open-meteo.com/v1/forecast", params=dict(latitude=la, longitude=lo, daily="wind_speed_10m_max,wind_gusts_10m_max", current="wind_speed_10m,wind_direction_10m,wind_gusts_10m", wind_speed_unit="kn", timezone="Europe/London", forecast_days=4)).json()
+        mc, wc = mr.get("current") or {}, fc.get("current") or {}
+        now = dict(time_uk=(wc.get("time") or mc.get("time") or "").replace("T", " ") or None,
+                   wave=mc.get("wave_height"), wave_dir=mc.get("wave_direction"), wave_period=mc.get("wave_period"),
+                   wind=wc.get("wind_speed_10m"), wind_dir=wc.get("wind_direction_10m"), gust=wc.get("wind_gusts_10m"))
         out[name] = dict(lat=la, lon=lo, dates=fc["daily"]["time"], wave=mr.get("daily", {}).get("wave_height_max", [None] * 4),
-                         wind=fc["daily"]["wind_speed_10m_max"], gust=fc["daily"]["wind_gusts_10m_max"])
-    return dict(as_of=uk(NOW), points=out, source="Open-Meteo Marine (wave height) and Open-Meteo forecast (10 m wind, knots)")
+                         wind=fc["daily"]["wind_speed_10m_max"], gust=fc["daily"]["wind_gusts_10m_max"], now=now)
+    return dict(as_of=uk(NOW), points=out, source="Open-Meteo Marine (wave height) and Open-Meteo forecast (10 m wind, knots)",
+                now_note="'Now' = Open-Meteo model value for the current 15-minute slot (a model estimate, not a buoy reading); wind is the direction it blows from.")
+
+GRID_STEP = 10           # degrees; coarse global ocean grid for the wind & wave map layer
+GRID_EVERY_MIN = 170     # refresh at most about every 3 hours to stay well inside Open-Meteo's free daily limit
+
+def _om_multi(url, lats, lons, params):
+    out = []
+    for i in range(0, len(lats), 150):
+        r = get(url, params=dict(latitude=",".join(map(str, lats[i:i + 150])), longitude=",".join(map(str, lons[i:i + 150])), **params), timeout=60).json()
+        out.extend(r if isinstance(r, list) else [r])
+    return out
+
+def wxgrid():
+    old = load("wxgrid") or {}
+    if old.get("pts") and old.get("as_of"):
+        try:
+            age = (NOW.replace(tzinfo=None) - dt.datetime.strptime(old["as_of"], "%Y-%m-%d %H:%M")).total_seconds() / 60
+            if age < GRID_EVERY_MIN:
+                return {k: v for k, v in old.items() if k != "fetched_uk"}  # unchanged; no API calls
+        except Exception:
+            pass
+    if old.get("pts"):   # reuse the ocean mask from the last run
+        cells = [(p[0], p[1]) for p in old["pts"]]
+    else:
+        cells = [(la, lo) for la in range(-60, 71, GRID_STEP) for lo in range(-180, 180, GRID_STEP)]
+    lats, lons = [c[0] for c in cells], [c[1] for c in cells]
+    mar = _om_multi("https://marine-api.open-meteo.com/v1/marine", lats, lons, dict(current="wave_height,wave_direction", timezone="Europe/London"))
+    sea = [(cells[i], (m.get("current") or {})) for i, m in enumerate(mar) if (m.get("current") or {}).get("wave_height") is not None]
+    if len(sea) < 50:
+        raise RuntimeError(f"only {len(sea)} ocean cells returned")
+    wnd = _om_multi("https://api.open-meteo.com/v1/forecast", [c[0][0] for c in sea], [c[0][1] for c in sea],
+                    dict(current="wind_speed_10m,wind_direction_10m,wind_gusts_10m", wind_speed_unit="kn", timezone="Europe/London"))
+    pts, t = [], None
+    for (cell, mc), w in zip(sea, wnd):
+        wc = w.get("current") or {}
+        t = t or (wc.get("time") or mc.get("time"))
+        pts.append([cell[0], cell[1], mc.get("wave_height"), mc.get("wave_direction"), wc.get("wind_speed_10m"), wc.get("wind_direction_10m"), wc.get("wind_gusts_10m")])
+    return dict(as_of=uk(NOW), model_time_uk=(t or "").replace("T", " "), step=GRID_STEP,
+                cols=["lat", "lon", "wave_m", "wave_from_deg", "wind_kn", "wind_from_deg", "gust_kn"], pts=pts,
+                source="Open-Meteo Marine (wave height) and Open-Meteo forecast (10 m wind, knots), CC BY 4.0",
+                note=f"Model values on a coarse {GRID_STEP}° ocean grid, refreshed about every 3 hours. Directions are where the wind or waves come FROM. A broad picture, not for navigation.")
+
+def _unwrap(coords):
+    """Make a lon/lat sequence continuous across the antimeridian (Leaflet/SVG friendly)."""
+    out, prev = [], None
+    for lon, lat in coords:
+        if prev is not None:
+            while lon - prev > 180: lon -= 360
+            while lon - prev < -180: lon += 360
+        out.append([round(lat, 2), round(lon, 2)]); prev = lon
+    return out
+
+def _thin(ring, n=90):
+    if len(ring) <= n: return ring
+    step = len(ring) / n
+    return [ring[int(i * step)] for i in range(n)] + [ring[-1]]
+
+def _kmz_coords(url):
+    """Return [(kind, [[lon,lat],...]), ...] for Polygon outer rings, LineStrings and Points in an NHC KMZ."""
+    import zipfile, io, xml.etree.ElementTree as ET
+    z = zipfile.ZipFile(io.BytesIO(get(url).content))
+    root = ET.fromstring(z.read([n for n in z.namelist() if n.endswith(".kml")][0]))
+    out = []
+    for el in root.iter():
+        tag = el.tag.split("}")[-1]
+        if tag in ("Polygon", "LineString", "Point"):
+            ce = [c for c in el.iter() if c.tag.split("}")[-1] == "coordinates"]
+            if tag == "Polygon":
+                ob = [o for o in el.iter() if o.tag.split("}")[-1] == "outerBoundaryIs"]
+                ce = [c for c in (ob[0].iter() if ob else []) if c.tag.split("}")[-1] == "coordinates"] or ce
+            if not ce: continue
+            pts = [tuple(map(float, t.split(",")[:2])) for t in ce[0].text.split() if "," in t]
+            out.append((tag, pts))
+    return out
+
+def _gdacs_geometry(url):
+    j = get(url, timeout=40).json()
+    past, fc, swath = [], [], []
+    for f in j.get("features", []):
+        p, g = f.get("properties") or {}, f.get("geometry") or {}
+        cls = p.get("Class") or ""
+        if cls.startswith("Line_Line") and g.get("type") == "LineString":
+            (fc if p.get("forecast") else past).append(g["coordinates"])
+        elif cls == "Poly_Green" and "km/h" in str(p.get("polygonlabel")):
+            polys = g["coordinates"] if g.get("type") == "MultiPolygon" else [g["coordinates"]]
+            for poly in polys:
+                if poly and len(poly[0]) > 3: swath.append(poly[0])
+    def chain(segs):
+        pts = []
+        for sgm in segs:
+            for c in sgm:
+                if not pts or pts[-1] != c: pts.append(c)
+        return pts
+    return chain(past), chain(fc), swath
 
 def storms():
+    """Active tropical cyclones: NHC/CPHC (official cones) + GDACS (all basins incl. JTWC areas)."""
     j = get("https://www.nhc.noaa.gov/CurrentStorms.json").json()
     out = []
     for s in j.get("activeStorms", []):
         lu = s.get("lastUpdate")
         try: lu = uk(dt.datetime.fromisoformat(lu.replace("Z", "+00:00")))
         except Exception: pass
-        out.append(dict(name=s.get("name"), cls=s.get("classification"), kt=s.get("intensity"), lat=s.get("latitudeNumeric"),
-                        lon=s.get("longitudeNumeric"), pos=f'{s.get("latitude")} {s.get("longitude")}', dir=s.get("movementDir"),
-                        spd=s.get("movementSpeed"), updated_uk=lu, src="NHC/CPHC"))
+        row = dict(name=s.get("name"), cls=s.get("classification"), kt=s.get("intensity"), lat=s.get("latitudeNumeric"),
+                   lon=s.get("longitudeNumeric"), pos=f'{s.get("latitude")} {s.get("longitude")}', dir=s.get("movementDir"),
+                   spd=s.get("movementSpeed"), updated_uk=lu, src="NHC/CPHC", id=s.get("id"),
+                   link=(s.get("publicAdvisory") or {}).get("url") or "https://www.nhc.noaa.gov/")
+        try:
+            cone = [pts for kind, pts in _kmz_coords((s.get("trackCone") or {})["kmzFile"]) if kind == "Polygon"]
+            row["cone"] = [_thin(_unwrap(r)) for r in cone]
+        except Exception as e:
+            print("NHC cone failed:", s.get("id"), e)
+        try:
+            items = _kmz_coords((s.get("forecastTrack") or {})["kmzFile"])
+            line = [pts for kind, pts in items if kind == "LineString"]
+            row["forecast"] = _unwrap(line[0]) if line else _unwrap([pts[0] for kind, pts in items if kind == "Point"])
+        except Exception as e:
+            print("NHC track failed:", s.get("id"), e)
+        out.append(row)
     gd = []
     try:
         j = get("https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH", params={"eventlist": "TC", "alertlevel": "green;orange;red"}).json()
@@ -374,12 +486,26 @@ def storms():
             p = f["properties"]
             if str(p.get("iscurrent")).lower() != "true": continue
             lon, lat = f["geometry"]["coordinates"][:2]
-            gd.append(dict(name=p.get("eventname"), level=p.get("alertlevel"), sev=(p.get("severitydata") or {}).get("severitytext"),
-                           frm=_utc2uk(p.get("fromdate")), to=_utc2uk(p.get("todate")), countries=p.get("country"), lat=lat, lon=lon,
-                           link=(p.get("url") or {}).get("report")))
+            row = dict(name=p.get("eventname"), level=p.get("alertlevel"), sev=(p.get("severitydata") or {}).get("severitytext"),
+                       frm=_utc2uk(p.get("fromdate")), to=_utc2uk(p.get("todate")), countries=p.get("country"), lat=lat, lon=lon,
+                       link=(p.get("url") or {}).get("report"), agency=p.get("source"))
+            try:
+                past, fc, swath = _gdacs_geometry((p.get("url") or {}).get("geometry"))
+                row["past"] = _thin(_unwrap(past), 60)
+                row["forecast"] = _unwrap(fc)
+                row["swath"] = [_thin(_unwrap(r)) for r in swath][:6]
+            except Exception as e:
+                print("GDACS geometry failed:", p.get("eventname"), e)
+            # Prefer the NHC official cone/track where the same storm is in both feeds
+            for n in out:
+                if n.get("lat") is not None and abs(n["lat"] - lat) < 2 and abs(((n["lon"] - lon + 180) % 360) - 180) < 2:
+                    row["nhc"] = n.get("id"); n["gdacs"] = row["name"]
+            gd.append(row)
     except Exception as e:
         gd = None; print("GDACS failed:", e)
-    return dict(as_of=uk(NOW), nhc=out, gdacs=gd, source="GDACS tropical cyclone events (all basins, UTC times converted); NOAA NHC CurrentStorms.json (Atlantic/East & Central Pacific)")
+    return dict(as_of=uk(NOW), nhc=out, gdacs=gd,
+                source="GDACS (EU JRC) tropical cyclone events and forecast geometry (all basins; JTWC/NOAA-sourced, UTC converted to UK); NOAA NHC CurrentStorms.json with official forecast cones (Atlantic, East and Central Pacific)",
+                cone_note="Cones: NHC official cone of uncertainty (track of the centre stays inside about 60-70% of the time). Elsewhere GDACS has no official cone, so the shaded area is the GDACS forecast swath of winds of 60 km/h or more.")
 
 def _utc2uk(v):
     try: return uk(dt.datetime.fromisoformat(v).replace(tzinfo=dt.timezone.utc))
@@ -543,6 +669,7 @@ if __name__ == "__main__":
         ("bunkers", bunkers, "Bunker prices by hub", "https://shipandbunker.com/prices"),
         ("weather", weather, "Sea state and wind", "https://open-meteo.com/"),
         ("storms", storms, "Tropical storms", "https://www.nhc.noaa.gov/"),
+        ("wxgrid", wxgrid, "Wind and wave map grid", "https://open-meteo.com/"),
         ("worldbank", worldbank, "Fertiliser and monthly commodity prices", "https://www.worldbank.org/en/research/commodity-markets"),
         ("news", news, "Shipping news and tabs", "https://news.google.com/"),
     ]
