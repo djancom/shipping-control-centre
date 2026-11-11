@@ -4,9 +4,10 @@
 Dormant until the repo secret AISSTREAM_KEY exists. The key is only used here,
 on the GitHub Actions runner, and is never written to the site or to data files.
 
-After the ~60 s chokepoint sample, fleet sampling uses one connection, a world
-bounding box and FiltersShipMMSI in rotating batches of 200 (about 75 s each),
-capped so the added runtime stays under ~10 minutes. Last-known positions are
+After the ~60 s chokepoint sample, the fleet pass opens three parallel connections
+(AISstream allows three per account) for FLEET_SECONDS: one world-box static-data
+harvest that fills missing MMSIs from IMO numbers, and two that rotate through
+200-MMSI position batches. Last-known positions are
 merged into data/fleet-positions.json. Matching names/IMOs are added to
 fleets.json (rows are never deleted).
 """
@@ -268,62 +269,66 @@ def _fleet_mmsis(fleets_doc):
                 out.append((m, fid, s))
     return out
 
-def _apply_ident(fleets_doc, rec, added_counts):
-    """Fill MMSI/IMO/name, or append a name-matched ship. Never deletes a row."""
-    if not fleets_doc or not rec.get("mmsi"):
-        return False
-    fid = None
-    # Prefer an existing row with this MMSI or IMO
-    for fl in fleets_doc.get("fleets") or []:
-        for s in fl.get("ships") or []:
-            if rec["mmsi"] and _mmsi_str(s.get("mmsi")) == rec["mmsi"]:
-                fid = fl.get("id")
-                changed = False
-                if rec.get("imo") and not s.get("imo"):
-                    s["imo"] = rec["imo"]; changed = True
-                if rec.get("name") and _norm(s.get("name") or "") in {"", _norm(f"Hapag-Lloyd ship {s.get('imo') or ''}")}:
-                    s["name"] = rec["name"]; changed = True
-                if rec.get("name") and not s.get("name"):
-                    s["name"] = rec["name"]; changed = True
-                return changed
-            if rec.get("imo") and _imo_str(s.get("imo")) == rec["imo"]:
-                fid = fl.get("id")
-                changed = False
-                if rec["mmsi"] and not s.get("mmsi"):
-                    s["mmsi"] = rec["mmsi"]; changed = True
-                if rec.get("name") and not s.get("name"):
-                    s["name"] = rec["name"]; changed = True
-                return changed
-    fid = match_fleet_id(rec.get("name") or "")
-    if not fid:
-        return False
-    for fl in fleets_doc.get("fleets") or []:
-        if fl.get("id") != fid:
-            continue
-        fl.setdefault("ships", []).append({
-            "name": rec.get("name") or f"MMSI {rec['mmsi']}",
-            **({"imo": rec["imo"]} if rec.get("imo") else {}),
-            "mmsi": rec["mmsi"],
-            "via": "aisstream",
-        })
-        fl["listed"] = len(fl["ships"])
-        fl["with_mmsi"] = sum(1 for s in fl["ships"] if s.get("mmsi"))
-        added_counts[fid] = added_counts.get(fid, 0) + 1
-        return True
-    return False
+class FleetIndex:
+    """MMSI / IMO lookups over fleets.json so each AIS message is matched in O(1)."""
+    def __init__(self, doc):
+        self.doc = doc
+        self.by_id = {fl.get("id"): fl for fl in (doc or {}).get("fleets") or []}
+        self.mmsi, self.imo = {}, {}
+        for fl in self.by_id.values():
+            for s in fl.get("ships") or []:
+                self._add(fl.get("id"), s)
+        self.filled = {}   # fid -> MMSIs filled from IMO matches this run
+        self.added = {}    # fid -> ships appended by name match this run
 
+    def _add(self, fid, s):
+        m, i = _mmsi_str(s.get("mmsi")), _imo_str(s.get("imo"))
+        if m: self.mmsi.setdefault(m, (fid, s))
+        if i: self.imo.setdefault(i, (fid, s))
 
-def _fleet_id_for(fleets_doc, rec):
-    """Return a fleet id if this contact is one of our listed or name-matched ships."""
-    m, imo = rec.get("mmsi") or "", rec.get("imo") or ""
-    for fl in (fleets_doc or {}).get("fleets") or []:
-        fid = fl.get("id")
-        for s in fl.get("ships") or []:
-            if m and _mmsi_str(s.get("mmsi")) == m:
-                return fid
-            if imo and _imo_str(s.get("imo")) == imo:
-                return fid
-    return match_fleet_id(rec.get("name") or "")
+    def ident(self, rec):
+        """Fill MMSI/IMO/name on a listed ship, or append a name-matched ship. Never deletes a row."""
+        m, i = rec.get("mmsi"), rec.get("imo")
+        if not m:
+            return None
+        hit = self.mmsi.get(m)
+        if hit:
+            fid, s = hit
+            if i and not s.get("imo"):
+                s["imo"] = i; self.imo.setdefault(i, hit)
+            if rec.get("name") and (not s.get("name") or _norm(s.get("name")) == _norm(f"Hapag-Lloyd ship {s.get('imo') or ''}")):
+                s["name"] = rec["name"]
+            return fid
+        if i and i in self.imo:
+            fid, s = self.imo[i]
+            if not s.get("mmsi"):
+                s["mmsi"] = m; s["mmsi_via"] = "aisstream-imo"
+                self.mmsi[m] = (fid, s)
+                self.filled[fid] = self.filled.get(fid, 0) + 1
+            if rec.get("name") and not s.get("name"):
+                s["name"] = rec["name"]
+            return fid
+        fid = match_fleet_id(rec.get("name") or "")
+        if not fid or fid not in self.by_id:
+            return None
+        fl = self.by_id[fid]
+        row = {"name": rec.get("name") or f"MMSI {m}", **({"imo": i} if i else {}), "mmsi": m, "via": "aisstream"}
+        fl.setdefault("ships", []).append(row)
+        self._add(fid, row)
+        self.added[fid] = self.added.get(fid, 0) + 1
+        return fid
+
+    def mmsis(self):
+        return list(self.mmsi.keys())
+
+TRAIL_POINTS = 8
+TRAIL_DAYS = 7
+
+def _parse_uk(s):
+    try:
+        return dt.datetime.strptime(s, "%Y-%m-%d %H:%M")
+    except Exception:
+        return None
 
 def _merge_position(store, rec, as_of, this_run):
     m = rec.get("mmsi")
@@ -337,8 +342,17 @@ def _merge_position(store, rec, as_of, this_run):
     if rec.get("destination"):
         row["destination"] = rec["destination"]
     if rec.get("lat") is not None and rec.get("lon") is not None:
-        row["lat"] = round(rec["lat"], 5)
-        row["lon"] = round(rec["lon"], 5)
+        lat, lon = round(rec["lat"], 4), round(rec["lon"], 4)
+        if lat == 0 and lon == 0:
+            return  # common "no fix" value
+        # small trail: keep the previous fix when the ship has moved about 5 km or more
+        if row.get("lat") is not None and row.get("seen_uk") and row.get("seen_uk") != as_of:
+            if abs(row["lat"] - lat) + abs(row["lon"] - lon) > 0.05:
+                tr = row.setdefault("trail", [])
+                if not tr or tr[-1][:2] != [row["lat"], row["lon"]]:
+                    tr.append([row["lat"], row["lon"], row["seen_uk"]])
+                del tr[:-TRAIL_POINTS]
+        row["lat"], row["lon"] = lat, lon
         row["seen_uk"] = as_of
         this_run.add(m)
     if rec.get("sog") is not None:
@@ -350,75 +364,85 @@ def _merge_position(store, rec, as_of, this_run):
     row["updated_uk"] = as_of
     store[m] = row
 
-async def _fleet_pass(key, fleets_doc, pos_store, as_of):
+FLEET_SECONDS = int(os.environ.get("FLEET_SECONDS", "660"))   # whole fleet window, 3 parallel connections
+ROTATE_SECONDS = 80     # each position connection listens to one 200-MMSI batch for this long, then moves on
+
+async def _run_conn(label, key, seconds, plan, ingest, stats):
+    """One AISstream connection with reconnect. plan() yields (boxes, mmsis, types, listen_seconds)."""
     import websockets
-    heard_static = 0
-    heard_pos = 0
+    end = time.monotonic() + seconds
+    backoff = 2
+    while time.monotonic() < end - 5:
+        try:
+            async with websockets.connect(URL, open_timeout=20, close_timeout=5, max_size=2 ** 22, compression="deflate", ping_interval=20) as ws:
+                for boxes, mmsis, types, secs in plan():
+                    left = end - time.monotonic()
+                    if left < 3:
+                        break
+                    await _subscribe(ws, key, boxes, mmsis=mmsis, types=types)
+                    stats[label] = stats.get(label, 0) + await _listen(ws, min(secs, left), ingest)
+                    await asyncio.sleep(1.1)  # at most one subscription update per second
+                return
+        except Exception as e:
+            stats.setdefault("errors", []).append(f"{label}: {str(e)[:120]}")
+            await asyncio.sleep(backoff); backoff = min(backoff * 2, 30)
+
+async def _fleet_pass(key, fleets_doc, pos_store, as_of):
+    idx = FleetIndex(fleets_doc)
     this_run = set()
-    added = {}
-    identities = list(getattr(sample, "_heard", []) or [])
+    stats = {}
+    heard_static = [0]
 
     def ingest(rec):
-        nonlocal heard_static, heard_pos
-        identities.append(rec)
-        _apply_ident(fleets_doc, rec, added)
-        if rec.get("type") in STAT_TYPES or rec.get("destination") or rec.get("imo"):
-            heard_static += 1
-        if rec.get("lat") is not None:
-            heard_pos += 1
-        # Only keep last-known positions for ships that belong to a listed fleet
-        # (or whose name matches a line's prefix). Do not store the rest of the
-        # world-box static traffic.
-        fid = _fleet_id_for(fleets_doc, rec)
+        fid = idx.ident(rec)
+        if rec.get("type") in STAT_TYPES:
+            heard_static[0] += 1
+        # Only keep last-known positions for ships that belong to a listed fleet (or match a line's name)
         if fid:
             _merge_position(pos_store, rec, as_of, this_run)
-            pos_store[rec["mmsi"]]["fleet"] = fid
-
-    mmsis = [m for m, _, _ in _fleet_mmsis(fleets_doc)]
-    n_batches = max(1, (len(mmsis) + BATCH - 1) // BATCH) if mmsis else 0
-    prev = _load_json(POS_PATH, {}) or {}
-    start = int(prev.get("next_batch") or 0)
-    if n_batches:
-        start = start % n_batches
-    batches_run = 0
-    next_batch = start
-
-    async with websockets.connect(URL, open_timeout=20, close_timeout=5, max_size=2 ** 22, compression="deflate") as ws:
-        # 1) Short world-box static harvest: catch prefix-named ships (incl. chartered-in) and MMSIs
-        await _subscribe(ws, key, WORLD, types=STAT_TYPES)
-        n_stat = await _listen(ws, STATIC_SECONDS, ingest)
-        # 2) Rotating MMSI position batches
-        if mmsis:
-            # Refresh the MMSI list in case the static pass added some
-            mmsis = [m for m, _, _ in _fleet_mmsis(fleets_doc)]
-            n_batches = max(1, (len(mmsis) + BATCH - 1) // BATCH)
-            start = start % n_batches
-            to_run = min(MAX_BATCHES, n_batches)
-            for i in range(to_run):
-                bi = (start + i) % n_batches
-                chunk = mmsis[bi * BATCH:(bi + 1) * BATCH]
-                if not chunk:
-                    continue
-                await _subscribe(ws, key, WORLD, mmsis=chunk, types=POS_TYPES + STAT_TYPES)
-                await _listen(ws, BATCH_SECONDS, ingest)
-                batches_run += 1
-                next_batch = (bi + 1) % n_batches
-        # Apply any leftover identities (incl. chokepoint window)
-        for rec in identities:
-            _apply_ident(fleets_doc, rec, added)
-            fid = _fleet_id_for(fleets_doc, rec)
-            if fid:
-                _merge_position(pos_store, rec, as_of, this_run)
+            if rec["mmsi"] in pos_store:
                 pos_store[rec["mmsi"]]["fleet"] = fid
 
+    for rec in list(getattr(sample, "_heard", []) or []):
+        ingest(rec)
+
+    prev = _load_json(POS_PATH, {}) or {}
+    cursor = {"i": int(prev.get("next_batch") or 0), "done": 0}
+
+    def static_plan():
+        # Connection 1: world-box static/voyage data for the whole window. ShipStaticData carries the
+        # IMO number, so listed ships without an MMSI get one filled (and name-matched ships are added).
+        while True:
+            yield WORLD, None, STAT_TYPES, FLEET_SECONDS
+
+    def pos_plan():
+        # Connections 2 and 3: rotate through 200-MMSI batches; the list is rebuilt each time,
+        # so MMSIs filled by connection 1 are polled later in the same run.
+        while True:
+            mm = sorted(idx.mmsis())
+            nb = max(1, (len(mm) + BATCH - 1) // BATCH)
+            b = cursor["i"] % nb
+            cursor["i"] = b + 1; cursor["done"] += 1
+            yield WORLD, mm[b * BATCH:(b + 1) * BATCH], POS_TYPES + STAT_TYPES, ROTATE_SECONDS
+
+    await asyncio.gather(
+        _run_conn("static", key, FLEET_SECONDS, static_plan, ingest, stats),
+        _run_conn("pos_a", key, FLEET_SECONDS, pos_plan, ingest, stats),
+        _run_conn("pos_b", key, FLEET_SECONDS, pos_plan, ingest, stats),
+    )
+    mm = idx.mmsis()
+    nb = max(1, (len(mm) + BATCH - 1) // BATCH)
     return {
-        "static_messages": n_stat if 'n_stat' in locals() else 0,
-        "batches_run": batches_run,
-        "batches_total": n_batches,
-        "next_batch": next_batch,
-        "mmsis_listed": len(mmsis),
+        "static_messages": stats.get("static", 0),
+        "position_messages": stats.get("pos_a", 0) + stats.get("pos_b", 0),
+        "batches_run": cursor["done"],
+        "batches_total": nb,
+        "next_batch": cursor["i"] % nb,
+        "mmsis_listed": len(mm),
         "seen_this_run": len(this_run),
-        "added": added,
+        "added": idx.added,
+        "filled": idx.filled,
+        "errors": stats.get("errors", [])[:6],
         "this_run": this_run,
     }
 
@@ -449,7 +473,14 @@ def sample_fleets():
         if fid:
             row["fleet"] = fid
 
-    if stats.get("added"):
+    # prune: drop trail points older than TRAIL_DAYS; keep each ship's last-known fix
+    now = _parse_uk(as_of)
+    for row in pos_store.values():
+        if row.get("trail") and now:
+            row["trail"] = [t for t in row["trail"] if (_parse_uk(t[2]) or now) >= now - dt.timedelta(days=TRAIL_DAYS)]
+            if not row["trail"]:
+                row.pop("trail", None)
+    if stats.get("added") or stats.get("filled"):
         fleets_doc["updated_uk"] = as_of
         for fl in fleets_doc.get("fleets") or []:
             fl["listed"] = len(fl.get("ships") or [])
@@ -458,9 +489,9 @@ def sample_fleets():
 
     listed = stats["mmsis_listed"]
     batches_note = (
-        f"This run sampled {stats['batches_run']} of {stats['batches_total'] or 0} "
-        f"MMSI batches ({BATCH} ships, ~{BATCH_SECONDS}s each)"
-        + (f", then the next run starts at batch {stats['next_batch'] + 1}." if stats["batches_total"] > stats["batches_run"] else ".")
+        f"This run listened for about {FLEET_SECONDS // 60} minutes on three connections: one collecting ship identity data worldwide "
+        f"(filling missing MMSIs from IMO numbers), two cycling through {stats['batches_total']} batches of up to {BATCH} fleet MMSIs "
+        f"({stats['batches_run']} batch windows of ~{ROTATE_SECONDS}s)."
     )
     doc = {
         "as_of": as_of,
@@ -472,13 +503,18 @@ def sample_fleets():
         "mmsis_listed": listed,
         "seen_this_run": stats["seen_this_run"],
         "added_to_fleets": stats["added"],
-        "static_seconds": STATIC_SECONDS,
-        "batch_seconds": BATCH_SECONDS,
+        "mmsi_filled": stats.get("filled", {}),
+        "static_messages": stats.get("static_messages"),
+        "position_messages": stats.get("position_messages"),
+        "errors": stats.get("errors", []),
+        "fleet_seconds": FLEET_SECONDS,
+        "batch_seconds": ROTATE_SECONDS,
+        "keep_days": 7,
         "note": (
             "Last-known positions from a terrestrial AIS sample (typically within about 200 km of a shore station). "
             "Ships far offshore, or silent during this window, keep an older last-known fix or appear as not seen. "
             + batches_note +
-            " A position older than 6 hours is marked stale. Not a live feed and not a complete census."
+            " Positions are kept for 7 days and shaded by age (older than 6 hours is marked stale); older fixes are listed but not drawn. Not a live feed and not a complete census."
         ),
         "ships": pos_store,
         "seen": sorted(this_run),
