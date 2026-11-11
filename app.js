@@ -463,6 +463,7 @@ function landPolygons() {
 function showFleet(id) {
   const f = fleetById(id); if (!f) { $("#livewrap").innerHTML = `<div class="hint livehold">No fleets.json loaded.</div>`; return; }
   fleetSel = f.id;
+  if ($("#fleetwx")) $("#fleetwx").innerHTML = "Map overlays (storms, wind &amp; waves, rain radar): use the layer box at the top right of the map.";
   $("#fleetsel").value = f.id;
   $("#fleetcov").textContent = coverageLine(f);
   const pos = ((D["fleet-positions"] || {}).ships) || {};
