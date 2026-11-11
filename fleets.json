@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-10 22:25",
+  "updated_uk": "2026-11-11 02:53",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -99,8 +99,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 542,
-      "with_mmsi": 249,
+      "listed": 546,
+      "with_mmsi": 254,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -111,7 +111,8 @@
         {
           "name": "Albert Mærsk",
           "imo": "9260469",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636023062"
         },
         {
           "name": "Albert Maersk",
@@ -3056,6 +3057,28 @@
           "name": "MAERSK SEOUL",
           "mmsi": "563032900",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK MONTE VERDE",
+          "imo": "9283239",
+          "mmsi": "563051800",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK FORTALEZA",
+          "imo": "9979278",
+          "mmsi": "352003575",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK VERACRUZ",
+          "mmsi": "563158900",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK TANJONG",
+          "mmsi": "477178400",
+          "via": "aisstream"
         }
       ]
     },
@@ -3072,8 +3095,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 580,
-      "with_mmsi": 200,
+      "listed": 584,
+      "with_mmsi": 207,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4002,7 +4025,8 @@
         {
           "name": "MSC Ela",
           "imo": "9282259",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "353934000"
         },
         {
           "name": "MSC Elbe",
@@ -4495,7 +4519,8 @@
         {
           "name": "MSC Jeongmin",
           "imo": "9720471",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255805854"
         },
         {
           "name": "MSC Jessenia R",
@@ -4812,7 +4837,8 @@
         {
           "name": "MSC Lucy",
           "imo": "9289104",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "371059000"
         },
         {
           "name": "MSC Ludovica",
@@ -6172,6 +6198,28 @@
           "imo": "9229300",
           "mmsi": "636017173",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC CRAPOLLA",
+          "imo": "9963621",
+          "mmsi": "636025681",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MOSS III",
+          "imo": "9445916",
+          "mmsi": "255916244",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MUGE",
+          "mmsi": "636025506",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC ANGELA",
+          "mmsi": "370254000",
+          "via": "aisstream"
         }
       ]
     },
@@ -6189,8 +6237,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 202,
-      "with_mmsi": 87,
+      "listed": 206,
+      "with_mmsi": 92,
       "ships": [
         {
           "name": "CMA CGM",
@@ -7234,7 +7282,8 @@
         {
           "name": "CMA CGM Vela",
           "imo": "9354923",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "229457000"
         },
         {
           "name": "CMA CGM Verdi",
@@ -7287,6 +7336,29 @@
           "name": "CMA CGM AGATHA",
           "mmsi": "232060070",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM KHAO SOK",
+          "imo": "9925837",
+          "mmsi": "256619000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM GANGES",
+          "imo": "9718117",
+          "mmsi": "256104000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM SEINE",
+          "imo": "9987196",
+          "mmsi": "563254200",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM NAVEGANTES",
+          "mmsi": "256144000",
+          "via": "aisstream"
         }
       ]
     },
@@ -7306,8 +7378,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 187,
-      "with_mmsi": 80,
+      "listed": 189,
+      "with_mmsi": 82,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -8322,6 +8394,17 @@
           "name": "OOCL WISDOM",
           "mmsi": "477221200",
           "via": "aisstream"
+        },
+        {
+          "name": "COSCO JAPAN",
+          "imo": "9448748",
+          "mmsi": "563277600",
+          "via": "aisstream"
+        },
+        {
+          "name": "OOCL BREMERHAVEN",
+          "mmsi": "636023342",
+          "via": "aisstream"
         }
       ]
     },
@@ -8501,8 +8584,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 46,
-      "with_mmsi": 16,
+      "listed": 47,
+      "with_mmsi": 17,
       "ships": [
         {
           "name": "One Apus",
@@ -8746,6 +8829,11 @@
           "name": "ONE LIFE",
           "mmsi": "338364133",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE WREN",
+          "mmsi": "431888000",
+          "via": "aisstream"
         }
       ]
     },
@@ -8764,8 +8852,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 199,
-      "with_mmsi": 126,
+      "listed": 200,
+      "with_mmsi": 128,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -9216,7 +9304,8 @@
         {
           "name": "Ever Gifted",
           "imo": "9786827",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563068900"
         },
         {
           "name": "Ever Given",
@@ -9884,6 +9973,12 @@
           "name": "EVER BEFIT",
           "imo": "9784128",
           "mmsi": "416036000",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER FAST",
+          "imo": "9850874",
+          "mmsi": "636020456",
           "via": "aisstream"
         }
       ]
@@ -11563,7 +11658,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
       "listed": 81,
-      "with_mmsi": 23,
+      "with_mmsi": 24,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -11699,7 +11794,8 @@
         {
           "name": "MOL Experience",
           "imo": "9333838",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636026662"
         },
         {
           "name": "MOL Explorer",
