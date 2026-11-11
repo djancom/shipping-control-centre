@@ -233,6 +233,7 @@
     const links = (u.links || []).map((l) => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join("");
     box.innerHTML = `
       <p class="disc">${esc(u.disclaimer || "")}</p>
+      <div class="uwcol">
       <div class="block">
         <h3>${esc(wr.title || "War-risk additional premiums")}</h3>
         <p class="hint">News-reported ranges, not a quote. ${esc(wr.unit || "")}.</p>
@@ -246,13 +247,14 @@
         <p class="hint">Snapshot for the ${esc(pi.policy_year)} policy year (from ${esc(fmtUK(pi.inception, true))}). These figures will not move until 2027/28 talks. <a href="${esc(pi.tracker_url)}" target="_blank" rel="noopener">Marsh renewal tracker</a>.</p>
         <div class="tw"><table class="t"><tr><th>Club</th><th>General increase / target</th></tr>${piRows}</table></div>
       </div>
+      </div><div class="uwcol">
       ${blk(u.iumi)}
       ${blk(u.allianz)}
       ${blk(u.emsa)}
       <div class="block">
         <h3>Official and primary links</h3>
         <ul class="links">${links}</ul>
-      </div>`;
+      </div></div>`;
   }
 
   function bind() {
