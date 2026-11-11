@@ -41,3 +41,10 @@ To add a company, edit `fleets.json` and commit it to this repository:
 3. The next hourly refresh (or a manual "Run workflow") will start sampling any new MMSIs. AISstream accepts 200 MMSIs at a time, so large fleets are rotated across hours in batches. Positions are last-known from a short terrestrial sample: ships far offshore, or silent during the window, may be missing or marked stale.
 
 There is no free, complete owner-to-fleet database we can legally use automatically, so lists other than Borchard Lines (taken from the company's own vessels page) are partial. Name prefixes such as MAERSK or MSC miss chartered-in ships that keep another name — paste those IMO or MMSI numbers here if you have them.
+
+## Weather, storms and fleet coverage (added 11 Nov 2026)
+- **Storms**: `fetch.py storms()` reads NOAA NHC `CurrentStorms.json` (official cone and forecast track KMZ) and GDACS (all basins, including JTWC areas; past/forecast track and ≥60 km/h wind swath). Toggle "Storms" on the chokepoint map, the risk map and the Fleet map.
+- **Wind & waves**: `weather()` adds the current Open-Meteo slot at each chokepoint (detail panel and the "Wind & waves now" layer). `wxgrid()` writes `data/wxgrid.json`, a 10° ocean grid refreshed about every 3 hours (stays inside Open-Meteo's free limit) for the Leaflet overlay in `wxlayers.js`.
+- **Rain radar**: RainViewer public tiles, loaded in the browser (free for personal use, attribution shown). Land radars only.
+- **UKMTO**: the API blocks GitHub runners, so `scripts/risk_refresh.py` falls back to the `/ship/ukmto` relay on the Cloudflare Worker `atalaya-data` (cached 30 min).
+- **Fleet**: `ais.py` runs three AISstream connections for `FLEET_SECONDS` (default 660): a world static-data harvest that fills missing MMSIs from IMO numbers, and two rotating 200-MMSI position batches. Positions are kept 7 days with age shading and a short trail. The workflow has two cron slots (:17 and :47) because GitHub often skips scheduled runs.

@@ -160,6 +160,12 @@ def refresh_incidents():
             "count": len(items),
             "incidents": items,
         }
+        rd = _RELAY_CACHE.get("doc")
+        if rd is not None:
+            f = parse_utc(rd.get("fetched"))
+            doc["via"] = "Cloudflare Worker relay" + (f" (stored copy from {uk(f)}; live fetch failed)" if rd.get("served_from_kv") and f else "")
+            if rd.get("served_from_kv") and f:
+                doc["fetched_uk"] = uk(f)
         save_json(path, doc)
         print(f"OK   ukmto-incidents: {len(items)} records, latest {latest}")
         return True, latest, None

@@ -274,7 +274,7 @@
     const jmic = (adv.jmic || {});
     const marad = (adv.marad || {});
     const j1 = $("#risk-meta-inc");
-    if (j1) j1.innerHTML = `Source: <a href="https://www.ukmto.org/recent-incidents" target="_blank" rel="noopener">UKMTO</a>, under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a> · latest incident ${esc(fmtUK(inc.as_of, true))} · checked ${esc(fmtUK(inc.fetched_uk))}${incStale}`;
+    if (j1) j1.innerHTML = `Source: <a href="https://www.ukmto.org/recent-incidents" target="_blank" rel="noopener">UKMTO</a>, under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a> · latest incident ${esc(fmtUK(inc.as_of, true))} · checked ${esc(fmtUK(inc.fetched_uk))}${inc.via ? " · " + esc(inc.via) : ""}${incStale}`;
     const j2 = $("#risk-meta-zones");
     if (j2) j2.innerHTML = `Listed areas: our reading of <a href="${esc(z.circular_url || "https://lmalloyds.com/specialist-areas/underwriting/listed-areas/")}" target="_blank" rel="noopener">${esc(z.circular || "JWLA-035")}</a> (${esc(fmtUK(z.circular_date, true))}). LMA page last checked ${esc(fmtUK(jwc.checked_uk))}, latest circular seen ${esc(jwc.latest || z.circular || "")}. JMIC Update ${esc(jmic.snapshot_update)} threat levels as of ${esc(fmtUK(jmic.icod_uk, true))}; latest PDF check ${esc(jmic.latest_update ? "Update " + jmic.latest_update : "n/a")} (${esc(fmtUK(jmic.checked_uk))}). MARAD list: ${esc(marad.source || "dated snapshot")}${marad.ok === false ? ' <span class="stale">feed blocked</span>' : ""}.`;
   }
