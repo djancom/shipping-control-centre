@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-12 18:25",
+  "updated_uk": "2026-11-12 20:30",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -100,8 +100,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 576,
-      "with_mmsi": 319,
+      "listed": 578,
+      "with_mmsi": 321,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3328,6 +3328,18 @@
           "imo": "1029340",
           "mmsi": "219774000",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK MONTE LINZOR",
+          "imo": "9283186",
+          "mmsi": "563051200",
+          "via": "aisstream"
+        },
+        {
+          "name": "SANTA RITA MAERSK",
+          "imo": "9425382",
+          "mmsi": "219085000",
+          "via": "aisstream"
         }
       ]
     },
@@ -3344,8 +3356,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 662,
-      "with_mmsi": 327,
+      "listed": 667,
+      "with_mmsi": 332,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -7021,6 +7033,36 @@
           "mmsi": "636017435",
           "via": "aisstream",
           "imo": "9755957"
+        },
+        {
+          "name": "MSC CLARITA III",
+          "imo": "9300972",
+          "mmsi": "636026166",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC CHARLOTTE",
+          "imo": "9330238",
+          "mmsi": "636020574",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC HELENA III",
+          "imo": "9219393",
+          "mmsi": "351917000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC SAGITTA III",
+          "imo": "9401166",
+          "mmsi": "210961000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC CASSANDRE",
+          "imo": "9785471",
+          "mmsi": "636021364",
+          "via": "aisstream"
         }
       ]
     },
@@ -7038,8 +7080,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 230,
-      "with_mmsi": 134,
+      "listed": 232,
+      "with_mmsi": 137,
       "ships": [
         {
           "name": "CMA CGM",
@@ -7334,7 +7376,9 @@
         {
           "name": "CMA CGM Corneille",
           "imo": "9409170",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636017425",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Corte Real",
@@ -8338,6 +8382,18 @@
           "imo": "9396610",
           "mmsi": "311001768",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM J. ADAMS",
+          "imo": "9780885",
+          "mmsi": "215181000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM PHOENIX",
+          "imo": "9597501",
+          "mmsi": "338485000",
+          "via": "aisstream"
         }
       ]
     },
@@ -8358,7 +8414,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 196,
-      "with_mmsi": 106,
+      "with_mmsi": 108,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -8756,7 +8812,9 @@
         {
           "name": "Cosco Shipping Andes",
           "imo": "9757888",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477194600",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "COSCO Shipping Aries",
@@ -9162,7 +9220,9 @@
         {
           "name": "OOCL Ho Chi Minh City",
           "imo": "9613599",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477314100",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Hong Kong",
@@ -9644,8 +9704,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 69,
-      "with_mmsi": 43,
+      "listed": 70,
+      "with_mmsi": 44,
       "ships": [
         {
           "name": "One Apus",
@@ -10019,6 +10079,12 @@
           "name": "ONE SPIN 3",
           "mmsi": "378114704",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE HARBOUR",
+          "imo": "9302152",
+          "mmsi": "563244800",
+          "via": "aisstream"
         }
       ]
     },
@@ -10038,7 +10104,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
       "listed": 211,
-      "with_mmsi": 142,
+      "with_mmsi": 143,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -11099,7 +11165,9 @@
         {
           "name": "Ever Ursula",
           "imo": "9168867",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "357737000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ever Useful",
@@ -11788,7 +11856,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 113,
-      "with_mmsi": 60,
+      "with_mmsi": 61,
       "ships": [
         {
           "name": "YM Advance",
@@ -12142,7 +12210,9 @@
         {
           "name": "YM Neptune",
           "imo": "9464106",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "249813000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "YM North",
@@ -12710,7 +12780,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
       "listed": 52,
-      "with_mmsi": 25,
+      "with_mmsi": 26,
       "ships": [
         {
           "name": "NYK Altair",
@@ -12797,7 +12867,9 @@
         {
           "name": "NYK Eagle",
           "imo": "9741396",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "431552000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "NYK Espirito",
