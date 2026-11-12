@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-12 09:57",
+  "updated_uk": "2026-11-12 11:54",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -100,8 +100,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 572,
-      "with_mmsi": 313,
+      "listed": 574,
+      "with_mmsi": 316,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -2256,7 +2256,9 @@
         {
           "name": "Maersk Serangoon",
           "imo": "9315214",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "565449000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Server",
@@ -3300,6 +3302,18 @@
           "imo": "9622203",
           "mmsi": "219102000",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK RIO BLANCO",
+          "imo": "9348089",
+          "mmsi": "563050200",
+          "via": "aisstream"
+        },
+        {
+          "name": "ALETTE MAERSK",
+          "imo": "9948774",
+          "mmsi": "220000001",
+          "via": "aisstream"
         }
       ]
     },
@@ -3316,8 +3330,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 657,
-      "with_mmsi": 318,
+      "listed": 660,
+      "with_mmsi": 322,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -5702,7 +5716,9 @@
         {
           "name": "MSC Rania",
           "imo": "9309447",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "210646000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Rapallo",
@@ -6955,6 +6971,24 @@
           "imo": "9256418",
           "mmsi": "636025074",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC YOSHEEN",
+          "imo": "9322011",
+          "mmsi": "212357000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC DARLENE",
+          "imo": "9930959",
+          "mmsi": "636021666",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC LELLA",
+          "imo": "9947158",
+          "mmsi": "636023803",
+          "via": "aisstream"
         }
       ]
     },
@@ -6972,8 +7006,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 228,
-      "with_mmsi": 129,
+      "listed": 230,
+      "with_mmsi": 134,
       "ships": [
         {
           "name": "CMA CGM",
@@ -7174,7 +7208,9 @@
         {
           "name": "CMA CGM Cassiopeia",
           "imo": "9410765",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "215196000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Cayenne",
@@ -7384,7 +7420,9 @@
         {
           "name": "CMA CGM Homere",
           "imo": "9362322",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "525119170",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Hydra",
@@ -8028,7 +8066,9 @@
         {
           "name": "CMA CGM Uruguay",
           "imo": "9706310",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636021251",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Utrillo",
@@ -8254,6 +8294,18 @@
           "imo": "9331191",
           "mmsi": "255916246",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM XIAMEN",
+          "imo": "9400069",
+          "mmsi": "248411000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM WEST",
+          "imo": "9396610",
+          "mmsi": "311001768",
+          "via": "aisstream"
         }
       ]
     },
@@ -8274,7 +8326,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 196,
-      "with_mmsi": 103,
+      "with_mmsi": 106,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -8386,7 +8438,9 @@
         {
           "name": "COSCO Felixtowe",
           "imo": "9246401",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "235068031",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Cosco Fortune",
@@ -8457,7 +8511,9 @@
         {
           "name": "COSCO Himalayas",
           "imo": "9757840",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477100300",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "COSCO Hong Kong",
@@ -9122,7 +9178,9 @@
         {
           "name": "OOCL Kobe",
           "imo": "9329526",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477883300",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Oocl Korea",
@@ -12328,8 +12386,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 43,
-      "with_mmsi": 22,
+      "listed": 44,
+      "with_mmsi": 23,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -12566,6 +12624,12 @@
           "name": "ZIM NEW ZEALAND",
           "imo": "9366471",
           "mmsi": "636021506",
+          "via": "aisstream"
+        },
+        {
+          "name": "ZIM AUSTRALIA",
+          "imo": "9366445",
+          "mmsi": "636021396",
           "via": "aisstream"
         }
       ]
@@ -12892,7 +12956,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
       "listed": 82,
-      "with_mmsi": 30,
+      "with_mmsi": 31,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -13324,7 +13388,9 @@
         {
           "name": "MOL Winter",
           "imo": "9323041",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806459",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Mol Wisdom",
