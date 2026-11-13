@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-13 01:30",
+  "updated_uk": "2026-11-13 08:07",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -101,7 +101,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 581,
-      "with_mmsi": 325,
+      "with_mmsi": 327,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1269,7 +1269,9 @@
         {
           "name": "Maersk Greenock",
           "imo": "9298686",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "367606000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Guardian",
@@ -1675,7 +1677,9 @@
         {
           "name": "Maersk Lins",
           "imo": "9527025",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "219506000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Lirquen",
@@ -3346,7 +3350,8 @@
         {
           "name": "METTE MAERSK",
           "mmsi": "219631000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9632155"
         },
         {
           "name": "SAN LORENZO MAERSK",
@@ -3375,8 +3380,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 674,
-      "with_mmsi": 342,
+      "listed": 676,
+      "with_mmsi": 345,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -5339,7 +5344,9 @@
         {
           "name": "MSC Masha 3",
           "imo": "9188219",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806109",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Matilde",
@@ -7129,6 +7136,18 @@
           "imo": "9930064",
           "mmsi": "636022605",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC FLORA",
+          "imo": "9978937",
+          "mmsi": "636025014",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC GUERNSEY V",
+          "imo": "9631876",
+          "mmsi": "255806368",
+          "via": "aisstream"
         }
       ]
     },
@@ -7147,7 +7166,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
       "listed": 238,
-      "with_mmsi": 143,
+      "with_mmsi": 145,
       "ships": [
         {
           "name": "CMA CGM",
@@ -7303,7 +7322,9 @@
         {
           "name": "CMA CGM Bianca",
           "imo": "9436367",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "256604000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Blue Whale",
@@ -7596,7 +7617,9 @@
         {
           "name": "CMA CGM Jacques Joseph",
           "imo": "9729104",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "248473000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Jacques Junior",
@@ -8514,8 +8537,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 196,
-      "with_mmsi": 109,
+      "listed": 198,
+      "with_mmsi": 111,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -9624,6 +9647,18 @@
           "imo": "9881653",
           "mmsi": "477632500",
           "via": "aisstream"
+        },
+        {
+          "name": "COSCO SHIPPING PERU",
+          "imo": "9945875",
+          "mmsi": "477015500",
+          "via": "aisstream"
+        },
+        {
+          "name": "OOCL VERACRUZ",
+          "imo": "9979266",
+          "mmsi": "636023343",
+          "via": "aisstream"
         }
       ]
     },
@@ -10206,8 +10241,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 212,
-      "with_mmsi": 146,
+      "listed": 215,
+      "with_mmsi": 149,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -11419,6 +11454,22 @@
           "imo": "9975791",
           "mmsi": "563272300",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER JOYCE",
+          "mmsi": "563023490",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER FUTURE",
+          "imo": "9850599",
+          "mmsi": "563160200",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER SAFE NO.2",
+          "mmsi": "477997312",
+          "via": "aisstream"
         }
       ]
     },
@@ -12620,8 +12671,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 46,
-      "with_mmsi": 25,
+      "listed": 47,
+      "with_mmsi": 26,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -12876,6 +12927,12 @@
           "name": "ZIM XIAMEN",
           "imo": "9710232",
           "mmsi": "636016985",
+          "via": "aisstream"
+        },
+        {
+          "name": "ZIM ARIES",
+          "imo": "9963217",
+          "mmsi": "636022953",
           "via": "aisstream"
         }
       ]
