@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-14 11:36",
+  "updated_uk": "2026-11-14 17:20",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -104,8 +104,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 592,
-      "with_mmsi": 344,
+      "listed": 593,
+      "with_mmsi": 347,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1538,7 +1538,9 @@
         {
           "name": "Maersk Kiera",
           "imo": "9431305",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "566234000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Kimi",
@@ -1613,7 +1615,9 @@
         {
           "name": "Maersk Lamanai",
           "imo": "9527051",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "219527000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Lancer",
@@ -3417,7 +3421,8 @@
         {
           "name": "MARIBO MAERSK",
           "mmsi": "219019094",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9619969"
         },
         {
           "name": "MAERSK CAYMAN",
@@ -3447,6 +3452,12 @@
           "imo": "9484560",
           "mmsi": "563052600",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK NARMADA",
+          "imo": "9356098",
+          "mmsi": "477552700",
+          "via": "aisstream"
         }
       ]
     },
@@ -3463,8 +3474,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 702,
-      "with_mmsi": 379,
+      "listed": 707,
+      "with_mmsi": 386,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -5766,7 +5777,9 @@
         {
           "name": "MSC Pegasus",
           "imo": "9267637",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636016673",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Peggy",
@@ -6445,7 +6458,9 @@
         {
           "name": "MSC Vega",
           "imo": "9465265",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636015506",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Venezuela",
@@ -7403,6 +7418,36 @@
           "imo": "9289960",
           "mmsi": "255792000",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC LUCIA III",
+          "imo": "9286774",
+          "mmsi": "636023722",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC CALIDRIS III",
+          "imo": "9445899",
+          "mmsi": "212419000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC CALISTA II",
+          "imo": "9306067",
+          "mmsi": "255806513",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MAGNITUDE VII",
+          "imo": "9252553",
+          "mmsi": "636023420",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC SIENA",
+          "imo": "9987275",
+          "mmsi": "636024420",
+          "via": "aisstream"
         }
       ]
     },
@@ -7420,8 +7465,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 255,
-      "with_mmsi": 165,
+      "listed": 257,
+      "with_mmsi": 167,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8878,6 +8923,18 @@
           "name": "CMA CGM INDIANAPOLIS",
           "imo": "9953717",
           "mmsi": "256542000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM ANDALUCIA",
+          "imo": "9331206",
+          "mmsi": "255806405",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM PLATINUM",
+          "imo": "9996707",
+          "mmsi": "249585000",
           "via": "aisstream"
         }
       ]
@@ -12511,7 +12568,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 116,
-      "with_mmsi": 68,
+      "with_mmsi": 69,
       "ships": [
         {
           "name": "YM Advance",
@@ -13014,7 +13071,9 @@
         {
           "name": "YM Venus",
           "imo": "9291585",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "215826000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "YM Warmth",
