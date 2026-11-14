@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-14 21:42",
+  "updated_uk": "2026-11-14 22:35",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -104,8 +104,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 600,
-      "with_mmsi": 354,
+      "listed": 602,
+      "with_mmsi": 356,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3498,6 +3498,18 @@
           "imo": "9348106",
           "mmsi": "563051600",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK SENECA",
+          "imo": "9699206",
+          "mmsi": "338713000",
+          "via": "aisstream"
+        },
+        {
+          "name": "ANTONIA MAERSK",
+          "imo": "9948762",
+          "mmsi": "219614000",
+          "via": "aisstream"
         }
       ]
     },
@@ -3514,8 +3526,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 711,
-      "with_mmsi": 393,
+      "listed": 713,
+      "with_mmsi": 396,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -3923,7 +3935,9 @@
         {
           "name": "MSC Avni",
           "imo": "9756729",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018068",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Ayala",
@@ -7518,6 +7532,17 @@
           "imo": "9232773",
           "mmsi": "636018204",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC FREYA",
+          "mmsi": "636022449",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC SENA",
+          "imo": "9116369",
+          "mmsi": "636017582",
+          "via": "aisstream"
         }
       ]
     },
@@ -7535,8 +7560,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 260,
-      "with_mmsi": 170,
+      "listed": 262,
+      "with_mmsi": 172,
       "ships": [
         {
           "name": "CMA CGM",
@@ -9024,6 +9049,18 @@
           "imo": "9367839",
           "mmsi": "229914000",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM WISDOM",
+          "imo": "9952830",
+          "mmsi": "256852000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM RHONE",
+          "imo": "9674543",
+          "mmsi": "229989000",
+          "via": "aisstream"
         }
       ]
     },
@@ -10377,8 +10414,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 77,
-      "with_mmsi": 53,
+      "listed": 79,
+      "with_mmsi": 55,
       "ships": [
         {
           "name": "One Apus",
@@ -10799,6 +10836,17 @@
         {
           "name": "ONE PLANET",
           "mmsi": "228448700",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE STAR",
+          "mmsi": "440140640",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE VELA",
+          "imo": "1078315",
+          "mmsi": "567074300",
           "via": "aisstream"
         }
       ]
@@ -12119,8 +12167,8 @@
       "source": "Wikidata (CC0), ships with a HYUNDAI or HMM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 94,
-      "with_mmsi": 69,
+      "listed": 95,
+      "with_mmsi": 70,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -12665,6 +12713,11 @@
           "name": "HMM NARU",
           "imo": "1039280",
           "mmsi": "352006187",
+          "via": "aisstream"
+        },
+        {
+          "name": "HYUNDAI BUSAN",
+          "mmsi": "212350000",
           "via": "aisstream"
         }
       ]
