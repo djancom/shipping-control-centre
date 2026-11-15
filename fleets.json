@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-14 22:35",
+  "updated_uk": "2026-11-15 01:22",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -104,8 +104,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 602,
-      "with_mmsi": 356,
+      "listed": 603,
+      "with_mmsi": 357,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3510,6 +3510,12 @@
           "imo": "9948762",
           "mmsi": "219614000",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK LA PAZ",
+          "mmsi": "219505000",
+          "via": "aisstream",
+          "imo": "9526899"
         }
       ]
     },
@@ -7560,8 +7566,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 262,
-      "with_mmsi": 172,
+      "listed": 264,
+      "with_mmsi": 175,
       "ships": [
         {
           "name": "CMA CGM",
@@ -7955,7 +7961,9 @@
         {
           "name": "CMA CGM Gemini",
           "imo": "9410791",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "215134000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Georg Forster",
@@ -9060,6 +9068,18 @@
           "name": "CMA CGM RHONE",
           "imo": "9674543",
           "mmsi": "229989000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM CALLAO",
+          "imo": "9395068",
+          "mmsi": "229633000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM SPIRIT",
+          "imo": "9372860",
+          "mmsi": "249648000",
           "via": "aisstream"
         }
       ]
@@ -10866,8 +10886,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 224,
-      "with_mmsi": 159,
+      "listed": 227,
+      "with_mmsi": 162,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -12150,6 +12170,24 @@
           "imo": "1025289",
           "mmsi": "563344600",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER CERTAIN",
+          "imo": "9903255",
+          "mmsi": "636021136",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER TOP",
+          "imo": "9665619",
+          "mmsi": "352001313",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER COZY",
+          "imo": "9904510",
+          "mmsi": "247439600",
+          "via": "aisstream"
         }
       ]
     },
@@ -12738,7 +12776,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 116,
-      "with_mmsi": 70,
+      "with_mmsi": 71,
       "ships": [
         {
           "name": "YM Advance",
@@ -13121,7 +13159,9 @@
         {
           "name": "YM Plum",
           "imo": "9198264",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018262",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ym Pluto",
@@ -13417,8 +13457,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 50,
-      "with_mmsi": 30,
+      "listed": 51,
+      "with_mmsi": 31,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -13700,6 +13740,12 @@
           "imo": "9431719",
           "mmsi": "636020648",
           "via": "aisstream"
+        },
+        {
+          "name": "ZIM SCORPIO",
+          "imo": "9963231",
+          "mmsi": "636022956",
+          "via": "aisstream"
         }
       ]
     },
@@ -13718,7 +13764,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
       "listed": 52,
-      "with_mmsi": 29,
+      "with_mmsi": 30,
       "ships": [
         {
           "name": "NYK Altair",
@@ -13831,7 +13877,9 @@
         {
           "name": "NYK Fushimi",
           "imo": "9487964",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "566335000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "NYK Futago",
