@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-16 01:27",
+  "updated_uk": "2026-11-16 02:59",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -18,7 +18,7 @@
       "source_date": "2026-11-10",
       "note": "Complete list from the official fleet page. All are chartered, so an owner number would not find them. Call signs as published (Joanna and Judith are both shown as CQ2049 on that page).",
       "listed": 10,
-      "with_mmsi": 6,
+      "with_mmsi": 8,
       "ships": [
         {
           "name": "AMELIE BORCHARD",
@@ -31,13 +31,17 @@
           "name": "JOANNA BORCHARD",
           "imo": "1016563",
           "callsign": "CQ2049",
-          "via": "official"
+          "via": "official",
+          "mmsi": "255915591",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "JUDITH BORCHARD",
           "imo": "1016575",
           "callsign": "CQ2049",
-          "via": "official"
+          "via": "official",
+          "mmsi": "255915590",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "KATHERINE BORCHARD",
@@ -3591,7 +3595,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 733,
-      "with_mmsi": 423,
+      "with_mmsi": 424,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -6353,7 +6357,9 @@
         {
           "name": "MSC Sofia Celeste",
           "imo": "9702091",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806495",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Sofia Paz",
@@ -7713,7 +7719,8 @@
         {
           "name": "MSC JERSEY",
           "mmsi": "255805956",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9622007"
         },
         {
           "name": "MSC NIOVI VIII",
@@ -11227,8 +11234,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 231,
-      "with_mmsi": 166,
+      "listed": 232,
+      "with_mmsi": 167,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -12553,6 +12560,12 @@
           "imo": "9786968",
           "mmsi": "416032000",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER SUPERIOR",
+          "imo": "9315472",
+          "mmsi": "353379000",
+          "via": "aisstream"
         }
       ]
     },
@@ -13838,8 +13851,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 52,
-      "with_mmsi": 32,
+      "listed": 53,
+      "with_mmsi": 33,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -14133,6 +14146,11 @@
           "mmsi": "563292300",
           "via": "aisstream",
           "imo": "9931111"
+        },
+        {
+          "name": "ZIM MOUNT RAINIER",
+          "mmsi": "563293100",
+          "via": "aisstream"
         }
       ]
     },
