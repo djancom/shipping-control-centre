@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-16 08:39",
+  "updated_uk": "2026-11-16 11:39",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3596,8 +3596,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 738,
-      "with_mmsi": 429,
+      "listed": 741,
+      "with_mmsi": 432,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -7455,7 +7455,8 @@
         {
           "name": "MSC ANGOLA",
           "mmsi": "636024884",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9978729"
         },
         {
           "name": "MSC IRIS",
@@ -7775,6 +7776,24 @@
           "imo": "9303792",
           "mmsi": "255916090",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC LUNA F",
+          "imo": "9308625",
+          "mmsi": "255805968",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC KAYLA",
+          "imo": "9242637",
+          "mmsi": "636018491",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC TAKORADI VIII",
+          "imo": "9983683",
+          "mmsi": "255915818",
+          "via": "aisstream"
         }
       ]
     },
@@ -7792,8 +7811,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 277,
-      "with_mmsi": 194,
+      "listed": 279,
+      "with_mmsi": 196,
       "ships": [
         {
           "name": "CMA CGM",
@@ -9398,6 +9417,18 @@
           "name": "CMA CGM GREENLAND",
           "imo": "9895006",
           "mmsi": "228410800",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM AMBITION",
+          "imo": "9951551",
+          "mmsi": "256787000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM FIORDLAND",
+          "imo": "9969106",
+          "mmsi": "636023410",
           "via": "aisstream"
         }
       ]
@@ -11273,7 +11304,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
       "listed": 232,
-      "with_mmsi": 168,
+      "with_mmsi": 169,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -12019,7 +12050,9 @@
         {
           "name": "Ever Lucent",
           "imo": "9629067",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "564345000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ever Lucid",
