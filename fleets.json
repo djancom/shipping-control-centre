@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-15 22:57",
+  "updated_uk": "2026-11-16 01:27",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -108,8 +108,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 609,
-      "with_mmsi": 369,
+      "listed": 610,
+      "with_mmsi": 370,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3568,6 +3568,12 @@
           "imo": "9321548",
           "mmsi": "563254400",
           "via": "aisstream"
+        },
+        {
+          "name": "BRUSSELS MAERSK",
+          "imo": "9984601",
+          "mmsi": "219728000",
+          "via": "aisstream"
         }
       ]
     },
@@ -3585,7 +3591,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 733,
-      "with_mmsi": 421,
+      "with_mmsi": 423,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4190,7 +4196,9 @@
         {
           "name": "MSC Candice",
           "imo": "9339284",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "352871000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Capella",
@@ -6675,7 +6683,9 @@
         {
           "name": "MSC Washington",
           "imo": "9908047",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636021365",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Washington",
@@ -7745,8 +7755,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 274,
-      "with_mmsi": 189,
+      "listed": 276,
+      "with_mmsi": 192,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8240,7 +8250,9 @@
         {
           "name": "CMA CGM Kailas",
           "imo": "9339545",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "371866000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Kerguelen",
@@ -9329,6 +9341,18 @@
           "name": "CMA CGM ARICA",
           "imo": "9395094",
           "mmsi": "229680000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM VENDOME",
+          "imo": "9987213",
+          "mmsi": "563294600",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM ALIAGA",
+          "imo": "9323039",
+          "mmsi": "229573000",
           "via": "aisstream"
         }
       ]
@@ -13125,7 +13149,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 117,
-      "with_mmsi": 72,
+      "with_mmsi": 73,
       "ships": [
         {
           "name": "YM Advance",
@@ -13451,7 +13475,9 @@
         {
           "name": "YM Mobility",
           "imo": "9457737",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636014997",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ym Moderation",
