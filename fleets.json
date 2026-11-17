@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-17 02:38",
+  "updated_uk": "2026-11-17 04:39",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -115,7 +115,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 611,
-      "with_mmsi": 375,
+      "with_mmsi": 376,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1730,7 +1730,9 @@
         {
           "name": "Maersk Londrina",
           "imo": "9527037",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "219540000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Lota",
@@ -3611,7 +3613,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 747,
-      "with_mmsi": 442,
+      "with_mmsi": 444,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -5351,7 +5353,9 @@
         {
           "name": "MSC Lisa",
           "imo": "9281279",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "353968000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Lisbon",
@@ -5660,7 +5664,9 @@
         {
           "name": "MSC Meline",
           "imo": "9702077",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806497",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Melissa",
@@ -7868,8 +7874,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 283,
-      "with_mmsi": 201,
+      "listed": 284,
+      "with_mmsi": 202,
       "ships": [
         {
           "name": "CMA CGM",
@@ -9511,6 +9517,11 @@
           "imo": "9962524",
           "mmsi": "352001685",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM LEKKI",
+          "mmsi": "229394000",
+          "via": "aisstream"
         }
       ]
     },
@@ -10903,8 +10914,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 87,
-      "with_mmsi": 63,
+      "listed": 88,
+      "with_mmsi": 64,
       "ships": [
         {
           "name": "One Apus",
@@ -11381,6 +11392,12 @@
           "imo": "9952763",
           "mmsi": "563297100",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE OCEAN",
+          "imo": "9585651",
+          "mmsi": "636020727",
+          "via": "aisstream"
         }
       ]
     },
@@ -11399,8 +11416,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 238,
-      "with_mmsi": 176,
+      "listed": 239,
+      "with_mmsi": 177,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -12772,6 +12789,12 @@
           "imo": "9935325",
           "mmsi": "563240100",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER BLISS",
+          "imo": "9786932",
+          "mmsi": "351465000",
+          "via": "aisstream"
         }
       ]
     },
@@ -14052,7 +14075,8 @@
         {
           "name": "YM EXCELLENCE",
           "mmsi": "636016704",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9496616"
         },
         {
           "name": "YM WEIGHT",
