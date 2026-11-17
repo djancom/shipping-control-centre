@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-17 11:14",
+  "updated_uk": "2026-11-17 14:37",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -115,7 +115,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 611,
-      "with_mmsi": 378,
+      "with_mmsi": 379,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -2285,7 +2285,9 @@
         {
           "name": "Maersk Semakau",
           "imo": "9315252",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "565485000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Semarang",
@@ -7891,7 +7893,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
       "listed": 285,
-      "with_mmsi": 203,
+      "with_mmsi": 204,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8382,7 +8384,9 @@
         {
           "name": "CMA CGM Jean Mermoz",
           "imo": "9776420",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "248758000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Kailas",
@@ -10861,7 +10865,7 @@
           "via": "wikidata"
         },
         {
-          "name": "Hapag-Lloyd ship 9349564",
+          "name": "HUDSON EXPRESS",
           "imo": "9349564",
           "via": "wikidata",
           "mmsi": "368359000",
@@ -10944,8 +10948,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 88,
-      "with_mmsi": 64,
+      "listed": 89,
+      "with_mmsi": 65,
       "ships": [
         {
           "name": "One Apus",
@@ -11428,6 +11432,11 @@
           "imo": "9585651",
           "mmsi": "636020727",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE LIFE. LIVE IT.",
+          "mmsi": "256002491",
+          "via": "aisstream"
         }
       ]
     },
@@ -11447,7 +11456,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
       "listed": 242,
-      "with_mmsi": 180,
+      "with_mmsi": 181,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -12212,7 +12221,9 @@
         {
           "name": "Ever Lucky",
           "imo": "9604172",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "356407000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ever Lunar",
@@ -12859,7 +12870,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 98,
-      "with_mmsi": 75,
+      "with_mmsi": 76,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -13299,7 +13310,9 @@
         {
           "name": "Hyundai Tacoma",
           "imo": "9385001",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "440144000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Hyundai Technopia",
