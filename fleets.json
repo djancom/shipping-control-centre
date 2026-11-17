@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-17 20:06",
+  "updated_uk": "2026-11-17 22:59",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -114,8 +114,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 616,
-      "with_mmsi": 384,
+      "listed": 618,
+      "with_mmsi": 386,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3631,6 +3631,18 @@
           "name": "MAERSK MONTE AZUL",
           "imo": "9348053",
           "mmsi": "563051700",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK NOTODDEN",
+          "imo": "1047108",
+          "mmsi": "352005901",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK SHEKOU",
+          "imo": "9466984",
+          "mmsi": "563165200",
           "via": "aisstream"
         }
       ]
@@ -7946,8 +7958,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 286,
-      "with_mmsi": 205,
+      "listed": 287,
+      "with_mmsi": 208,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8077,7 +8089,9 @@
         {
           "name": "CMA CGM Bahia",
           "imo": "9220316",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255805580",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Barracuda",
@@ -8661,7 +8675,9 @@
         {
           "name": "CMA CGM Mumbai",
           "imo": "9778131",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563278800",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Mundra",
@@ -9608,6 +9624,12 @@
           "name": "CMA CGM BALBOA",
           "imo": "9344655",
           "mmsi": "229528000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM PARANAGUA",
+          "imo": "9246683",
+          "mmsi": "229635000",
           "via": "aisstream"
         }
       ]
@@ -14570,8 +14592,8 @@
       "source": "Wikidata (CC0), ships with an NYK name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
-      "listed": 53,
-      "with_mmsi": 32,
+      "listed": 54,
+      "with_mmsi": 33,
       "ships": [
         {
           "name": "NYK Altair",
@@ -14879,6 +14901,11 @@
           "mmsi": "355433000",
           "via": "aisstream",
           "imo": "9337626"
+        },
+        {
+          "name": "NYK VENUS",
+          "mmsi": "372512000",
+          "via": "aisstream"
         }
       ]
     },
