@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-18 14:12",
+  "updated_uk": "2026-11-18 19:09",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3699,8 +3699,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 758,
-      "with_mmsi": 460,
+      "listed": 759,
+      "with_mmsi": 461,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -7759,7 +7759,8 @@
         {
           "name": "MSC ALTAMIRA",
           "mmsi": "636015664",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9619426"
         },
         {
           "name": "MSC INSA",
@@ -7941,7 +7942,8 @@
         {
           "name": "MSC ERMINIA III",
           "mmsi": "636020454",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9246346"
         },
         {
           "name": "MSC GENERAL IV",
@@ -8020,6 +8022,12 @@
           "imo": "9235610",
           "mmsi": "636017570",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC GIULIA",
+          "mmsi": "255805869",
+          "via": "aisstream",
+          "imo": "9770737"
         }
       ]
     },
@@ -8037,8 +8045,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 292,
-      "with_mmsi": 214,
+      "listed": 293,
+      "with_mmsi": 217,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8110,7 +8118,9 @@
         {
           "name": "CMA CGM Amber",
           "imo": "9350381",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "215148000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM America",
@@ -9116,7 +9126,9 @@
         {
           "name": "CMA CGM Turkey",
           "imo": "9152856",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "371711000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Turquoise",
@@ -9716,7 +9728,8 @@
         {
           "name": "CMA CGM GOAL",
           "mmsi": "248521000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9626558"
         },
         {
           "name": "CMA CGM FORT BOURBON",
@@ -9739,6 +9752,12 @@
           "name": "CMA CGM GRACE BAY",
           "imo": "9938145",
           "mmsi": "256611000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM ESCURIAL",
+          "imo": "9961374",
+          "mmsi": "249237000",
           "via": "aisstream"
         }
       ]
@@ -11684,8 +11703,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 248,
-      "with_mmsi": 188,
+      "listed": 250,
+      "with_mmsi": 190,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13120,6 +13139,18 @@
           "imo": "9850848",
           "mmsi": "636021190",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER ONWARD",
+          "imo": "9913896",
+          "mmsi": "636021955",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER MACRO",
+          "imo": "9935351",
+          "mmsi": "563249900",
+          "via": "aisstream"
         }
       ]
     },
@@ -13137,8 +13168,8 @@
       "source": "Wikidata (CC0), ships with a HYUNDAI or HMM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 100,
-      "with_mmsi": 78,
+      "listed": 101,
+      "with_mmsi": 79,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -13725,6 +13756,12 @@
           "imo": "9998470",
           "mmsi": "352005268",
           "via": "aisstream"
+        },
+        {
+          "name": "HYUNDAI PEACEPIA",
+          "mmsi": "374816000",
+          "via": "aisstream",
+          "imo": "9761853"
         }
       ]
     },
