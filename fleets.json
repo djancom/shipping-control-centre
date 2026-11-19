@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-19 03:39",
+  "updated_uk": "2026-11-19 09:33",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -114,8 +114,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 626,
-      "with_mmsi": 401,
+      "listed": 628,
+      "with_mmsi": 403,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3705,6 +3705,17 @@
           "imo": "9717228",
           "mmsi": "538008133",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK CAMEROUN",
+          "mmsi": "566056000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK NEWARK",
+          "imo": "9402615",
+          "mmsi": "563288600",
+          "via": "aisstream"
         }
       ]
     },
@@ -3721,8 +3732,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 764,
-      "with_mmsi": 471,
+      "listed": 765,
+      "with_mmsi": 472,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8091,6 +8102,12 @@
           "imo": "9231119",
           "mmsi": "636021596",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC MAKALU III",
+          "mmsi": "636022307",
+          "via": "aisstream",
+          "imo": "9327683"
         }
       ]
     },
@@ -9868,8 +9885,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 210,
-      "with_mmsi": 140,
+      "listed": 211,
+      "with_mmsi": 143,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -10770,7 +10787,9 @@
         {
           "name": "OOCL Kuala Lumpur",
           "imo": "9367176",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477793900",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Le Havre",
@@ -10878,7 +10897,9 @@
         {
           "name": "OOCL Seoul",
           "imo": "9417244",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477617700",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Shenzhen",
@@ -11034,7 +11055,8 @@
         {
           "name": "COSCO INDONESIA",
           "mmsi": "563277500",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9448786"
         },
         {
           "name": "OOCL SHANGHAI",
@@ -11090,6 +11112,12 @@
           "name": "COSCO STAR",
           "imo": "9073440",
           "mmsi": "477559700",
+          "via": "aisstream"
+        },
+        {
+          "name": "OOCL SWEDEN",
+          "imo": "9922603",
+          "mmsi": "477949300",
           "via": "aisstream"
         }
       ]
@@ -11280,8 +11308,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 95,
-      "with_mmsi": 71,
+      "listed": 97,
+      "with_mmsi": 74,
       "ships": [
         {
           "name": "One Apus",
@@ -11482,7 +11510,9 @@
         {
           "name": "ONE Splendour",
           "imo": "9975648",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563252200",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "ONE Sprinter",
@@ -11803,6 +11833,17 @@
         {
           "name": "ONE ARCADIA",
           "mmsi": "319211600",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE FOREVER",
+          "mmsi": "563296500",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE INSPIRATION",
+          "imo": "9939149",
+          "mmsi": "636023348",
           "via": "aisstream"
         }
       ]
@@ -14944,7 +14985,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
       "listed": 54,
-      "with_mmsi": 34,
+      "with_mmsi": 35,
       "ships": [
         {
           "name": "NYK Altair",
@@ -15156,7 +15197,9 @@
         {
           "name": "NYK Paula",
           "imo": "9419632",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "356629000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "NYK Remus",
