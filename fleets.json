@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-19 13:25",
+  "updated_uk": "2026-11-19 18:42",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3734,8 +3734,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 767,
-      "with_mmsi": 474,
+      "listed": 770,
+      "with_mmsi": 478,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4115,7 +4115,9 @@
         {
           "name": "MSC Atlanta",
           "imo": "9345972",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "210721000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Atlantic",
@@ -8120,6 +8122,23 @@
           "name": "MSC MUSICA TB19",
           "mmsi": "983520019",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC COLETTE III",
+          "imo": "9232761",
+          "mmsi": "636021597",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC CELINE III",
+          "imo": "9316361",
+          "mmsi": "636026311",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MUSICA T/B 21",
+          "mmsi": "983520021",
+          "via": "aisstream"
         }
       ]
     },
@@ -8137,8 +8156,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 297,
-      "with_mmsi": 223,
+      "listed": 298,
+      "with_mmsi": 225,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8260,7 +8279,9 @@
         {
           "name": "CMA CGM Arkansas",
           "imo": "9722651",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "256644000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Attila",
@@ -9879,6 +9900,11 @@
           "imo": "9926221",
           "mmsi": "205239000",
           "via": "aisstream"
+        },
+        {
+          "name": "CMACGM POINTEDUPITON",
+          "mmsi": "256950000",
+          "via": "aisstream"
         }
       ]
     },
@@ -9899,7 +9925,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 211,
-      "with_mmsi": 143,
+      "with_mmsi": 144,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -10325,7 +10351,9 @@
         {
           "name": "Cosco Shipping Azalea",
           "imo": "9785756",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477233300",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "COSCO Shipping Capricorn",
@@ -11321,8 +11349,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 98,
-      "with_mmsi": 75,
+      "listed": 99,
+      "with_mmsi": 76,
       "ships": [
         {
           "name": "One Apus",
@@ -11864,6 +11892,12 @@
           "name": "ONE ORINOCO",
           "imo": "9937311",
           "mmsi": "563291100",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE OWL",
+          "imo": "9741449",
+          "mmsi": "431772000",
           "via": "aisstream"
         }
       ]
