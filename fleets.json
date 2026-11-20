@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-20 00:57",
+  "updated_uk": "2026-11-20 03:32",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3505,7 +3505,8 @@
         {
           "name": "MUMBAI MAERSK",
           "mmsi": "219039000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9780471"
         },
         {
           "name": "MAERSK CAP JACKSON",
@@ -3746,8 +3747,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 773,
-      "with_mmsi": 482,
+      "listed": 778,
+      "with_mmsi": 487,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8171,6 +8172,34 @@
           "imo": "9386988",
           "mmsi": "255915877",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC SHREYA B",
+          "mmsi": "255806028",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MELANI III",
+          "imo": "9399741",
+          "mmsi": "636017360",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC GIOVANNA VII",
+          "mmsi": "636022942",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MOMBASA",
+          "imo": "9967275",
+          "mmsi": "636023024",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC SALINA III",
+          "imo": "9440150",
+          "mmsi": "255916271",
+          "via": "aisstream"
         }
       ]
     },
@@ -8188,8 +8217,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 300,
-      "with_mmsi": 227,
+      "listed": 303,
+      "with_mmsi": 230,
       "ships": [
         {
           "name": "CMA CGM",
@@ -9947,6 +9976,22 @@
           "name": "CMA CGM HAMLET",
           "imo": "9763710",
           "mmsi": "232061014",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM AQABA",
+          "mmsi": "256148000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM AFRICA TWO",
+          "mmsi": "311043300",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM SPRING",
+          "imo": "9308027",
+          "mmsi": "248007000",
           "via": "aisstream"
         }
       ]
@@ -11972,8 +12017,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 251,
-      "with_mmsi": 191,
+      "listed": 253,
+      "with_mmsi": 193,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13426,6 +13471,17 @@
           "imo": "9950935",
           "mmsi": "563222100",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER FINE",
+          "mmsi": "636026669",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER FAIR",
+          "imo": "9850886",
+          "mmsi": "636020536",
+          "via": "aisstream"
         }
       ]
     },
@@ -14060,8 +14116,8 @@
       "source": "Wikidata (CC0), ships whose name starts with YM, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
-      "listed": 120,
-      "with_mmsi": 79,
+      "listed": 121,
+      "with_mmsi": 80,
       "ships": [
         {
           "name": "YM Advance",
@@ -14756,6 +14812,11 @@
           "name": "YM TRAVEL",
           "imo": "9878503",
           "mmsi": "563232300",
+          "via": "aisstream"
+        },
+        {
+          "name": "YM WISDOM",
+          "mmsi": "636023582",
           "via": "aisstream"
         }
       ]
