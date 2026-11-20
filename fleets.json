@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-20 09:13",
+  "updated_uk": "2026-11-20 13:05",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -115,7 +115,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 629,
-      "with_mmsi": 410,
+      "with_mmsi": 412,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1342,7 +1342,9 @@
         {
           "name": "Maersk Herrera",
           "imo": "9784324",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563059200",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Hidalgo",
@@ -2836,7 +2838,9 @@
         {
           "name": "Matz Maersk",
           "imo": "9619983",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "219019365",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Mayview Maersk",
@@ -8228,7 +8232,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
       "listed": 303,
-      "with_mmsi": 230,
+      "with_mmsi": 231,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8755,7 +8759,9 @@
         {
           "name": "CMA CGM Kingston",
           "imo": "9376907",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806179",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Kou Rou",
@@ -10023,7 +10029,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 212,
-      "with_mmsi": 146,
+      "with_mmsi": 147,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -10319,7 +10325,9 @@
         {
           "name": "Cosco Netherlands",
           "imo": "9516430",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477219900",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "COSCO New York",
@@ -11455,8 +11463,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 100,
-      "with_mmsi": 77,
+      "listed": 101,
+      "with_mmsi": 78,
       "ships": [
         {
           "name": "One Apus",
@@ -12011,6 +12019,11 @@
           "imo": "9290115",
           "mmsi": "563191300",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE WAY",
+          "mmsi": "232042489",
+          "via": "aisstream"
         }
       ]
     },
@@ -12029,8 +12042,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 253,
-      "with_mmsi": 193,
+      "listed": 255,
+      "with_mmsi": 195,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13493,6 +13506,18 @@
           "name": "EVER FAIR",
           "imo": "9850886",
           "mmsi": "636020536",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER CONNECT",
+          "imo": "9919589",
+          "mmsi": "352898766",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER ZENITH",
+          "imo": "9913339",
+          "mmsi": "538009633",
           "via": "aisstream"
         }
       ]
