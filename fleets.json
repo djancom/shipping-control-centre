@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-20 03:32",
+  "updated_uk": "2026-11-20 09:13",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -115,7 +115,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 629,
-      "with_mmsi": 408,
+      "with_mmsi": 410,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1149,7 +1149,9 @@
         {
           "name": "Maersk Erik",
           "imo": "9316608",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "229456000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Essen",
@@ -1701,7 +1703,9 @@
         {
           "name": "Maersk Leticia",
           "imo": "9526916",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "219533000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Lifter",
@@ -3747,8 +3751,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 778,
-      "with_mmsi": 487,
+      "listed": 779,
+      "with_mmsi": 488,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8200,6 +8204,12 @@
           "imo": "9440150",
           "mmsi": "255916271",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC NORDIC F",
+          "imo": "9448671",
+          "mmsi": "209056000",
+          "via": "aisstream"
         }
       ]
     },
@@ -10013,7 +10023,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 212,
-      "with_mmsi": 145,
+      "with_mmsi": 146,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -10593,7 +10603,9 @@
         {
           "name": "COSCO Singapore",
           "imo": "9221102",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "235068032",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Cosco Spain",
@@ -14116,8 +14128,8 @@
       "source": "Wikidata (CC0), ships whose name starts with YM, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
-      "listed": 121,
-      "with_mmsi": 80,
+      "listed": 122,
+      "with_mmsi": 81,
       "ships": [
         {
           "name": "YM Advance",
@@ -14817,6 +14829,12 @@
         {
           "name": "YM WISDOM",
           "mmsi": "636023582",
+          "via": "aisstream"
+        },
+        {
+          "name": "YM DELIGHT",
+          "imo": "9977830",
+          "mmsi": "636024480",
           "via": "aisstream"
         }
       ]
