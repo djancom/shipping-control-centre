@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-20 21:16",
+  "updated_uk": "2026-11-21 00:21",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3775,8 +3775,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 784,
-      "with_mmsi": 493,
+      "listed": 786,
+      "with_mmsi": 496,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4751,7 +4751,9 @@
         {
           "name": "MSC Edith",
           "imo": "9169029",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018324",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Edna",
@@ -8249,7 +8251,8 @@
         {
           "name": "MSC VAIGA III",
           "mmsi": "636021031",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9315836"
         },
         {
           "name": "MSC ODESSA V",
@@ -8261,6 +8264,18 @@
           "name": "MSC GABRIELLA",
           "imo": "9978975",
           "mmsi": "636025760",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC SARY",
+          "imo": "9979008",
+          "mmsi": "636025860",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC BERANGERE",
+          "imo": "9930947",
+          "mmsi": "636021665",
           "via": "aisstream"
         }
       ]
@@ -10092,7 +10107,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 213,
-      "with_mmsi": 148,
+      "with_mmsi": 149,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -10778,7 +10793,9 @@
         {
           "name": "OOCL Asia",
           "imo": "9300790",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477105600",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Atlanta",
@@ -11533,7 +11550,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
       "listed": 102,
-      "with_mmsi": 80,
+      "with_mmsi": 81,
       "ships": [
         {
           "name": "One Apus",
@@ -11640,7 +11657,9 @@
         {
           "name": "One Hammersmith",
           "imo": "9395147",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "354839000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "One Hangzhou Bay",
@@ -13259,7 +13278,8 @@
         {
           "name": "EVER BRAVE",
           "mmsi": "372354000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9784130"
         },
         {
           "name": "EVER BEFIT",
@@ -14248,8 +14268,8 @@
       "source": "Wikidata (CC0), ships whose name starts with YM, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
-      "listed": 124,
-      "with_mmsi": 83,
+      "listed": 125,
+      "with_mmsi": 84,
       "ships": [
         {
           "name": "YM Advance",
@@ -14966,6 +14986,12 @@
         {
           "name": "YM WORLD",
           "mmsi": "563286900",
+          "via": "aisstream"
+        },
+        {
+          "name": "YM URANUS",
+          "imo": "9452763",
+          "mmsi": "249462000",
           "via": "aisstream"
         }
       ]
