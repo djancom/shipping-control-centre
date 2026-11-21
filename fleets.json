@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-21 11:21",
+  "updated_uk": "2026-11-21 15:40",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -18,7 +18,7 @@
       "source_date": "2026-11-10",
       "note": "Complete list from the official fleet page. All are chartered, so an owner number would not find them. Call signs as published (Joanna and Judith are both shown as CQ2049 on that page).",
       "listed": 10,
-      "with_mmsi": 9,
+      "with_mmsi": 10,
       "ships": [
         {
           "name": "AMELIE BORCHARD",
@@ -94,7 +94,9 @@
           "name": "SARA BORCHARD",
           "imo": "9354428",
           "callsign": "CQEJ",
-          "via": "official"
+          "via": "official",
+          "mmsi": "255805686",
+          "mmsi_via": "aisstream-imo"
         }
       ]
     },
@@ -3782,8 +3784,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 789,
-      "with_mmsi": 500,
+      "listed": 791,
+      "with_mmsi": 503,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4278,7 +4280,9 @@
         {
           "name": "MSC Beryl",
           "imo": "9467392",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "357926000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Bettina",
@@ -8303,6 +8307,18 @@
           "imo": "9196864",
           "mmsi": "636021994",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC FATMA",
+          "imo": "9927251",
+          "mmsi": "636021768",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC DOLETTE",
+          "imo": "9968293",
+          "mmsi": "636024940",
+          "via": "aisstream"
         }
       ]
     },
@@ -8320,8 +8336,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 307,
-      "with_mmsi": 236,
+      "listed": 308,
+      "with_mmsi": 237,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10125,6 +10141,12 @@
           "imo": "9734159",
           "mmsi": "232061535",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM SURABAYA",
+          "imo": "9412830",
+          "mmsi": "256170000",
+          "via": "aisstream"
         }
       ]
     },
@@ -11595,8 +11617,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 105,
-      "with_mmsi": 84,
+      "listed": 106,
+      "with_mmsi": 85,
       "ships": [
         {
           "name": "One Apus",
@@ -12183,6 +12205,11 @@
           "name": "ONE SMILE",
           "mmsi": "240822300",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE LOVE 3",
+          "mmsi": "316055899",
+          "via": "aisstream"
         }
       ]
     },
@@ -12201,8 +12228,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 260,
-      "with_mmsi": 200,
+      "listed": 262,
+      "with_mmsi": 202,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13708,6 +13735,18 @@
           "imo": "9950868",
           "mmsi": "563269400",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER OPUS",
+          "imo": "9913872",
+          "mmsi": "352001038",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER FORWARD",
+          "imo": "9850551",
+          "mmsi": "563161200",
+          "via": "aisstream"
         }
       ]
     },
@@ -13725,8 +13764,8 @@
       "source": "Wikidata (CC0), ships with a HYUNDAI or HMM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 104,
-      "with_mmsi": 84,
+      "listed": 105,
+      "with_mmsi": 85,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -14339,6 +14378,12 @@
           "name": "HMM DAVAO",
           "imo": "9308675",
           "mmsi": "440448000",
+          "via": "aisstream"
+        },
+        {
+          "name": "HMM RUBY",
+          "imo": "9955246",
+          "mmsi": "636024119",
           "via": "aisstream"
         }
       ]
@@ -15780,7 +15825,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
       "listed": 82,
-      "with_mmsi": 36,
+      "with_mmsi": 37,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -15887,7 +15932,9 @@
         {
           "name": "MOL Emissary",
           "imo": "9407158",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563279900",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Mol Empire",
