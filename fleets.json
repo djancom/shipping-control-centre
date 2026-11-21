@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-21 19:26",
+  "updated_uk": "2026-11-21 21:14",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3689,7 +3689,8 @@
         {
           "name": "MAERSK LOTA",
           "mmsi": "219508000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9526954"
         },
         {
           "name": "MAERSK YOKOHAMA",
@@ -8370,8 +8371,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 311,
-      "with_mmsi": 240,
+      "listed": 314,
+      "with_mmsi": 243,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10198,6 +10199,24 @@
           "name": "CMA CGM BYBLOS",
           "imo": "9977725",
           "mmsi": "228479600",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM GRAND PALAIS",
+          "imo": "9987225",
+          "mmsi": "563318300",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM GREEN",
+          "imo": "9810915",
+          "mmsi": "249206000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM ORSAY",
+          "imo": "1028059",
+          "mmsi": "228503600",
           "via": "aisstream"
         }
       ]
@@ -12280,8 +12299,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 262,
-      "with_mmsi": 202,
+      "listed": 264,
+      "with_mmsi": 204,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13798,6 +13817,18 @@
           "name": "EVER FORWARD",
           "imo": "9850551",
           "mmsi": "563161200",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER MODEL",
+          "imo": "9935430",
+          "mmsi": "563274100",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER OPTIMA",
+          "imo": "9919474",
+          "mmsi": "352001525",
           "via": "aisstream"
         }
       ]
@@ -15539,7 +15570,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
       "listed": 54,
-      "with_mmsi": 36,
+      "with_mmsi": 37,
       "ships": [
         {
           "name": "NYK Altair",
@@ -15717,7 +15748,9 @@
         {
           "name": "NYK Maria",
           "imo": "9406764",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018223",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "NYK Meteor",
