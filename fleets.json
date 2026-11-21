@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-21 02:32",
+  "updated_uk": "2026-11-21 07:45",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3782,8 +3782,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 787,
-      "with_mmsi": 497,
+      "listed": 788,
+      "with_mmsi": 498,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8290,6 +8290,11 @@
           "imo": "9275024",
           "mmsi": "636017929",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC JENNY II",
+          "mmsi": "255805777",
+          "via": "aisstream"
         }
       ]
     },
@@ -8307,8 +8312,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 305,
-      "with_mmsi": 234,
+      "listed": 306,
+      "with_mmsi": 235,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10100,6 +10105,12 @@
           "imo": "9450349",
           "mmsi": "255806037",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM DON PASCUALE",
+          "imo": "9318101",
+          "mmsi": "229331000",
+          "via": "aisstream"
         }
       ]
     },
@@ -10119,8 +10130,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 213,
-      "with_mmsi": 149,
+      "listed": 214,
+      "with_mmsi": 151,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -10584,7 +10595,9 @@
         {
           "name": "Cosco Shipping Kilimanjaro",
           "imo": "9757852",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477139900",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "COSCO Shipping Leo",
@@ -11373,6 +11386,12 @@
           "imo": "9789623",
           "mmsi": "477308100",
           "via": "aisstream"
+        },
+        {
+          "name": "OOCL NEW ZEALAND",
+          "imo": "9445514",
+          "mmsi": "477612200",
+          "via": "aisstream"
         }
       ]
     },
@@ -11562,8 +11581,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 104,
-      "with_mmsi": 83,
+      "listed": 105,
+      "with_mmsi": 84,
       "ships": [
         {
           "name": "One Apus",
@@ -12145,6 +12164,11 @@
           "imo": "9937335",
           "mmsi": "563291200",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE SMILE",
+          "mmsi": "240822300",
+          "via": "aisstream"
         }
       ]
     },
@@ -12163,8 +12187,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 259,
-      "with_mmsi": 199,
+      "listed": 260,
+      "with_mmsi": 200,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13664,6 +13688,12 @@
           "name": "EVER OATH",
           "mmsi": "352001068",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER WAFT",
+          "imo": "9950868",
+          "mmsi": "563269400",
+          "via": "aisstream"
         }
       ]
     },
@@ -13682,7 +13712,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 103,
-      "with_mmsi": 81,
+      "with_mmsi": 83,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -13793,7 +13823,9 @@
         {
           "name": "Hyundai Antwerp",
           "imo": "9469912",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "538004416",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Hyundai Aquapia",
@@ -13875,7 +13907,9 @@
         {
           "name": "Hyundai Dynasty",
           "imo": "9347578",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "538007485",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Hyundai Earth",
@@ -15048,8 +15082,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 54,
-      "with_mmsi": 35,
+      "listed": 55,
+      "with_mmsi": 37,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -15121,7 +15155,9 @@
         {
           "name": "ZIM Luanda",
           "imo": "9403229",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "249830000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "ZIM Mediterranean",
@@ -15355,6 +15391,12 @@
           "name": "ZIM EAGLE",
           "imo": "9960502",
           "mmsi": "636023175",
+          "via": "aisstream"
+        },
+        {
+          "name": "ZIM MOUNT DENALI",
+          "imo": "9931123",
+          "mmsi": "563292400",
           "via": "aisstream"
         }
       ]
