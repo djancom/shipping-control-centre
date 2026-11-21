@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-21 15:40",
+  "updated_uk": "2026-11-21 19:26",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 633,
-      "with_mmsi": 417,
+      "listed": 634,
+      "with_mmsi": 418,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3768,6 +3768,12 @@
           "imo": "9943085",
           "mmsi": "563213700",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK CANDOR",
+          "imo": "9924223",
+          "mmsi": "232043368",
+          "via": "aisstream"
         }
       ]
     },
@@ -3784,8 +3790,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 791,
-      "with_mmsi": 503,
+      "listed": 795,
+      "with_mmsi": 509,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -3916,7 +3922,9 @@
         {
           "name": "MSC Altair",
           "imo": "9465277",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636015604",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Altamira",
@@ -4791,7 +4799,9 @@
         {
           "name": "MSC Eleonora",
           "imo": "9064750",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "356167000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Eliana",
@@ -8319,6 +8329,30 @@
           "imo": "9968293",
           "mmsi": "636024940",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC NISHA V",
+          "imo": "9326768",
+          "mmsi": "636021913",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC AMIHAN F",
+          "imo": "9449687",
+          "mmsi": "636021438",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC NIMISHA III",
+          "imo": "9315886",
+          "mmsi": "636021991",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC LEILA",
+          "imo": "1016654",
+          "mmsi": "636024937",
+          "via": "aisstream"
         }
       ]
     },
@@ -8336,8 +8370,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 308,
-      "with_mmsi": 237,
+      "listed": 311,
+      "with_mmsi": 240,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10146,6 +10180,24 @@
           "name": "CMA CGM SURABAYA",
           "imo": "9412830",
           "mmsi": "256170000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM KINABALU",
+          "imo": "9696072",
+          "mmsi": "249623000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM VERACRUZ",
+          "imo": "9418377",
+          "mmsi": "710033550",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM BYBLOS",
+          "imo": "9977725",
+          "mmsi": "228479600",
           "via": "aisstream"
         }
       ]
