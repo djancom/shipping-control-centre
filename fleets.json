@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-22 00:24",
+  "updated_uk": "2026-11-22 01:39",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 634,
-      "with_mmsi": 418,
+      "listed": 635,
+      "with_mmsi": 419,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3775,6 +3775,12 @@
           "imo": "9924223",
           "mmsi": "232043368",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK INCHEON",
+          "imo": "9329629",
+          "mmsi": "477754800",
+          "via": "aisstream"
         }
       ]
     },
@@ -3792,7 +3798,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 797,
-      "with_mmsi": 511,
+      "with_mmsi": 512,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4901,7 +4907,9 @@
         {
           "name": "MSC Eva",
           "imo": "9401130",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "371218000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Fabienne",
@@ -15596,7 +15604,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
       "listed": 54,
-      "with_mmsi": 37,
+      "with_mmsi": 38,
       "ships": [
         {
           "name": "NYK Altair",
@@ -15716,7 +15724,9 @@
         {
           "name": "NYK Futago",
           "imo": "9487524",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "566002000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "NYK Hawk",
