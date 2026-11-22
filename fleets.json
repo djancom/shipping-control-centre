@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-21 21:14",
+  "updated_uk": "2026-11-22 00:24",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3791,8 +3791,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 795,
-      "with_mmsi": 509,
+      "listed": 797,
+      "with_mmsi": 511,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8311,7 +8311,8 @@
         {
           "name": "MSC JENNY II",
           "mmsi": "255805777",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9000742"
         },
         {
           "name": "MSC MICHIGAN VII",
@@ -8353,6 +8354,18 @@
           "name": "MSC LEILA",
           "imo": "1016654",
           "mmsi": "636024937",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC DAISY",
+          "imo": "9295165",
+          "mmsi": "636020468",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC ADYA",
+          "imo": "9932921",
+          "mmsi": "255805270",
           "via": "aisstream"
         }
       ]
@@ -11688,8 +11701,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 106,
-      "with_mmsi": 85,
+      "listed": 107,
+      "with_mmsi": 87,
       "ships": [
         {
           "name": "One Apus",
@@ -11769,7 +11782,9 @@
         {
           "name": "ONE Forward",
           "imo": "9936422",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563297500",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "ONE Freedom",
@@ -12281,6 +12296,11 @@
           "name": "ONE LOVE 3",
           "mmsi": "316055899",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE HORSE",
+          "mmsi": "367615050",
+          "via": "aisstream"
         }
       ]
     },
@@ -12299,8 +12319,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 264,
-      "with_mmsi": 204,
+      "listed": 265,
+      "with_mmsi": 205,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13829,6 +13849,12 @@
           "name": "EVER OPTIMA",
           "imo": "9919474",
           "mmsi": "352001525",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER OMNI",
+          "imo": "9919498",
+          "mmsi": "636022523",
           "via": "aisstream"
         }
       ]
