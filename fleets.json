@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-22 22:30",
+  "updated_uk": "2026-11-22 22:50",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 640,
-      "with_mmsi": 425,
+      "listed": 642,
+      "with_mmsi": 427,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3813,6 +3813,16 @@
           "imo": "9943073",
           "mmsi": "563207600",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK CHAMPLAIN",
+          "mmsi": "338166000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK CANYON",
+          "mmsi": "232043372",
+          "via": "aisstream"
         }
       ]
     },
@@ -3829,8 +3839,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 804,
-      "with_mmsi": 523,
+      "listed": 806,
+      "with_mmsi": 525,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8456,6 +8466,18 @@
           "imo": "9313967",
           "mmsi": "255804350",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC ELENOIRE",
+          "imo": "9962603",
+          "mmsi": "636023961",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC MARTI F",
+          "imo": "9386976",
+          "mmsi": "636025786",
+          "via": "aisstream"
         }
       ]
     },
@@ -12466,8 +12488,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 270,
-      "with_mmsi": 211,
+      "listed": 271,
+      "with_mmsi": 212,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -14034,6 +14056,12 @@
           "imo": "9887009",
           "mmsi": "355722000",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER EON",
+          "imo": "1025215",
+          "mmsi": "563312800",
+          "via": "aisstream"
         }
       ]
     },
@@ -14697,7 +14725,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 127,
-      "with_mmsi": 88,
+      "with_mmsi": 89,
       "ships": [
         {
           "name": "YM Advance",
@@ -15001,7 +15029,9 @@
         {
           "name": "YM Maturity",
           "imo": "9438535",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636014558",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "YM Mercury",
