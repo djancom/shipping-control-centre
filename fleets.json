@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-22 17:25",
+  "updated_uk": "2026-11-22 22:30",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 639,
-      "with_mmsi": 424,
+      "listed": 640,
+      "with_mmsi": 425,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3807,6 +3807,12 @@
           "imo": "9928229",
           "mmsi": "352002997",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK OLYMPIC",
+          "imo": "9943073",
+          "mmsi": "563207600",
+          "via": "aisstream"
         }
       ]
     },
@@ -3823,8 +3829,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 803,
-      "with_mmsi": 520,
+      "listed": 804,
+      "with_mmsi": 523,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -6310,7 +6316,9 @@
         {
           "name": "MSC Rapallo",
           "imo": "9484455",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636092271",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Ravenna",
@@ -6502,7 +6510,9 @@
         {
           "name": "MSC Seascape",
           "imo": "9843807",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "256059000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Seashore",
@@ -8440,6 +8450,12 @@
           "imo": "9415296",
           "mmsi": "636021356",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC BREMERHAVEN V",
+          "imo": "9313967",
+          "mmsi": "255804350",
+          "via": "aisstream"
         }
       ]
     },
@@ -8457,8 +8473,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 318,
-      "with_mmsi": 248,
+      "listed": 319,
+      "with_mmsi": 249,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10330,6 +10346,12 @@
           "name": "CMA CGM BAIKAL",
           "imo": "9926207",
           "mmsi": "256835000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM THAMES",
+          "imo": "9674567",
+          "mmsi": "256213000",
           "via": "aisstream"
         }
       ]
@@ -15432,8 +15454,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 55,
-      "with_mmsi": 37,
+      "listed": 56,
+      "with_mmsi": 38,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -15747,6 +15769,12 @@
           "name": "ZIM MOUNT DENALI",
           "imo": "9931123",
           "mmsi": "563292400",
+          "via": "aisstream"
+        },
+        {
+          "name": "ZIM CANADA",
+          "imo": "9945485",
+          "mmsi": "538012002",
           "via": "aisstream"
         }
       ]
