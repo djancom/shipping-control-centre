@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-23 04:03",
+  "updated_uk": "2026-11-23 14:50",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 642,
-      "with_mmsi": 427,
+      "listed": 643,
+      "with_mmsi": 430,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -488,7 +488,9 @@
         {
           "name": "Karen Maersk",
           "imo": "9423712",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "220529000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Kirsten Maersk",
@@ -3049,7 +3051,9 @@
         {
           "name": "Romø Mærsk",
           "imo": "9251406",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "525103010",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Sally Maersk",
@@ -3817,11 +3821,18 @@
         {
           "name": "MAERSK CHAMPLAIN",
           "mmsi": "338166000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "1029338"
         },
         {
           "name": "MAERSK CANYON",
           "mmsi": "232043372",
+          "via": "aisstream"
+        },
+        {
+          "name": "ADRIAN MAERSK",
+          "imo": "9948815",
+          "mmsi": "219720000",
           "via": "aisstream"
         }
       ]
@@ -3840,7 +3851,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 807,
-      "with_mmsi": 527,
+      "with_mmsi": 529,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4881,7 +4892,9 @@
         {
           "name": "MSC Elodie",
           "imo": "9704972",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806494",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Eloise",
@@ -5956,7 +5969,9 @@
         {
           "name": "MSC Methoni",
           "imo": "9256755",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636015404",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Mia Summer",
@@ -8504,7 +8519,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
       "listed": 319,
-      "with_mmsi": 249,
+      "with_mmsi": 250,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8980,7 +8995,9 @@
         {
           "name": "CMA CGM Jamaica",
           "imo": "9326770",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "215650000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Cma Cgm Jasmin",
@@ -12503,7 +12520,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
       "listed": 271,
-      "with_mmsi": 212,
+      "with_mmsi": 213,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13135,7 +13152,9 @@
         {
           "name": "Ever Lawful",
           "imo": "9595498",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "566732000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ever Leader",
@@ -16180,7 +16199,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
       "listed": 83,
-      "with_mmsi": 40,
+      "with_mmsi": 41,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -16447,7 +16466,9 @@
         {
           "name": "MOL Magnificence",
           "imo": "9424900",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "431528000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Mol Maneuver",
