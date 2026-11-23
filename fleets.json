@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-22 22:50",
+  "updated_uk": "2026-11-23 03:46",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3840,7 +3840,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 806,
-      "with_mmsi": 525,
+      "with_mmsi": 526,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4960,7 +4960,9 @@
         {
           "name": "MSC Fabienne",
           "imo": "9279965",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "354415000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Fabiola",
@@ -16165,8 +16167,8 @@
       "source": "Wikidata (CC0), ships with an MOL name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
-      "listed": 82,
-      "with_mmsi": 38,
+      "listed": 83,
+      "with_mmsi": 40,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -16381,7 +16383,9 @@
         {
           "name": "MOL Gratitude",
           "imo": "9535187",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563308200",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MOL Growth",
@@ -16626,6 +16630,12 @@
           "name": "MOL AZURE",
           "imo": "9956953",
           "mmsi": "538011095",
+          "via": "aisstream"
+        },
+        {
+          "name": "MOL HESTIA",
+          "imo": "9885996",
+          "mmsi": "538009374",
           "via": "aisstream"
         }
       ]
