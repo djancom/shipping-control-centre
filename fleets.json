@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-23 03:46",
+  "updated_uk": "2026-11-23 04:03",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3839,8 +3839,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 806,
-      "with_mmsi": 526,
+      "listed": 807,
+      "with_mmsi": 527,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8480,6 +8480,12 @@
           "imo": "9386976",
           "mmsi": "636025786",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC TRIESTE",
+          "mmsi": "229622000",
+          "via": "aisstream",
+          "imo": "9484479"
         }
       ]
     },
@@ -11855,8 +11861,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 110,
-      "with_mmsi": 90,
+      "listed": 111,
+      "with_mmsi": 91,
       "ships": [
         {
           "name": "One Apus",
@@ -12472,6 +12478,12 @@
           "imo": "9952701",
           "mmsi": "563295900",
           "via": "aisstream"
+        },
+        {
+          "name": "ONE TRIUMPH",
+          "mmsi": "538007360",
+          "via": "aisstream",
+          "imo": "9769271"
         }
       ]
     },
