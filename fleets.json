@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-24 02:18",
+  "updated_uk": "2026-11-24 02:37",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3866,8 +3866,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 808,
-      "with_mmsi": 534,
+      "listed": 812,
+      "with_mmsi": 539,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4876,7 +4876,9 @@
         {
           "name": "MSC Eleni",
           "imo": "9278143",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "357067000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Eleonora",
@@ -8531,6 +8533,30 @@
           "imo": "9334844",
           "mmsi": "636020701",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC IVA",
+          "mmsi": "636023397",
+          "via": "aisstream",
+          "imo": "9962550"
+        },
+        {
+          "name": "MSC MANASVI II",
+          "imo": "9347724",
+          "mmsi": "636024490",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC ADELE",
+          "imo": "1016692",
+          "mmsi": "636025331",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC ALDEBARAN III",
+          "imo": "9301990",
+          "mmsi": "636021529",
+          "via": "aisstream"
         }
       ]
     },
@@ -8549,7 +8575,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
       "listed": 321,
-      "with_mmsi": 252,
+      "with_mmsi": 254,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8708,7 +8734,9 @@
         {
           "name": "CMA CGM Berlioz",
           "imo": "9222297",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636019868",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Bianca",
@@ -9349,7 +9377,9 @@
         {
           "name": "CMA CGM Niagara",
           "imo": "9722675",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "249168000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Norma",
@@ -10461,8 +10491,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 216,
-      "with_mmsi": 154,
+      "listed": 217,
+      "with_mmsi": 155,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -11737,6 +11767,12 @@
           "imo": "9908102",
           "mmsi": "477895400",
           "via": "aisstream"
+        },
+        {
+          "name": "OOCL LILAC",
+          "imo": "9949742",
+          "mmsi": "477140100",
+          "via": "aisstream"
         }
       ]
     },
@@ -11926,8 +11962,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 111,
-      "with_mmsi": 91,
+      "listed": 112,
+      "with_mmsi": 92,
       "ships": [
         {
           "name": "One Apus",
@@ -12549,6 +12585,12 @@
           "mmsi": "538007360",
           "via": "aisstream",
           "imo": "9769271"
+        },
+        {
+          "name": "ONE RELIABILITY",
+          "imo": "9952737",
+          "mmsi": "563296200",
+          "via": "aisstream"
         }
       ]
     },
