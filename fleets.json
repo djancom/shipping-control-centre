@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-23 15:27",
+  "updated_uk": "2026-11-24 02:18",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 644,
-      "with_mmsi": 432,
+      "listed": 645,
+      "with_mmsi": 434,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -2107,7 +2107,9 @@
         {
           "name": "Maersk Pelican",
           "imo": "9319686",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "273120330",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Pembroke",
@@ -3842,6 +3844,12 @@
           "imo": "9348065",
           "mmsi": "563050400",
           "via": "aisstream"
+        },
+        {
+          "name": "NORDAGER MAERSK",
+          "imo": "9885154",
+          "mmsi": "219027759",
+          "via": "aisstream"
         }
       ]
     },
@@ -3859,7 +3867,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 808,
-      "with_mmsi": 530,
+      "with_mmsi": 534,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4709,7 +4717,9 @@
         {
           "name": "MSC Damla",
           "imo": "9250983",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "353499000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Daniela",
@@ -5268,7 +5278,9 @@
         {
           "name": "MSC Ingrid",
           "imo": "9181651",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "354505000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Ingy",
@@ -5883,7 +5895,9 @@
         {
           "name": "MSC Marta",
           "imo": "9295385",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "371474000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Martina",
@@ -6134,7 +6148,9 @@
         {
           "name": "MSC Noa",
           "imo": "9398228",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018659",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Nuria",
@@ -8532,8 +8548,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 320,
-      "with_mmsi": 251,
+      "listed": 321,
+      "with_mmsi": 252,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10419,6 +10435,12 @@
           "name": "CMA CGM ROI ARTHUR",
           "imo": "1021099",
           "mmsi": "248346000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM FLORA",
+          "imo": "9389394",
+          "mmsi": "248632000",
           "via": "aisstream"
         }
       ]
@@ -12545,8 +12567,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 271,
-      "with_mmsi": 214,
+      "listed": 272,
+      "with_mmsi": 215,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -14122,6 +14144,12 @@
           "name": "EVER EON",
           "imo": "1025215",
           "mmsi": "563312800",
+          "via": "aisstream"
+        },
+        {
+          "name": "EVER MAST",
+          "imo": "9935246",
+          "mmsi": "563226700",
           "via": "aisstream"
         }
       ]
