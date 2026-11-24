@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-24 12:42",
+  "updated_uk": "2026-11-24 12:58",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3878,8 +3878,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 813,
-      "with_mmsi": 540,
+      "listed": 814,
+      "with_mmsi": 541,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8575,6 +8575,11 @@
           "imo": "9326823",
           "mmsi": "636018732",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC VANCOUVER",
+          "mmsi": "636020499",
+          "via": "aisstream"
         }
       ]
     },
@@ -12627,8 +12632,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 273,
-      "with_mmsi": 216,
+      "listed": 274,
+      "with_mmsi": 218,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -13584,7 +13589,9 @@
         {
           "name": "Ever Steady",
           "imo": "9300439",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563084800",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ever Strong",
@@ -14217,6 +14224,12 @@
           "imo": "9850862",
           "mmsi": "636020371",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER CONCERT",
+          "mmsi": "352980873",
+          "via": "aisstream",
+          "imo": "9913834"
         }
       ]
     },
@@ -14234,8 +14247,8 @@
       "source": "Wikidata (CC0), ships with a HYUNDAI or HMM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 106,
-      "with_mmsi": 86,
+      "listed": 107,
+      "with_mmsi": 87,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -14861,6 +14874,11 @@
           "mmsi": "440185000",
           "via": "aisstream",
           "imo": "9658458"
+        },
+        {
+          "name": "HMM JADE",
+          "mmsi": "352006485",
+          "via": "aisstream"
         }
       ]
     },
@@ -15628,7 +15646,8 @@
         {
           "name": "YM WIND",
           "mmsi": "563291300",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9708461"
         }
       ]
     },
