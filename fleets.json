@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-24 12:58",
+  "updated_uk": "2026-11-24 23:05",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 647,
-      "with_mmsi": 436,
+      "listed": 648,
+      "with_mmsi": 437,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3861,6 +3861,12 @@
           "name": "MAERSK SAN LAZARO",
           "imo": "9717216",
           "mmsi": "538008134",
+          "via": "aisstream"
+        },
+        {
+          "name": "MAERSK WILLEMSTADT",
+          "imo": "9362401",
+          "mmsi": "563148200",
           "via": "aisstream"
         }
       ]
@@ -8597,8 +8603,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 321,
-      "with_mmsi": 254,
+      "listed": 322,
+      "with_mmsi": 255,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10495,6 +10501,12 @@
           "imo": "9389394",
           "mmsi": "248632000",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM ALMAVIVA",
+          "imo": "9450648",
+          "mmsi": "249021000",
+          "via": "aisstream"
         }
       ]
     },
@@ -11814,7 +11826,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Hapag ships are often named City Express, so a name search finds few of them. Add IMO or MMSI numbers to improve the list.",
       "listed": 26,
-      "with_mmsi": 18,
+      "with_mmsi": 19,
       "ships": [
         {
           "name": "Blue Sapphire",
@@ -11949,7 +11961,9 @@
         {
           "name": "Manila Express",
           "imo": "9540120",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "218006290",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Osaka Express",
@@ -12632,8 +12646,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 274,
-      "with_mmsi": 218,
+      "listed": 275,
+      "with_mmsi": 219,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -14230,6 +14244,12 @@
           "mmsi": "352980873",
           "via": "aisstream",
           "imo": "9913834"
+        },
+        {
+          "name": "EVER FULL",
+          "imo": "9850903",
+          "mmsi": "636021462",
+          "via": "aisstream"
         }
       ]
     },
@@ -14247,8 +14267,8 @@
       "source": "Wikidata (CC0), ships with a HYUNDAI or HMM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 107,
-      "with_mmsi": 87,
+      "listed": 108,
+      "with_mmsi": 88,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -14879,6 +14899,12 @@
           "name": "HMM JADE",
           "mmsi": "352006485",
           "via": "aisstream"
+        },
+        {
+          "name": "HMM MIR",
+          "imo": "9869198",
+          "mmsi": "441058000",
+          "via": "aisstream"
         }
       ]
     },
@@ -14898,7 +14924,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 128,
-      "with_mmsi": 91,
+      "with_mmsi": 92,
       "ships": [
         {
           "name": "YM Advance",
@@ -15036,7 +15062,9 @@
         {
           "name": "YM Express",
           "imo": "9496628",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636016705",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "YM Fortune",
@@ -16007,7 +16035,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for NYK's non-container fleets (car carriers, bulk, tankers and so on). NYK's boxships are listed under Ocean Network Express (ONE).",
       "listed": 54,
-      "with_mmsi": 38,
+      "with_mmsi": 39,
       "ships": [
         {
           "name": "NYK Altair",
@@ -16080,7 +16108,9 @@
         {
           "name": "NYK Demeter",
           "imo": "9337664",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "353025000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "NYK Deneb",
@@ -16349,7 +16379,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
       "listed": 83,
-      "with_mmsi": 41,
+      "with_mmsi": 42,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -16497,7 +16527,9 @@
         {
           "name": "MOL Explorer",
           "imo": "9333826",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636026668",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MOL Express",
