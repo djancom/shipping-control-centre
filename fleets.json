@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-25 05:48",
+  "updated_uk": "2026-11-25 16:11",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -117,7 +117,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 648,
-      "with_mmsi": 438,
+      "with_mmsi": 440,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1970,7 +1970,9 @@
         {
           "name": "Maersk Newbury",
           "imo": "9231470",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "566278000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Newcastle",
@@ -3888,8 +3890,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 818,
-      "with_mmsi": 546,
+      "listed": 821,
+      "with_mmsi": 549,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8616,6 +8618,24 @@
           "imo": "9304746",
           "mmsi": "636021517",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC SHANVI III",
+          "imo": "9392561",
+          "mmsi": "636018036",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC NEW JERSEY 3",
+          "imo": "9571301",
+          "mmsi": "210601000",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC SOFIA",
+          "imo": "9927275",
+          "mmsi": "636021771",
+          "via": "aisstream"
         }
       ]
     },
@@ -12043,8 +12063,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 114,
-      "with_mmsi": 94,
+      "listed": 115,
+      "with_mmsi": 95,
       "ships": [
         {
           "name": "One Apus",
@@ -12682,6 +12702,12 @@
           "name": "ONE DIAMOND",
           "imo": "9360609",
           "mmsi": "565887000",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE MANCHESTER",
+          "imo": "9706748",
+          "mmsi": "563131500",
           "via": "aisstream"
         }
       ]
@@ -14335,7 +14361,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 109,
-      "with_mmsi": 89,
+      "with_mmsi": 90,
       "ships": [
         {
           "name": "HMM Algeciras",
@@ -14997,8 +15023,8 @@
       "source": "Wikidata (CC0), ships whose name starts with YM, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
-      "listed": 128,
-      "with_mmsi": 93,
+      "listed": 129,
+      "with_mmsi": 94,
       "ships": [
         {
           "name": "YM Advance",
@@ -15774,8 +15800,8 @@
       "source": "Wikidata (CC0), ships with a ZIM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a ZIM prefix are missing until heard or pasted in.",
-      "listed": 56,
-      "with_mmsi": 39,
+      "listed": 57,
+      "with_mmsi": 40,
       "ships": [
         {
           "name": "Zim Antwerp",
@@ -16097,6 +16123,12 @@
           "name": "ZIM CANADA",
           "imo": "9945485",
           "mmsi": "538012002",
+          "via": "aisstream"
+        },
+        {
+          "name": "ZIM EMERALD",
+          "imo": "9967976",
+          "mmsi": "563291900",
           "via": "aisstream"
         }
       ]
