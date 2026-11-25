@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-25 16:11",
+  "updated_uk": "2026-11-25 17:22",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 648,
-      "with_mmsi": 440,
+      "listed": 649,
+      "with_mmsi": 442,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -1367,7 +1367,9 @@
         {
           "name": "Maersk Honam",
           "imo": "9784271",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563030500",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Houston",
@@ -3874,6 +3876,12 @@
           "imo": "9786140",
           "mmsi": "219406000",
           "via": "aisstream"
+        },
+        {
+          "name": "TOCONAO MAERSK",
+          "imo": "9627899",
+          "mmsi": "219839000",
+          "via": "aisstream"
         }
       ]
     },
@@ -3891,7 +3899,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
       "listed": 821,
-      "with_mmsi": 549,
+      "with_mmsi": 551,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4551,7 +4559,9 @@
         {
           "name": "MSC Carlotta",
           "imo": "9756731",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018106",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Carmen",
@@ -6809,7 +6819,9 @@
         {
           "name": "MSC Tamara",
           "imo": "9351579",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636026309",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Tamishka F",
@@ -8653,8 +8665,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 322,
-      "with_mmsi": 255,
+      "listed": 323,
+      "with_mmsi": 256,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10556,6 +10568,12 @@
           "name": "CMA CGM ALMAVIVA",
           "imo": "9450648",
           "mmsi": "249021000",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM ELBE",
+          "imo": "9674529",
+          "mmsi": "229934000",
           "via": "aisstream"
         }
       ]
