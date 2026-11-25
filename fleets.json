@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-25 05:35",
+  "updated_uk": "2026-11-25 05:48",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -781,7 +781,9 @@
         {
           "name": "Maersk Brooklyn",
           "imo": "9313931",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "210604000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Maersk Brownsville",
@@ -10554,8 +10556,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 219,
-      "with_mmsi": 157,
+      "listed": 218,
+      "with_mmsi": 159,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -11087,7 +11089,9 @@
         {
           "name": "COSCO Shipping Scorpio",
           "imo": "9789635",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477183800",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Cosco Shipping Solar",
@@ -11158,7 +11162,9 @@
         {
           "name": "COSCO Taicang",
           "imo": "9355575",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477189300",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Cosco Taihangshan",
@@ -11515,7 +11521,9 @@
         {
           "name": "OOCL Miami",
           "imo": "9477892",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477182400",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Montreal",
@@ -11841,11 +11849,6 @@
           "name": "OOCL NEW YORK",
           "imo": "9198109",
           "mmsi": "477274700",
-          "via": "aisstream"
-        },
-        {
-          "name": "OOCL LAVENDER",
-          "mmsi": "477204700",
           "via": "aisstream"
         }
       ]
@@ -12698,8 +12701,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 276,
-      "with_mmsi": 220,
+      "listed": 277,
+      "with_mmsi": 221,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -14308,6 +14311,12 @@
           "imo": "9850903",
           "mmsi": "636021462",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER BEING",
+          "imo": "9784142",
+          "mmsi": "416037000",
+          "via": "aisstream"
         }
       ]
     },
@@ -14325,7 +14334,7 @@
       "source": "Wikidata (CC0), ships with a HYUNDAI or HMM name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 108,
+      "listed": 109,
       "with_mmsi": 89,
       "ships": [
         {
@@ -14965,6 +14974,11 @@
           "imo": "9869198",
           "mmsi": "441058000",
           "via": "aisstream"
+        },
+        {
+          "name": "HMM OSLO",
+          "mmsi": "440489000",
+          "via": "aisstream"
         }
       ]
     },
@@ -14983,8 +14997,8 @@
       "source": "Wikidata (CC0), ships whose name starts with YM, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
-      "listed": 129,
-      "with_mmsi": 94,
+      "listed": 128,
+      "with_mmsi": 93,
       "ships": [
         {
           "name": "YM Advance",
