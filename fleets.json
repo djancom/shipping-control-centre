@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-26 08:56",
+  "updated_uk": "2026-11-26 11:02",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -117,7 +117,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
       "listed": 650,
-      "with_mmsi": 447,
+      "with_mmsi": 448,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -2901,7 +2901,9 @@
         {
           "name": "Mogens Maersk",
           "imo": "9632090",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "220010000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Monaco Maersk",
@@ -3912,8 +3914,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 827,
-      "with_mmsi": 557,
+      "listed": 828,
+      "with_mmsi": 559,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -4387,7 +4389,9 @@
         {
           "name": "MSC Beijing",
           "imo": "9289099",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "255806376",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Belle",
@@ -8696,6 +8700,12 @@
           "name": "MSC TIANPING",
           "imo": "9305489",
           "mmsi": "636020495",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC DOUALA VIII",
+          "imo": "9983695",
+          "mmsi": "255915817",
           "via": "aisstream"
         }
       ]
