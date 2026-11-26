@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-26 19:18",
+  "updated_uk": "2026-11-26 20:14",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -8764,8 +8764,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 324,
-      "with_mmsi": 258,
+      "listed": 325,
+      "with_mmsi": 259,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10159,7 +10159,8 @@
         {
           "name": "CMA CGM TOKYO",
           "mmsi": "249172000",
-          "via": "aisstream"
+          "via": "aisstream",
+          "imo": "9629380"
         },
         {
           "name": "CMA CGM ALTAMIRA",
@@ -10684,6 +10685,12 @@
           "imo": "9348467",
           "mmsi": "249040000",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM MERCANTOUR",
+          "imo": "9969089",
+          "mmsi": "636023293",
+          "via": "aisstream"
         }
       ]
     },
@@ -10703,8 +10710,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 218,
-      "with_mmsi": 162,
+      "listed": 219,
+      "with_mmsi": 164,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -11657,7 +11664,9 @@
         {
           "name": "OOCL Luxembourg",
           "imo": "9417270",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477738600",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Malaysia",
@@ -12002,6 +12011,12 @@
           "name": "OOCL NEW YORK",
           "imo": "9198109",
           "mmsi": "477274700",
+          "via": "aisstream"
+        },
+        {
+          "name": "OOCL CHENNAI",
+          "imo": "9984429",
+          "mmsi": "636023344",
           "via": "aisstream"
         }
       ]
@@ -15197,7 +15212,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 130,
-      "with_mmsi": 95,
+      "with_mmsi": 96,
       "ships": [
         {
           "name": "YM Advance",
@@ -15412,7 +15427,9 @@
         {
           "name": "YM Improvement",
           "imo": "9334014",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636013121",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Ym Inauguration",
@@ -16684,7 +16701,7 @@
       "source_date": "2026-11-10",
       "note": "Partial, and this entry is for MOL's non-container fleets. MOL's boxships are listed under Ocean Network Express (ONE).",
       "listed": 83,
-      "with_mmsi": 42,
+      "with_mmsi": 43,
       "ships": [
         {
           "name": "MOL Advantage",
@@ -16724,7 +16741,9 @@
         {
           "name": "MOL Competence",
           "imo": "9339662",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "431315000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MOL Contribution",
