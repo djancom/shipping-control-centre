@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-27 02:31",
+  "updated_uk": "2026-11-27 03:01",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3920,8 +3920,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 835,
-      "with_mmsi": 568,
+      "listed": 837,
+      "with_mmsi": 571,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -5663,7 +5663,9 @@
         {
           "name": "MSC Leanne",
           "imo": "9767390",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636017686",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Leigh",
@@ -8759,6 +8761,18 @@
           "imo": "9499010",
           "mmsi": "636021870",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC MIRAYA V",
+          "imo": "9297527",
+          "mmsi": "636026067",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC TRACY V",
+          "imo": "9295177",
+          "mmsi": "636022077",
+          "via": "aisstream"
         }
       ]
     },
@@ -8776,8 +8790,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 326,
-      "with_mmsi": 261,
+      "listed": 327,
+      "with_mmsi": 262,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10711,6 +10725,12 @@
           "imo": "9894961",
           "mmsi": "228409800",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM PACIFIC",
+          "imo": "1093482",
+          "mmsi": "249419000",
+          "via": "aisstream"
         }
       ]
     },
@@ -10730,8 +10750,8 @@
       "source": "Wikidata (CC0), ships with COSCO or OOCL in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
-      "listed": 219,
-      "with_mmsi": 164,
+      "listed": 220,
+      "with_mmsi": 165,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -12037,6 +12057,12 @@
           "name": "OOCL CHENNAI",
           "imo": "9984429",
           "mmsi": "636023344",
+          "via": "aisstream"
+        },
+        {
+          "name": "OOCL CHANCAY",
+          "imo": "1094151",
+          "mmsi": "477273100",
           "via": "aisstream"
         }
       ]
