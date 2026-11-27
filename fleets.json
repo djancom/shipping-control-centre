@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-27 12:42",
+  "updated_uk": "2026-11-27 20:20",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3922,8 +3922,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 839,
-      "with_mmsi": 573,
+      "listed": 841,
+      "with_mmsi": 575,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8787,6 +8787,18 @@
           "imo": "9966958",
           "mmsi": "636023315",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC BOSTON",
+          "imo": "9979010",
+          "mmsi": "636025861",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC ZIVANA",
+          "imo": "1016719",
+          "mmsi": "636026006",
+          "via": "aisstream"
         }
       ]
     },
@@ -12963,8 +12975,8 @@
       "source": "Wikidata (CC0), ships with an EVER / Evergreen name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without an EVER prefix are missing until heard or pasted in.",
-      "listed": 281,
-      "with_mmsi": 225,
+      "listed": 282,
+      "with_mmsi": 226,
       "ships": [
         {
           "name": "Asia Evergreen",
@@ -14602,6 +14614,12 @@
           "imo": "9850587",
           "mmsi": "563163400",
           "via": "aisstream"
+        },
+        {
+          "name": "EVER CONCISE",
+          "imo": "9913822",
+          "mmsi": "352980812",
+          "via": "aisstream"
         }
       ]
     },
@@ -15300,8 +15318,8 @@
       "source": "Wikidata (CC0), ships whose name starts with YM, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
-      "listed": 131,
-      "with_mmsi": 97,
+      "listed": 132,
+      "with_mmsi": 98,
       "ships": [
         {
           "name": "YM Advance",
@@ -16072,6 +16090,12 @@
           "name": "YM CELEBRITY",
           "imo": "9864502",
           "mmsi": "563259400",
+          "via": "aisstream"
+        },
+        {
+          "name": "YM TROPHY",
+          "imo": "9789996",
+          "mmsi": "563155200",
           "via": "aisstream"
         }
       ]
