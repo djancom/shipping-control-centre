@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-26 20:14",
+  "updated_uk": "2026-11-27 02:31",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3920,8 +3920,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 833,
-      "with_mmsi": 566,
+      "listed": 835,
+      "with_mmsi": 568,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8747,6 +8747,18 @@
           "imo": "9466960",
           "mmsi": "255806034",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC LONG BEACH VI",
+          "imo": "9327803",
+          "mmsi": "636021448",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC ALBA F",
+          "imo": "9499010",
+          "mmsi": "636021870",
+          "via": "aisstream"
         }
       ]
     },
@@ -8764,8 +8776,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 325,
-      "with_mmsi": 259,
+      "listed": 326,
+      "with_mmsi": 261,
       "ships": [
         {
           "name": "CMA CGM",
@@ -8973,7 +8985,9 @@
         {
           "name": "CMA CGM Carl Antoine",
           "imo": "9729087",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "248030000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Cassiopeia",
@@ -10690,6 +10704,12 @@
           "name": "CMA CGM MERCANTOUR",
           "imo": "9969089",
           "mmsi": "636023293",
+          "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM PATAGONIA",
+          "imo": "9894961",
+          "mmsi": "228409800",
           "via": "aisstream"
         }
       ]
