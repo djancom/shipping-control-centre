@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-28 04:00",
+  "updated_uk": "2026-11-28 12:28",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -3924,8 +3924,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 845,
-      "with_mmsi": 582,
+      "listed": 846,
+      "with_mmsi": 585,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -5817,7 +5817,9 @@
         {
           "name": "MSC Luisa",
           "imo": "9225677",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "355308000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Madeleine",
@@ -6848,7 +6850,9 @@
         {
           "name": "MSC Sveva",
           "imo": "9708681",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "374645000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "MSC Sydney VI",
@@ -8831,6 +8835,12 @@
           "imo": "9947146",
           "mmsi": "636023265",
           "via": "aisstream"
+        },
+        {
+          "name": "MSC JULIANA III",
+          "imo": "9275036",
+          "mmsi": "636016851",
+          "via": "aisstream"
         }
       ]
     },
@@ -8848,8 +8858,8 @@
       "source": "Wikidata (CC0), ships with CMA CGM in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
-      "listed": 331,
-      "with_mmsi": 268,
+      "listed": 332,
+      "with_mmsi": 269,
       "ships": [
         {
           "name": "CMA CGM",
@@ -10817,6 +10827,11 @@
           "imo": "9396622",
           "mmsi": "311001767",
           "via": "aisstream"
+        },
+        {
+          "name": "CMA CGM INDIAN",
+          "mmsi": "248363000",
+          "via": "aisstream"
         }
       ]
     },
@@ -10837,7 +10852,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Group list includes OOCL. Chartered ships without those prefixes are missing until heard or pasted in.",
       "listed": 220,
-      "with_mmsi": 166,
+      "with_mmsi": 168,
       "ships": [
         {
           "name": "Cosco Aden",
@@ -11597,7 +11612,9 @@
         {
           "name": "OOCL Canada",
           "imo": "9477880",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477276600",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "Oocl Challenge",
@@ -11804,7 +11821,9 @@
         {
           "name": "OOCL Memphis",
           "imo": "9486075",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "477222600",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "OOCL Miami",
@@ -12170,7 +12189,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Hapag ships are often named City Express, so a name search finds few of them. Add IMO or MMSI numbers to improve the list.",
       "listed": 26,
-      "with_mmsi": 20,
+      "with_mmsi": 21,
       "ships": [
         {
           "name": "Blue Sapphire",
@@ -12284,7 +12303,9 @@
         {
           "name": "Hapag-Lloyd ship 9667174",
           "imo": "9667174",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "636018703",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "HAMBURG EXPRESS",
