@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-28 12:28",
+  "updated_uk": "2026-11-28 13:13",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -116,8 +116,8 @@
       "source": "Wikidata (CC0), ships with Maersk in the name, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Many chartered-in ships do not have Maersk in the name, so they are missing until they are added by hand or heard on AIS under a Maersk prefix.",
-      "listed": 651,
-      "with_mmsi": 451,
+      "listed": 652,
+      "with_mmsi": 452,
       "ships": [
         {
           "name": "Adrian Maersk",
@@ -3908,6 +3908,12 @@
           "imo": "9294381",
           "mmsi": "477552800",
           "via": "aisstream"
+        },
+        {
+          "name": "MAERSK CAMBRIDGE",
+          "imo": "9924182",
+          "mmsi": "636021337",
+          "via": "aisstream"
         }
       ]
     },
@@ -3924,8 +3930,8 @@
       "source": "Wikidata (CC0), ships with an MSC name prefix, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships that do not carry an MSC prefix are missing until heard or pasted in.",
-      "listed": 846,
-      "with_mmsi": 585,
+      "listed": 847,
+      "with_mmsi": 586,
       "ships": [
         {
           "name": "MSC Abidjan",
@@ -8840,6 +8846,11 @@
           "name": "MSC JULIANA III",
           "imo": "9275036",
           "mmsi": "636016851",
+          "via": "aisstream"
+        },
+        {
+          "name": "MSC OLIVIA",
+          "mmsi": "636022723",
           "via": "aisstream"
         }
       ]
