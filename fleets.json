@@ -1,5 +1,5 @@
 {
-  "updated_uk": "2026-11-27 22:08",
+  "updated_uk": "2026-11-28 02:59",
   "note": "Curated fleet lists for the competitor tracker. David can add a company or ships by editing this file (see README). The hourly refresh may add ships or fill MMSIs when AISstream reports a matching name or IMO; it does not delete rows. Lists are not a complete census. Sources are official company pages and Wikidata (CC0), plus later AIS name matches.",
   "fleets": [
     {
@@ -8841,7 +8841,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without the CMA CGM prefix are missing until heard or pasted in.",
       "listed": 331,
-      "with_mmsi": 267,
+      "with_mmsi": 268,
       "ships": [
         {
           "name": "CMA CGM",
@@ -9556,7 +9556,9 @@
         {
           "name": "CMA CGM Moliere",
           "imo": "9401099",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "249917000",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "CMA CGM Montmartre",
@@ -12335,8 +12337,8 @@
       "source": "Wikidata (CC0), ships whose name starts with ONE, plus AISstream name matches as they arrive.",
       "source_date": "2026-11-10",
       "note": "Partial. NYK, MOL and K Line container ships are operated as ONE. Chartered ships without an ONE prefix are missing until heard or pasted in.",
-      "listed": 117,
-      "with_mmsi": 97,
+      "listed": 118,
+      "with_mmsi": 98,
       "ships": [
         {
           "name": "One Apus",
@@ -12990,6 +12992,11 @@
         {
           "name": "ONE MORE 2",
           "mmsi": "247411340",
+          "via": "aisstream"
+        },
+        {
+          "name": "ONE AND ONLY",
+          "mmsi": "368165460",
           "via": "aisstream"
         }
       ]
@@ -15364,7 +15371,7 @@
       "source_date": "2026-11-10",
       "note": "Partial. Chartered ships without a YM prefix are missing until heard or pasted in.",
       "listed": 133,
-      "with_mmsi": 99,
+      "with_mmsi": 100,
       "ships": [
         {
           "name": "YM Advance",
@@ -15917,7 +15924,9 @@
         {
           "name": "YM Welcome",
           "imo": "9708459",
-          "via": "wikidata"
+          "via": "wikidata",
+          "mmsi": "563281600",
+          "mmsi_via": "aisstream-imo"
         },
         {
           "name": "YM Wellbeing",
